@@ -1,4 +1,4 @@
-package com.nydia.train.jvm;
+package jvm;
 
 /**
  * @Auther: hqlv
