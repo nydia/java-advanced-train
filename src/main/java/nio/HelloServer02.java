@@ -21,14 +21,20 @@ import java.net.Socket;
  * @Auther: Nydia.LHQ
  * @Date: 2021/5/12 13:27
  */
-public class HelloServer01 {
+public class HelloServer02 {
 
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(90);
             while (true) {
-                Socket socket = serverSocket.accept();
-                service(socket);
+                new Thread(() -> {
+                    try {
+                        Socket socket = serverSocket.accept();
+                        service(socket);
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
