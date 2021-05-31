@@ -1,29 +1,26 @@
 package nThread;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * @Auther: hqlv
  * @Date: 2021/5/29 23:55
- * @Description: join的阻塞子线程的执行
+ * @Description:
  */
-public class Method07 {
+public class Method08 {
+    final static ExecutorService executorService = Executors.newFixedThreadPool(10);
     public static void main(String[] args) {
-        MyThread t = new MyThread();
-        t.setDaemon(true);
-        t.start();
-        //等待t执行完成之后在继续运行
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        executorService.submit(new MyThread());
         System.out.println("hello......two");
+        executorService.shutdownNow();
     }
 
     static class MyThread extends Thread {
         @Override
         public void run() {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

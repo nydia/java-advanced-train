@@ -5,7 +5,7 @@ package nThread;
  * @Date: 2021/5/29 23:55
  * @Description: join的阻塞子线程的执行
  */
-public class Method07 {
+public class JoinTest {
     public static void main(String[] args) {
         MyThread t = new MyThread();
         t.setDaemon(true);
