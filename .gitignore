@@ -25,3 +25,5 @@ hs_err_pid*
 # idea
 .idea/
 /.idea/
+/JavaAdvancedTrain/target/
+/mysql/target/
