@@ -1,4 +1,4 @@
-package com.nydia.modules.common.datasource;
+package com.nydia.modules.datasource;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import lombok.Data;
