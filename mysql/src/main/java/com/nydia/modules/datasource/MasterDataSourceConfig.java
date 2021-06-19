@@ -24,22 +24,22 @@ import java.sql.SQLException;
  * op-db.datasource.druid的配置信息
  */
 @ConfigurationProperties(prefix = "master-db.datasource.druid")
-@MapperScan(basePackages = {MasterDataSourceConfig.PACKAGE, MasterDataSourceConfig.PACKAGE_PUB, MasterDataSourceConfig.PACKAGE_PUB_ONL}, sqlSessionFactoryRef = "materNodeSessionFactory")
+@MapperScan(basePackages = {MasterDataSourceConfig.PACKAGE, MasterDataSourceConfig.PACKAGE_PUB_ONL}, sqlSessionFactoryRef = "materNodeSessionFactory")
 
 public class MasterDataSourceConfig {
 
     /**
      * dao层的包路径
      */
-    static final String PACKAGE = "com.nydia.modules.mapper";
+    static final String PACKAGE = "com.nydia.modules.mapper.master";
     static final String PACKAGE_PUB = "com.nydia.modules.common.service.mapper";
-    static final String PACKAGE_PUB_ONL = "mappings.nydia";
-    static final String TYPE_ALIAS_PACKAGE = "com.nydia.modules.entity";
+    static final String PACKAGE_PUB_ONL = "mappings.master";
+    static final String TYPE_ALIAS_PACKAGE = "com.nydia.modules.entity.master";
 
     /**
      * mapper文件的相对路径
      */
-    private static final String MAPPER_LOCATION = "classpath:mappings/nydia/*.xml";
+    private static final String MAPPER_LOCATION = "classpath:mappings/master/*.xml";
 
     private String filters;
     private String url;

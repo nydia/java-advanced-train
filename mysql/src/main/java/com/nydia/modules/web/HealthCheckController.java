@@ -1,6 +1,6 @@
 package com.nydia.modules.web;
 
-import com.nydia.modules.service.IHealthCheckService;
+import com.nydia.modules.service.master.IHealthCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

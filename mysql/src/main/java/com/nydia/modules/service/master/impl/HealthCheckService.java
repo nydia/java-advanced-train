@@ -1,8 +1,8 @@
-package com.nydia.modules.service.impl;
+package com.nydia.modules.service.master.impl;
 
 
-import com.nydia.modules.service.IHealthCheckService;
-import com.nydia.modules.mapper.HealthCheckDao;
+import com.nydia.modules.service.master.IHealthCheckService;
+import com.nydia.modules.mapper.master.HealthCheckDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

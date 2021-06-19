@@ -1,4 +1,4 @@
-package com.nydia.modules.service;
+package com.nydia.modules.service.master;
 
 /**
  * 接口
