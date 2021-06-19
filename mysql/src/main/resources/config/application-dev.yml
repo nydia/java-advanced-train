@@ -7,13 +7,9 @@ server:
 spring:
     application:
         name: mysqldemo
-    datasource:
-      #使用druid连接池
-      type: com.alibaba.druid.pool.DruidDataSource
 
 master-db:
   datasource:
-    druid: #德鲁伊
       type: com.alibaba.druid.pool.DruidDataSource
       url: jdbc:mysql://localhost:3307/test?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
       username: root

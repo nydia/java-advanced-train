@@ -23,7 +23,7 @@ import java.sql.SQLException;
 /**
  * op-db.datasource.druid的配置信息
  */
-@ConfigurationProperties(prefix = "master-db.datasource.druid")
+@ConfigurationProperties(prefix = "master-db.datasource")
 @MapperScan(basePackages = {MasterDataSourceConfig.PACKAGE, MasterDataSourceConfig.PACKAGE_PUB_ONL}, sqlSessionFactoryRef = "materNodeSessionFactory")
 
 public class MasterDataSourceConfig {
