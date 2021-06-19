@@ -3,7 +3,10 @@ package com.nydia.modules.mapper.slave1;
 import com.nydia.modules.entity.slave1.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 日志Dao
@@ -12,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface UserDao {
 
-    @Insert({ "insert into geek_user(user_name, password, nick_name, id_card) values(#{userName}, #{password}, #{nickName}, #{idCard})" })
-    int insertUser(User user);
+    @Select({ "select user_id, user_name, password, nick_name, id_card from  geek_user" })
+    List<User> selectUser(User user);
 
 }

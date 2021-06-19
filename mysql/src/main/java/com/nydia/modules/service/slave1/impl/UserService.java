@@ -13,7 +13,6 @@ public class UserService implements IUserService {
      private UserDao userDao;
 
      public User selectUser(User user){
-
-          return null;
+          return userDao.selectUser(user).get(0);
      }
 }

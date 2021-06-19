@@ -1,5 +1,6 @@
 package com.nydia.modules.service.master.impl;
 
+import com.nydia.modules.entity.master.User;
 import com.nydia.modules.mapper.master.UserDao;
 import com.nydia.modules.service.master.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,7 @@ public class UserService implements IUserService{
      private UserDao userDao;
 
      @Override
-     public int insertUser(){
-
-          return 0;
+     public int insertUser(User user){
+          return userDao.insertUser(user);
      }
 }
