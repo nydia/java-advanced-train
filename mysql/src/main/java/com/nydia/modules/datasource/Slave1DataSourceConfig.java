@@ -23,22 +23,21 @@ import java.sql.SQLException;
 /**
  * op-db.datasource.druid的配置信息
  */
-@ConfigurationProperties(prefix = "master-db.datasource")
-@MapperScan(basePackages = {MasterDataSourceConfig.PACKAGE, MasterDataSourceConfig.PACKAGE_PUB_ONL}, sqlSessionFactoryRef = "materNodeSessionFactory")
-public class MasterDataSourceConfig {
+@ConfigurationProperties(prefix = "slave1-db.datasource")
+@MapperScan(basePackages = {Slave1DataSourceConfig.PACKAGE, Slave1DataSourceConfig.PACKAGE_PUB_ONL}, sqlSessionFactoryRef = "materNodeSessionFactory")
+public class Slave1DataSourceConfig {
 
     /**
      * dao层的包路径
      */
-    static final String PACKAGE = "com.nydia.modules.mapper.master";
-    static final String PACKAGE_PUB = "com.nydia.modules.common.service.mapper";
-    static final String PACKAGE_PUB_ONL = "mappings.master";
-    static final String TYPE_ALIAS_PACKAGE = "com.nydia.modules.entity.master";
+    static final String PACKAGE = "com.nydia.modules.mapper.slave1";
+    static final String PACKAGE_PUB_ONL = "mappings.slave1";
+    static final String TYPE_ALIAS_PACKAGE = "com.nydia.modules.entity.slave1";
 
     /**
      * mapper文件的相对路径
      */
-    private static final String MAPPER_LOCATION = "classpath:mappings/master/*.xml";
+    private static final String MAPPER_LOCATION = "classpath:mappings/slave1/*.xml";
 
     private String filters;
     private String url;
@@ -61,9 +60,8 @@ public class MasterDataSourceConfig {
     /**
      * 主数据源使用@Primary注解进行标识
      */
-    @Primary
-    @Bean(name = "masterNodeDataSource")
-    public DataSource masterNodeDataSource() throws SQLException {
+    @Bean(name = "slave1DataSource")
+    public DataSource slave1DataSource() throws SQLException {
         DruidDataSource druid = new DruidDataSource();
         // 监控统计拦截的filters
         druid.setFilters(filters);
@@ -104,30 +102,27 @@ public class MasterDataSourceConfig {
     /**
      * 创建该数据源的事务管理
      */
-    @Primary
-    @Bean(name = "masterNodeTransactionManager")
-    public DataSourceTransactionManager reportTransactionManager() throws SQLException {
-        return new DataSourceTransactionManager(masterNodeDataSource());
+    @Bean(name = "slave1TransactionManager")
+    public DataSourceTransactionManager slave1TransactionManager() throws SQLException {
+        return new DataSourceTransactionManager(slave1DataSource());
     }
 
     /**
      * 创建Mybatis的连接会话工厂实例
      */
-    @Primary
-    @Bean(name = "materNodeSessionFactory")
-    public SqlSessionFactory materNodeSessionFactory(@Qualifier("masterNodeDataSource") DataSource reportDataSource) throws Exception {
+    @Bean(name = "slave1SessionFactory")
+    public SqlSessionFactory materNodeSessionFactory(@Qualifier("slave1DataSource") DataSource slave1DataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(reportDataSource);
-        sessionFactory.setTypeAliasesPackage(MasterDataSourceConfig.TYPE_ALIAS_PACKAGE);
+        sessionFactory.setDataSource(slave1DataSource);
+        sessionFactory.setTypeAliasesPackage(Slave1DataSourceConfig.TYPE_ALIAS_PACKAGE);
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
                 // 设置mapper文件路径
-                .getResources(MasterDataSourceConfig.MAPPER_LOCATION));
+                .getResources(Slave1DataSourceConfig.MAPPER_LOCATION));
         return sessionFactory.getObject();
     }
 
-    @Primary
-    @Bean(name = "materNodeSessionTemplate")
-    public SqlSessionTemplate materNodeSessionTemplate(@Qualifier("materNodeSessionFactory") SqlSessionFactory sqlSessionFactory){
+    @Bean(name = "slave1SessionTemplate")
+    public SqlSessionTemplate materNodeSessionTemplate(@Qualifier("slave1SessionFactory") SqlSessionFactory sqlSessionFactory){
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
