@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 ##spring Setting
 spring:
@@ -11,6 +11,8 @@ spring:
           hbm2ddl:
             auto: create
         dialect: org.hibernate.dialect.MySQLDialect
+    cache:
+      cache-names: users
 
 master-db:
   datasource:
