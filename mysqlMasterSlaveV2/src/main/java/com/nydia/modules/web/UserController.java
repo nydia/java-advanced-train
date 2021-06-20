@@ -25,9 +25,9 @@ public class UserController {
         for(int i = 0; i < 5; i ++){
             User userInsert = new User();
             userInsert.setUserName("王五");
-            userInsert.setNickName("小五");
+            userInsert.setNickName("小五" + i);
             userInsert.setPassword("123456");
-            userInsert.setIdCard("34112");
+            userInsert.setIdCard("110101199003072535");
             userService.insertUser(userInsert);
         }
 

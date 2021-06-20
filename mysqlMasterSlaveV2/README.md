@@ -1,8 +1,8 @@
-# 读写分离 - 框架：shardingsphere-jdbc
+## 读写分离 - 框架：shardingsphere-jdbc
 
 注意：sharding-jdbc-spring-boot-starter 的版本，高的版本比如：4.1.1会出现无法加载配置的情况，目前还不知道4.1.1做出了哪些大的变更
 
-## 测试读写分离和动态切换数据源
+####  测试读写分离和动态切换数据源
 
 1. 使用sql：
 
