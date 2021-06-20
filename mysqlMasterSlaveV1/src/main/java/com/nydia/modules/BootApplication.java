@@ -8,13 +8,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 启动类
- *
- * @author ips
- * @date 2019-05-16
  */
 @EnableTransactionManagement
 @SpringBootApplication
-@ServletComponentScan
 @ComponentScan("com.nydia.modules")
 public class BootApplication {
 

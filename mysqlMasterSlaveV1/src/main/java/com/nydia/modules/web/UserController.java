@@ -1,6 +1,8 @@
 package com.nydia.modules.web;
 
 import com.alibaba.fastjson.JSON;
+import com.nydia.modules.entity.User;
+import com.nydia.modules.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,21 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private com.nydia.modules.service.master.IUserService masterUserService;
-
-    @Autowired
-    private com.nydia.modules.service.slave1.IUserService slave1UserService;
+    private IUserService userService;
 
     @RequestMapping(value = "/user", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity handleUser(){
-        com.nydia.modules.entity.master.User userInsert = new com.nydia.modules.entity.master.User();
+        User userInsert = new User();
         userInsert.setUserName("王五");
         userInsert.setNickName("小五");
         userInsert.setPassword("123456");
         userInsert.setIdCard("34112");
-        masterUserService.insertUser(userInsert);
+        userService.insertUser(userInsert);
 
-        com.nydia.modules.entity.slave1.User user = slave1UserService.selectUser(null);
+        User user = userService.selectUser(null);
 
         return ResponseEntity.ok(JSON.toJSON(user));
     }

@@ -1,6 +1,10 @@
-package com.nydia.modules.entity.master;
+package com.nydia.modules.entity;
 
 import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * @Auther: hqlv
@@ -11,9 +15,12 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class User {
 
-    private Integer userId;
+    @Id
+    @GeneratedValue
+    private Long userId;
     private String userName;
     private String password;
     private String nickName;
