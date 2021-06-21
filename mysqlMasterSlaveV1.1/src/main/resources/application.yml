@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  session:
+
+##spring Setting
+spring:
+    application:
+        name: mysqldemo
+
+master-db:
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      jdbc-url: jdbc:mysql://localhost:3307/geek?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: 123456
+
+slave1-db:
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      jdbc-url: jdbc:mysql://localhost:3307/geek1?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: 123456
+
+
+### 日志配置
+log:
+  level: debug

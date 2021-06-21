@@ -28,7 +28,13 @@ hs_err_pid*
 /JavaAdvancedTrain/target/
 /mysql/target/
 /mysql/.idea/
+/mysqlInsert/.idea/
+/mysqlInsert/target/
 /mysqlMasterSlaveV0/.idea/
 /mysqlMasterSlaveV0/target/
+/mysqlMasterSlaveV1/.idea/
+/mysqlMasterSlaveV1/target/
+/mysqlMasterSlaveV1.1/.idea/
+/mysqlMasterSlaveV1.1/target/
 /mysqlMasterSlaveV2/.idea/
 /mysqlMasterSlaveV2/target/
