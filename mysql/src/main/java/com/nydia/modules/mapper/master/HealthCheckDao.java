@@ -1,4 +1,4 @@
-package com.nydia.modules.mapper;
+package com.nydia.modules.mapper.master;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

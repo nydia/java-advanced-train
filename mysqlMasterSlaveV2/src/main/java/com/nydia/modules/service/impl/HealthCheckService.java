@@ -15,13 +15,10 @@ public class HealthCheckService implements IHealthCheckService {
     @Autowired
     private HealthCheckDao healthCheckDao;
 
-
-
-
-
     @Override
     public int healthChecek() {
         int r = healthCheckDao.healthChecek();
         return r;
     }
+
 }
