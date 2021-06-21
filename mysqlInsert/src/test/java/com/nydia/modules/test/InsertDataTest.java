@@ -181,7 +181,6 @@ public class InsertDataTest {
                         }catch(SQLException se2){
                         }
                     }
-                    System.out.println("Goodbye!");
                     return null;
 
                 }
@@ -197,6 +196,7 @@ public class InsertDataTest {
         long endTime = new Date().getTime();
         System.out.println("执行时间：" + (endTime - startTime) + "(毫秒)");
         executorService.shutdown();
+        System.out.println("Goodbye!");
     }
 
     //4. Jdbc+PreparedStatement(url + rewriteBatchedStatements=true)
