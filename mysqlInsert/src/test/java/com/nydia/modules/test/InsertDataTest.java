@@ -33,10 +33,10 @@ public class InsertDataTest {
         //insertByJdbcInStatementV2();
         //insertByJdbcInStatementV3();
         //insertByJdbcInPreparedStatement();
-        //insertByJdbcInPreparedStatementV2();
+        insertByJdbcInPreparedStatementV2();
         //insertByJdbcInPreparedStatementV3();
         //insertByJdbcInPreparedStatementV3();
-        insertByJdbcInPreparedStatementV4();
+        //insertByJdbcInPreparedStatementV4();
     }
 
     //1. data:100w,方式： Spring框架+Druid+单线程
@@ -328,6 +328,7 @@ public class InsertDataTest {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
         List<Future<Object>> futureList = new ArrayList<>();
         DruidDataSource dataSource = getDataSource();
+        ThreadLocal<Integer> count = new ThreadLocal<>();
         long startTime = new Date().getTime();
         for(int i = 1; i<= 20; i ++){
             Future<Object> future = executorService.submit(new Callable<Object>() {
@@ -339,14 +340,14 @@ public class InsertDataTest {
                         conn.setAutoCommit(false);
                         System.out.println("实例化PreparedStatement对象...");
                         pstm = conn.prepareStatement("insert into `db` ( `username`) values('1')");
-                        for(int i = 1; i <= 50000; i ++){
+                        for(int j = 1; j <= 50000; j ++){
                             // 将一组参数添加到此 PreparedStatement 对象的批处理命令中。
                             pstm.addBatch();
-                            if(i % 10000 == 0){
+                            if(j % 10000 == 0){
                                 pstm.executeBatch();
                                 conn.commit();//执行完后，手动提交事务
                                 pstm.clearBatch();
-                                System.out.println("执行到" + i);
+                                System.out.println("执行到" + j);
                             }
                         }
                     }catch(SQLException se){
@@ -497,7 +498,8 @@ public class InsertDataTest {
     // ========== 连接池 ==============
     public DruidDataSource getDataSource(){
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3316/db?rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai");
+        //dataSource.setUrl("jdbc:mysql://localhost:3316/db?rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai");
+        dataSource.setUrl("jdbc:mysql://localhost:3316/db?serverTimezone=Asia/Shanghai");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUsername("root");
         dataSource.setPassword("");
@@ -507,10 +509,16 @@ public class InsertDataTest {
         //dataSource.setUsername("repl");
         //dataSource.setPassword("@Zz123456");
 
-        dataSource.setInitialSize(20);
-        dataSource.setMinIdle(5);
-        dataSource.setMaxWait(60000);
-        dataSource.setMaxActive(20);
+        dataSource.setInitialSize(20);//初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
+        dataSource.setMinIdle(5);//最小连接池数量
+        dataSource.setMaxWait(60000);//获取连接时最大等待时间，单位毫秒
+        dataSource.setMaxActive(20);//最大连接池数量
+
+        try {
+            dataSource.init();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return dataSource;
     }
 
