@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -328,7 +329,7 @@ public class InsertDataTest {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
         List<Future<Object>> futureList = new ArrayList<>();
         DruidDataSource dataSource = getDataSource();
-        ThreadLocal<Integer> count = new ThreadLocal<>();
+        AtomicInteger count = new AtomicInteger(0);
         long startTime = new Date().getTime();
         for(int i = 1; i<= 20; i ++){
             Future<Object> future = executorService.submit(new Callable<Object>() {
@@ -341,13 +342,14 @@ public class InsertDataTest {
                         System.out.println("实例化PreparedStatement对象...");
                         pstm = conn.prepareStatement("insert into `db` ( `username`) values('1')");
                         for(int j = 1; j <= 50000; j ++){
+                            //count.incrementAndGet();
                             // 将一组参数添加到此 PreparedStatement 对象的批处理命令中。
                             pstm.addBatch();
                             if(j % 10000 == 0){
                                 pstm.executeBatch();
                                 conn.commit();//执行完后，手动提交事务
                                 pstm.clearBatch();
-                                System.out.println("执行到" + j);
+                                //System.out.println("执行到" + count.get());
                             }
                         }
                     }catch(SQLException se){
@@ -498,8 +500,8 @@ public class InsertDataTest {
     // ========== 连接池 ==============
     public DruidDataSource getDataSource(){
         DruidDataSource dataSource = new DruidDataSource();
-        //dataSource.setUrl("jdbc:mysql://localhost:3316/db?rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai");
-        dataSource.setUrl("jdbc:mysql://localhost:3316/db?serverTimezone=Asia/Shanghai");
+        dataSource.setUrl("jdbc:mysql://localhost:3316/db?rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai");
+        //dataSource.setUrl("jdbc:mysql://localhost:3316/db?serverTimezone=Asia/Shanghai");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUsername("root");
         dataSource.setPassword("");
