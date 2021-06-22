@@ -1,5 +1,15 @@
 # Java进阶训练营实战
 
+## 目录
+
+- JavaAdvancedTrain : Java基础，nio，JVM，guava，lombok，java8（Stream），设计模式
+- mysqlInsert ： mysql的插入
+- mysqlMasterSlaveV0： 普通利用目录动态切换数据源
+- mysqlMasterSlaveV1： 利用AbstractRoutingDataSource切换数据源（暂不可用）
+- mysqlMasterSlaveV1.1  ： 利用AbstractRoutingDataSource切换数据源，读写分离
+- mysqlMasterSlaveV2： 利用sharding-jdbc-spring-boot-starter动态切换数据源读写分离
+- mysql： 临时项目
+
 ## 1. Jvm实战
 
 1. 在Idea里面查看class的二级制字节码文件
