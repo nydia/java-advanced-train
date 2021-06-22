@@ -27,9 +27,14 @@ public class InsertDataTest {
 
     @Test
     public void insertData() {
+        //insertDataByDruidInSingleThread();
+        //insertDataByDruidIn100Thread();
         //insertByJdbcInStatement();
-        insertByJdbcInStatementV2();
+        //insertByJdbcInStatementV2();
+        //insertByJdbcInStatementV3();
         //insertByJdbcInPreparedStatement();
+        //insertByJdbcInPreparedStatementV2();
+        insertByJdbcInPreparedStatementV3();
     }
 
     //1. Spring框架+Druid+单线程
@@ -199,6 +204,62 @@ public class InsertDataTest {
         System.out.println("Goodbye!");
     }
 
+    //3.2. Jdbc+Statement + (url带rewriteBatchedStatements=true) + Druid(20) + 20线程
+    @SuppressWarnings("Duplicates")
+    public void insertByJdbcInStatementV3(){
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
+        List<Future<Object>> futureList = new ArrayList<>();
+        DruidDataSource dataSource = getDataSource();
+        long startTime = new Date().getTime();
+        for(int i = 1; i<= 20; i ++){
+            Future<Object> future = executorService.submit(new Callable<Object>() {
+                public Object call(){
+                    Connection conn = null;
+                    Statement stmt = null;
+                    try{
+                        conn = dataSource.getConnection();//使用连接池
+                        conn.setAutoCommit(false);
+                        System.out.println("实例化Statement对象...");
+                        stmt = conn.createStatement();
+                        for(int i = 1; i <= 50000; i ++){
+                            String sql = "insert into `db` ( `username`) values('1')";
+                            stmt.addBatch(sql);
+                            if(i % 10000 == 0){
+                                stmt.executeBatch();
+                                conn.commit();//执行完后，手动提交事务
+                                stmt.clearBatch();
+                            }
+                        }
+                        conn.setAutoCommit(true);
+                    }catch(SQLException se){
+                        se.printStackTrace();// 处理 JDBC 错误
+                    }catch(Exception e){
+                        e.printStackTrace();// 处理 Class.forName 错误
+                    }finally{
+                        try{
+                            if(stmt!=null) stmt.close();// 关闭资源
+                            conn.setAutoCommit(true);
+                        }catch(SQLException se2){
+                        }
+                    }
+                    return null;
+                }
+            });
+            futureList.add(future);
+        }
+        for(Future<Object> f: futureList){
+            try {
+                f.get();
+            }catch (InterruptedException e){
+            }catch (ExecutionException e){}
+        }
+        long endTime = new Date().getTime();
+        dataSource.close();
+        executorService.shutdown();
+        System.out.println("执行时间：" + (endTime - startTime) + "(毫秒)");
+        System.out.println("Goodbye!");
+    }
+
     //4. Jdbc+PreparedStatement(url + rewriteBatchedStatements=true)
     @SuppressWarnings("Duplicates")
     public void insertByJdbcInPreparedStatement(){
@@ -218,12 +279,13 @@ public class InsertDataTest {
             for(int i = 1; i <= 1000000; i ++){
                 // 将一组参数添加到此 PreparedStatement 对象的批处理命令中。
                 pstm.addBatch();
-                if(i % 100000 == 0){
+                if(i % 10000 == 0){
                     pstm.executeBatch();
+                    conn.commit();//执行完后，手动提交事务
+                    pstm.clearBatch();
                     System.out.println("执行到" + i);
                 }
             }
-            conn.commit();//执行完后，手动提交事务
             long endTime = new Date().getTime();
             System.out.println("执行时间：" + (endTime - startTime) + "(毫秒)");
             conn.setAutoCommit(true);//再把自动提交打开，避免影响其他需要自动提交的操作
@@ -258,17 +320,137 @@ public class InsertDataTest {
         System.out.println("Goodbye!");
     }
 
+    //4.1. Jdbc+PreparedStatement(url + rewriteBatchedStatements=true) + Druid(20) + 20线程 ====> 7s
+    @SuppressWarnings("Duplicates")
+    public void insertByJdbcInPreparedStatementV2(){
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
+        List<Future<Object>> futureList = new ArrayList<>();
+        DruidDataSource dataSource = getDataSource();
+        long startTime = new Date().getTime();
+        for(int i = 1; i<= 20; i ++){
+            Future<Object> future = executorService.submit(new Callable<Object>() {
+                public Object call(){
+                    Connection conn = null;
+                    PreparedStatement pstm = null;
+                    try{
+                        conn = dataSource.getConnection();//使用连接池
+                        conn.setAutoCommit(false);
+                        System.out.println("实例化PreparedStatement对象...");
+                        pstm = conn.prepareStatement("insert into `db` ( `username`) values('1')");
+                        for(int i = 1; i <= 50000; i ++){
+                            // 将一组参数添加到此 PreparedStatement 对象的批处理命令中。
+                            pstm.addBatch();
+                            if(i % 10000 == 0){
+                                pstm.executeBatch();
+                                conn.commit();//执行完后，手动提交事务
+                                pstm.clearBatch();
+                                System.out.println("执行到" + i);
+                            }
+                        }
+                    }catch(SQLException se){
+                        se.printStackTrace();// 处理 JDBC 错误
+                    }catch(Exception e){
+                        e.printStackTrace();// 处理 Class.forName 错误
+                    }finally{
+                        try{
+                            conn.setAutoCommit(true);
+                            if(pstm!=null) pstm.close();// 关闭资源
+                            if(conn!=null) conn.close();// 关闭资源
+                        }catch(SQLException se2){
+                        }
+                    }
+                    return null;
+                }
+            });
+            futureList.add(future);
+        }
+        for(Future<Object> f: futureList){
+            try {
+                f.get();
+            }catch (InterruptedException e){
+            }catch (ExecutionException e){}
+        }
+        long endTime = new Date().getTime();
+        dataSource.close();
+        executorService.shutdown();
+        System.out.println("执行时间：" + (endTime - startTime) + "(毫秒)");
+        System.out.println("Goodbye!");
+    }
+
+    //4.2. Jdbc+PreparedStatement(url + rewriteBatchedStatements=true) + Druid(1) + 1线程
+    @SuppressWarnings("Duplicates")
+    public void insertByJdbcInPreparedStatementV3(){
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        List<Future<Object>> futureList = new ArrayList<>();
+        DruidDataSource dataSource = getDataSource();
+        long startTime = new Date().getTime();
+        for(int i = 1; i<= 1; i ++){
+            Future<Object> future = executorService.submit(new Callable<Object>() {
+                public Object call(){
+                    Connection conn = null;
+                    PreparedStatement pstm = null;
+                    try{
+                        conn = dataSource.getConnection();//使用连接池
+                        conn.setAutoCommit(false);
+                        System.out.println("实例化PreparedStatement对象...");
+                        pstm = conn.prepareStatement("insert into `db` ( `username`) values('1')");
+                        for(int i = 1; i <= 1000000; i ++){
+                            // 将一组参数添加到此 PreparedStatement 对象的批处理命令中。
+                            pstm.addBatch();
+                            if(i % 10000 == 0){
+                                pstm.executeBatch();
+                                conn.commit();//执行完后，手动提交事务
+                                pstm.clearBatch();
+                                System.out.println("执行到" + i);
+                            }
+                        }
+                    }catch(SQLException se){
+                        se.printStackTrace();// 处理 JDBC 错误
+                    }catch(Exception e){
+                        e.printStackTrace();// 处理 Class.forName 错误
+                    }finally{
+                        try{
+                            conn.setAutoCommit(true);
+                            if(pstm!=null) pstm.close();// 关闭资源
+                            if(conn!=null) conn.close();// 关闭资源
+                        }catch(SQLException se2){
+                        }
+                    }
+                    return null;
+                }
+            });
+            futureList.add(future);
+        }
+        for(Future<Object> f: futureList){
+            try {
+                f.get();
+            }catch (InterruptedException e){
+            }catch (ExecutionException e){}
+        }
+        long endTime = new Date().getTime();
+        dataSource.close();
+        executorService.shutdown();
+        System.out.println("执行时间：" + (endTime - startTime) + "(毫秒)");
+        System.out.println("Goodbye!");
+    }
+
     // ========== 连接池 ==============
-    public DataSource getDataSource(){
+    public DruidDataSource getDataSource(){
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3316/db?rewriteBatchedStatements=true&&serverTimezone=Asia/Shanghai");
+        dataSource.setUrl("jdbc:mysql://localhost:3316/db?rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUsername("root");
         dataSource.setPassword("");
-        dataSource.setInitialSize(10);
+
+        //dataSource.setUrl("jdbc:mysql://192.168.8.186:3306/geek?rewriteBatchedStatements=true");
+        //dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        //dataSource.setUsername("repl");
+        //dataSource.setPassword("@Zz123456");
+
+        dataSource.setInitialSize(20);
         dataSource.setMinIdle(5);
         dataSource.setMaxWait(60000);
-        dataSource.setMaxActive(10);
+        dataSource.setMaxActive(20);
         return dataSource;
     }
 
