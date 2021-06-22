@@ -12,3 +12,4 @@
 | 100w  | Jdbc+Statement| 221600(毫秒),221(秒),3.6(分) |
 | 100w  | Jdbc+PreparedStatement(url + rewriteBatchedStatements=true)| 210226(毫秒),210(秒),3.5(分) |
 | 100w  | Jdbc+PreparedStatement(url + rewriteBatchedStatements=true) + + Druid(20) + 20线程| 7301(毫秒),7.3(秒) |
+| 1000w  | Jdbc+PreparedStatement(url + rewriteBatchedStatements=true) + + Druid(20) + 20线程| 7301(毫秒),7.3(秒) |
