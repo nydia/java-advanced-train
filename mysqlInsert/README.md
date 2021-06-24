@@ -14,3 +14,8 @@
 | 100w  | Jdbc+PreparedStatement(url + rewriteBatchedStatements=true) + Druid(10连接) + 20线程| 7301(毫秒),7.3(秒) |
 | 1000w  | Jdbc+PreparedStatement(url + rewriteBatchedStatements=true) + Druid(10连接) + 20线程 + 单表1个字段| 126906(毫秒),127(秒),2(分) |
 | 1000w  | Jdbc+PreparedStatement(url + rewriteBatchedStatements=true) + Druid(10连接) + 20线程 + 单表5个字段| 201573(毫秒),202(秒),3.5(分) |
+
+
+### 总结
+
+PreparedStatement
