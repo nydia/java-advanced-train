@@ -38,3 +38,7 @@ hs_err_pid*
 /mysqlMasterSlaveV1.1/target/
 /mysqlMasterSlaveV2/.idea/
 /mysqlMasterSlaveV2/target/
+/mysqlShardingSphere-jdbc5.0.0-alpha/.idea/
+/mysqlShardingSphere-jdbc5.0.0-alpha/target/
+/mysqlShardingSphere-proxy5.0.0-alpha/.idea/
+/mysqlShardingSphere-proxy5.0.0-alpha/target/

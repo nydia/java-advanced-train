@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  main: #允许相同bean名称覆盖
+    allow-bean-definition-overriding: true
+
+dataSources:
+  ds_master: !!com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/ds_master
+    username: root
+    password: 123456
+  ds_slave0: !!com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/ds_slave0
+    username: root
+    password: 123456
+  ds_slave1: !!com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/ds_slave1
+    username: root
+    password: 123456
+
+masterSlaveRule:
+  name: ds_ms
+  masterDataSourceName: ds_master
+  slaveDataSourceNames:
+    - ds_slave0
+    - ds_slave1
+  loadBalanceAlgorithmType: ROUND_ROBIN
+
+props:
+    sql.show: true
+
+
+# mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*.xml
+  configuration:
+    call-setters-on-nulls: true
+  type-aliases-package: com.nydia.modules.entity
