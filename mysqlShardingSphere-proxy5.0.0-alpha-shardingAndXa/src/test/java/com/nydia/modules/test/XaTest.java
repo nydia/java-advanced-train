@@ -5,6 +5,7 @@ import com.nydia.modules.entity.Order;
 import com.nydia.modules.entity.OrderItem;
 import com.nydia.modules.service.IOrderItemService;
 import com.nydia.modules.service.IOrderService;
+import net.bytebuddy.asm.Advice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import java.util.UUID;
 public class XaTest {
     @Autowired
     private IOrderItemService orderItemService;
+    @Autowired
+    private IOrderService orderService;
     //增
     @Test
     public void testXaInsert() {
@@ -32,5 +35,11 @@ public class XaTest {
             }
             orderItemService.insert(OrderItem.builder().goodName("商品").goodId(1L).orderId(new Date().getTime()).price(new BigDecimal(3.21)).userId(1L).build());
         }
+    }
+
+    // ShardingSphere Atomikos XA
+    @Test
+    public void testAtomikosXA(){
+
     }
 }
