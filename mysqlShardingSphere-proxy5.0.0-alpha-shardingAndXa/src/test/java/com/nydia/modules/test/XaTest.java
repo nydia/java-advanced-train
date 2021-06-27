@@ -21,25 +21,12 @@ import java.util.UUID;
 @SpringBootTest
 public class XaTest {
     @Autowired
-    private IOrderItemService orderItemService;
-    @Autowired
     private IOrderService orderService;
-    //增
-    @Test
-    public void testXaInsert() {
-        for(int i = 0; i < 1; i ++){
-            try {
-                Thread.sleep(1);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            orderItemService.insert(OrderItem.builder().goodName("商品").goodId(1L).orderId(new Date().getTime()).price(new BigDecimal(3.21)).userId(1L).build());
-        }
-    }
-
     // ShardingSphere Atomikos XA
     @Test
     public void testAtomikosXA(){
-
+        Order order = Order.builder().userId(1L).amount(new BigDecimal(100)).orderNo(UUID.randomUUID().toString()).build();
+        OrderItem orderItem = OrderItem.builder().goodName("商品").goodId(1L).orderId(new Date().getTime()).price(new BigDecimal(3.21)).userId(1L).build();
+        orderService.insert(order, orderItem);
     }
 }
