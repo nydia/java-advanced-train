@@ -1,4 +1,4 @@
-##  使用中间件 Shardingsphere-proxy 对mysql水平分库分表，并且处理事务
+#  使用中间件 Shardingsphere-proxy 对mysql水平分库分表，并且处理事务
 
 ## 前置注意
 
@@ -12,4 +12,7 @@
 ## proxy 配置
 
 ## 使用
+
+## Reference 
+1. 清空表数据：truncate table 表名称; 
 
