@@ -40,5 +40,10 @@ hs_err_pid*
 /mysqlMasterSlaveV2/target/
 /mysqlShardingSphere-jdbc5.0.0-alpha/.idea/
 /mysqlShardingSphere-jdbc5.0.0-alpha/target/
-/mysqlShardingSphere-proxy5.0.0-alpha/.idea/
-/mysqlShardingSphere-proxy5.0.0-alpha/target/
+/mysqlShardingSphere-proxy5.0.0-alpha-readwrite-splitting/.idea/
+/mysqlShardingSphere-proxy5.0.0-alpha-readwrite-splitting/target/
+/mysqlShardingSphere-proxy5.0.0-alpha-shardingAndXa/.idea/
+/mysqlShardingSphere-proxy5.0.0-alpha-shardingAndXa/target/
+/mysqlShardingSphere-proxy5.0.0-alpha-shardingAndXa/mysql.iml
+/mysqlShardingSphere-proxy5.0.0-alpha-sharding/.idea/
+/mysqlShardingSphere-proxy5.0.0-alpha-sharding/target/
