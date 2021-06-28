@@ -9,8 +9,10 @@
 - mysqlMasterSlaveV1： 利用AbstractRoutingDataSource切换数据源（暂不可用）
 - mysqlMasterSlaveV1.1  ： 利用AbstractRoutingDataSource切换数据源，读写分离
 - mysqlMasterSlaveV2： 利用sharding-jdbc-spring-boot-starter动态切换数据源读写分离
-- mysqlShardingSphere-proxy5.0.0-alpha： 使用中间件 Shardingsphere-proxy读写分离
-- 
+- mysqlShardingSphere-proxy5.0.0-alpha： 未知
+- mysqlShardingSphere-proxy5.0.0-alpha-readwrite-splitting： 使用中间件 Shardingsphere-proxy读写分离
+- mysqlShardingSphere-proxy5.0.0-alpha-sharding： 使用中间件 Shardingsphere-proxy分库分表
+- mysqlShardingSphere-proxy5.0.0-alpha-shardingAndXa： 使用中间件 Shardingsphere-proxy分库分表和分布式事务
 
 
 ## 1. Jvm实战

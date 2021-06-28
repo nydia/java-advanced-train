@@ -41,7 +41,7 @@ public class OrderService implements IOrderService {
         return orderDao.selectList(queryWrapper).get(0);
     }
     @Override
-    @Transactional(readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    @Transactional(readOnly = false, isolation = Isolation.DEFAULT)
     public int insert(Order order, OrderItem orderItem) {
         int r1 = orderDao.insert(order);
         System.out.println(1/0);
