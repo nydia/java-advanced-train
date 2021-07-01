@@ -47,3 +47,12 @@ hs_err_pid*
 /mysqlShardingSphere-proxy5.0.0-alpha-shardingAndXa/mysql.iml
 /mysqlShardingSphere-proxy5.0.0-alpha-sharding/.idea/
 /mysqlShardingSphere-proxy5.0.0-alpha-sharding/target/
+/hmily-tcc/logs/
+/hmily-tcc/hmily-demo-springcloud-eureka/.idea/
+/hmily-tcc/hmily-demo-springcloud-eureka/target/
+/hmily-tcc/hmily-demo-springcloud-account/.idea/
+/hmily-tcc/hmily-demo-springcloud-account/target/
+/hmily-tcc/hmily-demo-springcloud-inventory/.idea/
+/hmily-tcc/hmily-demo-springcloud-inventory/target/
+/hmily-tcc/hmily-demo-springcloud-order/.idea/
+/hmily-tcc/hmily-demo-springcloud-order/target/
