@@ -8,6 +8,10 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import org.apache.curator.RetryPolicy;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.retry.ExponentialBackoffRetry;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
@@ -29,6 +33,15 @@ public final class Rpcfx {
         // curator Provider list from zk
         List<String> invokers = new ArrayList<>();
         // 1. 简单：从zk拿到服务提供的列表
+        // start zk client
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
+        CuratorFramework client = CuratorFrameworkFactory.builder().connectString("localhost:2181").namespace("rpcfx").retryPolicy(retryPolicy).build();
+        client.start();
+        try {
+            invokers = client.getChildren().forPath("/");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         // 2. 挑战：监听zk的临时节点，根据事件更新这个list（注意，需要做个全局map保持每个服务的提供者List）
 
         List<String> urls = router.route(invokers);
