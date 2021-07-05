@@ -38,7 +38,10 @@ public class AccountDO implements Serializable {
 
     private BigDecimal balance;
 
-    private BigDecimal freezeAmount;
+    /**
+     * 账户类型 RMB - 人民币 / USD - 美元
+     */
+    private String accountType;
 
     private Date createTime;
 

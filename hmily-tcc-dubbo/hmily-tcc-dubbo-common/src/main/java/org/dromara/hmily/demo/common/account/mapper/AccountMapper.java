@@ -16,6 +16,7 @@
 
 package org.dromara.hmily.demo.common.account.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.dromara.hmily.demo.common.account.dto.AccountDTO;
@@ -38,26 +39,6 @@ public interface AccountMapper {
             " freeze_amount= freeze_amount + #{amount} ,update_time = now()" +
             " where user_id =#{userId}  and  balance >= #{amount}  ")
     int update(AccountDTO accountDTO);
-    
-    /**
-     * Update tac int.
-     *
-     * @param accountDTO the account dto
-     * @return the int
-     */
-    @Update("update account set balance = balance - #{amount}, update_time = now()" +
-            " where user_id =#{userId} and balance >= #{amount}  ")
-    int updateTAC(AccountDTO accountDTO);
-    
-    /**
-     * Test update int.
-     *
-     * @param accountDTO the account dto
-     * @return the int
-     */
-    @Update("update account set balance = balance - #{amount}, update_time = now() " +
-            " where user_id =#{userId}  and  balance >= #{amount}  ")
-    int testUpdate(AccountDTO accountDTO);
     
     /**
      * Confirm int.
@@ -87,6 +68,7 @@ public interface AccountMapper {
      * @param userId 用户id
      * @return AccountDO account do
      */
-    @Select("select id,user_id,balance, freeze_amount from account where user_id =#{userId} limit 1")
-    AccountDO findByUserId(String userId);
+    @Select("select id,user_id,balance, freeze_amount from account where user_id =#{userId} and account_type =#{accountType} limit 1")
+    AccountDO findByUserIdAndAccountType(@Param("userId") String userId, @Param("accountType") String accountType);
+
 }

@@ -24,8 +24,8 @@ import org.dromara.hmily.demo.common.account.dto.AccountDTO;
 import org.dromara.hmily.demo.common.account.dto.AccountNestedDTO;
 import org.dromara.hmily.demo.common.account.entity.AccountDO;
 import org.dromara.hmily.demo.common.account.mapper.AccountMapper;
-import org.dromara.hmily.demo.common.inventory.api.InventoryService;
-import org.dromara.hmily.demo.common.inventory.dto.InventoryDTO;
+import org.dromara.hmily.demo.common.freeze.api.FreezeService;
+import org.dromara.hmily.demo.common.freeze.dto.FreezeDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author xiaoyu
  */
-@Service("accountService")
+//@Service("accountService")
+@Service("accountServiceB")
 public class AccountServiceImpl implements AccountService {
 
     /**
@@ -59,9 +60,7 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountMapper accountMapper;
 
-    private final InventoryService inventoryService;
-
-    private final InlineService inlineService;
+    private final FreezeService freezeService;
 
     /**
      * Instantiates a new Account service.
@@ -70,12 +69,25 @@ public class AccountServiceImpl implements AccountService {
      */
     @Autowired(required = false)
     public AccountServiceImpl(final AccountMapper accountMapper,
-                              final InventoryService inventoryService,
+                              final FreezeService freezeService,
                               final InlineService inlineService) {
         this.accountMapper = accountMapper;
-        this.inventoryService = inventoryService;
-        this.inlineService = inlineService;
+        this.freezeService = freezeService;
     }
+
+    /**
+     * 获取用户账户信息
+     *
+     * @param userId 用户id
+     * @return AccountDO account do
+     */
+    @Override
+    public AccountDO findByUserIdAndAccountType(String userId, String accountType){
+        return accountMapper.findByUserIdAndAccountType(userId, accountType);
+    }
+
+
+    /** --------------------------------------------------------- */
 
     @Override
     @HmilyTCC(confirmMethod = "confirm", cancelMethod = "cancel")
@@ -125,10 +137,10 @@ public class AccountServiceImpl implements AccountService {
         dto.setAmount(accountNestedDTO.getAmount());
         dto.setUserId(accountNestedDTO.getUserId());
         accountMapper.update(dto);
-        InventoryDTO inventoryDTO = new InventoryDTO();
-        inventoryDTO.setCount(accountNestedDTO.getCount());
-        inventoryDTO.setProductId(accountNestedDTO.getProductId());
-        inventoryService.decrease(inventoryDTO);
+        FreezeDTO freezeDTO = new FreezeDTO();
+        freezeDTO.setCount(accountNestedDTO.getCount());
+        freezeDTO.setProductId(accountNestedDTO.getProductId());
+        freezeService.decrease(freezeDTO);
         return Boolean.TRUE;
     }
     
@@ -140,20 +152,16 @@ public class AccountServiceImpl implements AccountService {
         dto.setAmount(accountNestedDTO.getAmount());
         dto.setUserId(accountNestedDTO.getUserId());
         accountMapper.update(dto);
-        InventoryDTO inventoryDTO = new InventoryDTO();
-        inventoryDTO.setCount(accountNestedDTO.getCount());
-        inventoryDTO.setProductId(accountNestedDTO.getProductId());
-        inventoryService.decrease(inventoryDTO);
+        FreezeDTO freezeDTO = new FreezeDTO();
+        freezeDTO.setCount(accountNestedDTO.getCount());
+        freezeDTO.setProductId(accountNestedDTO.getProductId());
+        freezeService.decrease(freezeDTO);
         //下面这个且套服务异常
-        inventoryService.mockWithTryException(inventoryDTO);
+        freezeService.mockWithTryException(freezeDTO);
         return Boolean.TRUE;
     }
-    
-    @Override
-    public AccountDO findByUserId(String userId) {
-        return accountMapper.findByUserId(userId);
-    }
-    
+
+
     /**
      * Confirm nested boolean.
      *

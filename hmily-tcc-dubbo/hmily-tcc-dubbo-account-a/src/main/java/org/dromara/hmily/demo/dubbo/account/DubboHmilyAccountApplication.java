@@ -42,4 +42,5 @@ public class DubboHmilyAccountApplication {
         springApplication.setWebApplicationType(WebApplicationType.NONE);
         springApplication.run(args);
     }
+
 }

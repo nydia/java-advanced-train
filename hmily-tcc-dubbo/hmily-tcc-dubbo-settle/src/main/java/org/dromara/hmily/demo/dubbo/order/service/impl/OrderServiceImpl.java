@@ -35,7 +35,7 @@ import java.util.Date;
 /**
  * @author xiaoyu
  */
-@Service("orderService")
+//@Service("orderService")
 @SuppressWarnings("all")
 public class OrderServiceImpl implements OrderService {
     

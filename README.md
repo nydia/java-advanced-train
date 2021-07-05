@@ -27,3 +27,9 @@ idea 安装 HexView插件 -> 右击class查看十六进制编码
 1. nio 阻塞nio
 
 2. nio2 非负责nio
+
+## Companys
+
+CREATE USER 'repl'@'%' IDENTIFIED BY '@Zz123456';
+GRANT ALL ON hmily.* TO 'repl'@'%';
+UPDATE mysql.user SET authentication_string=PASSWORD("Zz123456@") WHERE USER="repl" AND HOST="&";

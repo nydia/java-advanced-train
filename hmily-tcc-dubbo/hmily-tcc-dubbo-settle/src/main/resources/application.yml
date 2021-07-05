@@ -1,5 +1,5 @@
 server:
-  port: 8087
+  port: 8083
   address: 0.0.0.0
   servlet:
     context-path: /
@@ -7,9 +7,9 @@ server:
 spring:
     datasource:
         driver-class-name:  com.mysql.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/hmily_order?useUnicode=true&characterEncoding=utf8&useSSL=false
-        username: root
-        password:
+        url: jdbc:mysql://192.168.8.186:3306/demo_ds_0?useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: repl
+        password: Zz123456@
 
 mybatis:
   type-aliases-package: org.dromara.hmily.demo.common.order.entity

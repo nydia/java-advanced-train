@@ -19,11 +19,21 @@
                     queues="0" buffer="8192" accepts="0" payload="8388608"/>
 
     <dubbo:reference timeout="500000000"
-                     interface="org.dromara.hmily.demo.common.inventory.api.InventoryService"
-                     id="inventoryService"
+                     interface="org.dromara.hmily.demo.common.freeze.api.FreezeService"
+                     id="freezeService"
                      retries="0" check="false" actives="20" loadbalance="hmilyRandom"/>
+    <!--
     <dubbo:reference timeout="500000000"
                      interface="org.dromara.hmily.demo.common.account.api.AccountService"
                      id="accountService"
                      retries="0" check="false" actives="20" loadbalance="hmilyRandom"/>
+    -->
+    <dubbo:reference timeout="500000000"
+                     interface="org.dromara.hmily.demo.common.account.api.AccountService"
+                     id="accountServiceA"
+                     retries="0" check="false" actives="20" loadbalance="hmilyRandom" group="A"/>
+    <dubbo:reference timeout="500000000"
+                     interface="org.dromara.hmily.demo.common.account.api.AccountService"
+                     id="accountServiceB"
+                     retries="0" check="false" actives="20" loadbalance="hmilyRandom" group="B"/>
 </beans>

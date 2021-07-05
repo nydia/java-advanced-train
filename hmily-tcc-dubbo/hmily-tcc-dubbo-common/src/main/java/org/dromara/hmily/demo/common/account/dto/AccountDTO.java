@@ -41,4 +41,9 @@ public class AccountDTO implements Serializable {
      */
     private BigDecimal amount;
 
+    /**
+     * 账户类型 RMB - 人民币 / USD - 美元
+     */
+    private String accountType;
+
 }
