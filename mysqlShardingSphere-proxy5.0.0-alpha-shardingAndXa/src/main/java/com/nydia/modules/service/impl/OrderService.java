@@ -44,7 +44,7 @@ public class OrderService implements IOrderService {
     @Transactional(readOnly = false, isolation = Isolation.DEFAULT)
     public int insert(Order order, OrderItem orderItem) {
         int r1 = orderDao.insert(order);
-        //System.out.println(1/0);
+        System.out.println(1/0);
         int r2 = orderItemDao.insert(orderItem);
         return r1 + r2;
     }
