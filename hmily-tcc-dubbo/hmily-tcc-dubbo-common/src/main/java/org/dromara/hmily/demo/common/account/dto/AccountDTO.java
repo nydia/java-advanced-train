@@ -16,6 +16,7 @@
 
 package org.dromara.hmily.demo.common.account.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -27,6 +28,7 @@ import java.math.BigDecimal;
  * @author xiaoyu
  */
 @Data
+@Builder
 public class AccountDTO implements Serializable {
 
     private static final long serialVersionUID = 7223470850578998427L;

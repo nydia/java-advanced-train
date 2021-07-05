@@ -35,9 +35,9 @@ public interface AccountMapper {
      * @param accountDTO the account dto
      * @return the int
      */
-    @Update("update account set balance = balance - #{amount}," +
-            " freeze_amount= freeze_amount + #{amount} ,update_time = now()" +
-            " where user_id =#{userId}  and  balance >= #{amount}  ")
+    @Update("update account set balance = balance + #{amount}," +
+            " update_time = now()" +
+            " where user_id =#{userId} and account_type = #{accountType} and  balance >= #{amount}  ")
     int update(AccountDTO accountDTO);
     
     /**

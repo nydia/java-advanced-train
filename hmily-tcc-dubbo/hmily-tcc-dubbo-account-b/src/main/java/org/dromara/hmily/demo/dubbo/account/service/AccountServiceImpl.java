@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,19 +19,18 @@ package org.dromara.hmily.demo.dubbo.account.service;
 import org.dromara.hmily.annotation.HmilyTCC;
 import org.dromara.hmily.common.exception.HmilyRuntimeException;
 import org.dromara.hmily.demo.common.account.api.AccountService;
-import org.dromara.hmily.demo.common.account.api.InlineService;
 import org.dromara.hmily.demo.common.account.dto.AccountDTO;
-import org.dromara.hmily.demo.common.account.dto.AccountNestedDTO;
 import org.dromara.hmily.demo.common.account.entity.AccountDO;
 import org.dromara.hmily.demo.common.account.mapper.AccountMapper;
-import org.dromara.hmily.demo.common.freeze.api.FreezeService;
 import org.dromara.hmily.demo.common.freeze.dto.FreezeDTO;
+import org.dromara.hmily.demo.common.freeze.mapper.FreezeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -40,7 +39,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author xiaoyu
  */
 //@Service("accountService")
-@Service("accountServiceB")
+@Service("accountServiceA")
 public class AccountServiceImpl implements AccountService {
 
     /**
@@ -60,7 +59,7 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountMapper accountMapper;
 
-    private final FreezeService freezeService;
+    private final FreezeMapper freezeMapper;
 
     /**
      * Instantiates a new Account service.
@@ -69,10 +68,9 @@ public class AccountServiceImpl implements AccountService {
      */
     @Autowired(required = false)
     public AccountServiceImpl(final AccountMapper accountMapper,
-                              final FreezeService freezeService,
-                              final InlineService inlineService) {
+                              final FreezeMapper freezeMapper) {
         this.accountMapper = accountMapper;
-        this.freezeService = freezeService;
+        this.freezeMapper = freezeMapper;
     }
 
     /**
@@ -86,112 +84,24 @@ public class AccountServiceImpl implements AccountService {
         return accountMapper.findByUserIdAndAccountType(userId, accountType);
     }
 
-
-    /** --------------------------------------------------------- */
-
     @Override
     @HmilyTCC(confirmMethod = "confirm", cancelMethod = "cancel")
-    public boolean payment(AccountDTO accountDTO) {
+    public boolean transfer(AccountDTO accountDTO) {
         int count =  accountMapper.update(accountDTO);
-        if (count > 0) {
-            return true;
-        } else {
+        if (count <= 0) {
             throw new HmilyRuntimeException("账户扣减异常！");
         }
-    }
-    
-    @Override
-    @HmilyTCC(confirmMethod = "confirm", cancelMethod = "cancel")
-    public boolean mockTryPaymentException(AccountDTO accountDTO) {
-        throw new HmilyRuntimeException("账户扣减异常！");
-    }
-    
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @HmilyTCC(confirmMethod = "confirm", cancelMethod = "cancel")
-    public boolean mockTryPaymentTimeout(AccountDTO accountDTO) {
-        try {
-            //模拟延迟 当前线程暂停10秒
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        final int decrease = accountMapper.update(accountDTO);
-        if (decrease != 1) {
-            throw new HmilyRuntimeException("库存不足");
+
+        FreezeDTO freezeDTO = FreezeDTO.builder()
+                .userId(accountDTO.getUserId())
+                .accountType(accountDTO.getAccountType())
+                .freezeAmt(new BigDecimal(accountDTO.getAmount().doubleValue()).abs())
+                .build();
+        count = freezeMapper.update(freezeDTO);
+        if (count <= 0) {
+            throw new HmilyRuntimeException("账户扣减异常！");
         }
         return true;
-    }
-    
-    @Override
-    public boolean testPayment(AccountDTO accountDTO) {
-        accountMapper.testUpdate(accountDTO);
-        return Boolean.TRUE;
-    }
-
-    @Override
-    @HmilyTCC(confirmMethod = "confirmNested", cancelMethod = "cancelNested")
-    @Transactional(rollbackFor = Exception.class)
-    public boolean paymentWithNested(AccountNestedDTO accountNestedDTO) {
-        AccountDTO dto = new AccountDTO();
-        dto.setAmount(accountNestedDTO.getAmount());
-        dto.setUserId(accountNestedDTO.getUserId());
-        accountMapper.update(dto);
-        FreezeDTO freezeDTO = new FreezeDTO();
-        freezeDTO.setCount(accountNestedDTO.getCount());
-        freezeDTO.setProductId(accountNestedDTO.getProductId());
-        freezeService.decrease(freezeDTO);
-        return Boolean.TRUE;
-    }
-    
-    @Override
-    @HmilyTCC(confirmMethod = "confirmNested", cancelMethod = "cancelNested")
-    @Transactional(rollbackFor = Exception.class)
-    public boolean paymentWithNestedException(AccountNestedDTO accountNestedDTO) {
-        AccountDTO dto = new AccountDTO();
-        dto.setAmount(accountNestedDTO.getAmount());
-        dto.setUserId(accountNestedDTO.getUserId());
-        accountMapper.update(dto);
-        FreezeDTO freezeDTO = new FreezeDTO();
-        freezeDTO.setCount(accountNestedDTO.getCount());
-        freezeDTO.setProductId(accountNestedDTO.getProductId());
-        freezeService.decrease(freezeDTO);
-        //下面这个且套服务异常
-        freezeService.mockWithTryException(freezeDTO);
-        return Boolean.TRUE;
-    }
-
-
-    /**
-     * Confirm nested boolean.
-     *
-     * @param accountNestedDTO the account nested dto
-     * @return the boolean
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public boolean confirmNested(AccountNestedDTO accountNestedDTO) {
-        LOGGER.debug("============dubbo tcc 执行确认付款接口===============");
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setUserId(accountNestedDTO.getUserId());
-        accountDTO.setAmount(accountNestedDTO.getAmount());
-        accountMapper.confirm(accountDTO);
-        return Boolean.TRUE;
-    }
-
-    /**
-     * Cancel nested boolean.
-     *
-     * @param accountNestedDTO the account nested dto
-     * @return the boolean
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public boolean cancelNested(AccountNestedDTO accountNestedDTO) {
-        LOGGER.debug("============ dubbo tcc 执行取消付款接口===============");
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setUserId(accountNestedDTO.getUserId());
-        accountDTO.setAmount(accountNestedDTO.getAmount());
-        accountMapper.cancel(accountDTO);
-        return Boolean.TRUE;
     }
 
     /**
@@ -208,7 +118,7 @@ public class AccountServiceImpl implements AccountService {
         LOGGER.info("调用了account confirm " + i + " 次");
         return Boolean.TRUE;
     }
-    
+
     /**
      * Cancel boolean.
      *
@@ -218,8 +128,9 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(rollbackFor = Exception.class)
     public boolean cancel(AccountDTO accountDTO) {
         LOGGER.info("============ dubbo tcc 执行取消付款接口===============");
-        final AccountDO accountDO = accountMapper.findByUserId(accountDTO.getUserId());
+        final AccountDO accountDO = accountMapper.findByUserIdAndAccountType(accountDTO.getUserId(), accountDTO.getAccountType());
         accountMapper.cancel(accountDTO);
         return Boolean.TRUE;
     }
+
 }

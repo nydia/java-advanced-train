@@ -19,12 +19,9 @@ package org.dromara.hmily.demo.dubbo.account.service;
 import org.dromara.hmily.annotation.HmilyTCC;
 import org.dromara.hmily.common.exception.HmilyRuntimeException;
 import org.dromara.hmily.demo.common.account.api.AccountService;
-import org.dromara.hmily.demo.common.account.api.InlineService;
 import org.dromara.hmily.demo.common.account.dto.AccountDTO;
-import org.dromara.hmily.demo.common.account.dto.AccountNestedDTO;
 import org.dromara.hmily.demo.common.account.entity.AccountDO;
 import org.dromara.hmily.demo.common.account.mapper.AccountMapper;
-import org.dromara.hmily.demo.common.freeze.api.FreezeService;
 import org.dromara.hmily.demo.common.freeze.dto.FreezeDTO;
 import org.dromara.hmily.demo.common.freeze.mapper.FreezeMapper;
 import org.slf4j.Logger;
@@ -98,7 +95,7 @@ public class AccountServiceImpl implements AccountService {
         FreezeDTO freezeDTO = FreezeDTO.builder()
                 .userId(accountDTO.getUserId())
                 .accountType(accountDTO.getAccountType())
-                .freezeAmt(BigDecimal.abs(accountDTO.getAmount()))
+                .freezeAmt(new BigDecimal(accountDTO.getAmount().doubleValue()).abs())
                 .build();
         count = freezeMapper.update(freezeDTO);
         if (count <= 0) {

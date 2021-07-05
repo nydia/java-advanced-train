@@ -40,13 +40,6 @@ public interface AccountService {
 
     /**
      * 转账
-     * @param transferDTO
-     * @return
-     */
-    boolean transfer(TransferDTO transferDTO);
-
-    /**
-     * 转账
      *
      * @param accountDTO 参数dto
      */
