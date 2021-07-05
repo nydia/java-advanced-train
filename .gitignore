@@ -47,3 +47,5 @@ hs_err_pid*
 /mysqlShardingSphere-proxy5.0.0-alpha-shardingAndXa/mysql.iml
 /mysqlShardingSphere-proxy5.0.0-alpha-sharding/.idea/
 /mysqlShardingSphere-proxy5.0.0-alpha-sharding/target/
+/mysqlShardingSphere-jdbc5.0.0-beta-xa/.idea/
+/mysqlShardingSphere-jdbc5.0.0-beta-xa/target/

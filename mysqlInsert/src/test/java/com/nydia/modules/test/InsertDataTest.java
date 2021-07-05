@@ -34,10 +34,14 @@ public class InsertDataTest {
         //insertByJdbcInStatementV2();
         //insertByJdbcInStatementV3();
         //insertByJdbcInPreparedStatement();
-        insertByJdbcInPreparedStatementV2();
+        //insertByJdbcInPreparedStatementV2();
         //insertByJdbcInPreparedStatementV3();
         //insertByJdbcInPreparedStatementV3();
         //insertByJdbcInPreparedStatementV4();
+
+        //测试preparemen和statment的binlog日志格式
+        //insertByJdbcInStatement();
+        insertByJdbcInPreparedStatement();
     }
 
     //1. data:100w,方式： Spring框架+Druid+单线程
@@ -102,10 +106,12 @@ public class InsertDataTest {
             System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
             long startTime = new Date().getTime();
-            for(int i = 1; i <= 1000000; i ++){
+            //for(int i = 1; i <= 1000000; i ++){//100w
+            for(int i = 1; i <= 100; i ++){
                 String sql = "insert into `geek_user` ( `user_name`, `password`, `nick_name`, `id_card`) values('王五','123456','小五','2344556666')";
                 stmt.addBatch(sql);
-                if(i % 100000 == 0){
+                //if(i % 100000 == 0){//100w
+                if(i % 10 == 0){
                     stmt.executeBatch();
                     conn.commit();//执行完后，手动提交事务
                     stmt.clearBatch();
@@ -279,10 +285,12 @@ public class InsertDataTest {
             pstm = conn.prepareStatement("insert into `geek_user` ( `user_name`, `password`, `nick_name`, `id_card`) values('王五','123456','小五','2344556666')");
             conn.setAutoCommit(false);//把Auto commit设置为false,不让它自动提交
             long startTime = new Date().getTime();
-            for(int i = 1; i <= 1000000; i ++){
+            //for(int i = 1; i <= 1000000; i ++){//100w
+            for(int i = 1; i <= 100; i ++){
                 // 将一组参数添加到此 PreparedStatement 对象的批处理命令中。
                 pstm.addBatch();
-                if(i % 10000 == 0){
+                //if(i % 10000 == 0){//100w
+                if(i % 10 == 0){
                     pstm.executeBatch();
                     conn.commit();//执行完后，手动提交事务
                     pstm.clearBatch();

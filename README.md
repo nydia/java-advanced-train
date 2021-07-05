@@ -13,6 +13,7 @@
 - mysqlShardingSphere-proxy5.0.0-alpha-readwrite-splitting： 使用中间件 Shardingsphere-proxy读写分离
 - mysqlShardingSphere-proxy5.0.0-alpha-sharding： 使用中间件 Shardingsphere-proxy分库分表
 - mysqlShardingSphere-proxy5.0.0-alpha-shardingAndXa： 使用中间件 Shardingsphere-proxy分库分表和分布式事务
+- mysqlShardingSphere-jdbc5.0.0-beta-xa： 使用shardingsphere-jdbc实现分布式事务
 
 
 ## 1. Jvm实战
