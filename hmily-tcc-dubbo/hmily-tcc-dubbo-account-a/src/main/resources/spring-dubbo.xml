@@ -16,12 +16,18 @@
                     charset="UTF-8" threadpool="fixed" threads="500"
                     queues="0" buffer="8192" accepts="0" payload="8388608" />
 
+    <!--
     <dubbo:service interface="org.dromara.hmily.demo.common.account.api.AccountService"
                    ref="accountService" executes="20"/>
-
+    -->
     <dubbo:reference timeout="20000"
-                     interface="org.dromara.hmily.demo.common.inventory.api.InventoryService"
-                     id="inventoryService"
+                     interface="org.dromara.hmily.demo.common.freeze.api.FreezeService"
+                     id="freezeService"
                      retries="0" check="false" loadbalance="hmilyRandom"/>
+
+    <dubbo:service interface="org.dromara.hmily.demo.common.account.api.AccountService"
+                   ref="accountServiceA" executes="20" group="A"/>
+
+
 
 </beans>

@@ -27,6 +27,7 @@ hs_err_pid*
 /**/**/target/
 /**/**/.idea/
 /**/**/*.iml
+/**/**/logs/
 
 /JavaAdvancedTrain/target/
 /mysql/target/
@@ -50,6 +51,10 @@ hs_err_pid*
 /mysqlShardingSphere-proxy5.0.0-alpha-shardingAndXa/mysql.iml
 /mysqlShardingSphere-proxy5.0.0-alpha-sharding/.idea/
 /mysqlShardingSphere-proxy5.0.0-alpha-sharding/target/
+<<<<<<< HEAD
+/mysqlShardingSphere-jdbc5.0.0-beta-xa/.idea/
+/mysqlShardingSphere-jdbc5.0.0-beta-xa/target/
+=======
 /hmily-tcc-springcloud/logs/
 /hmily-tcc-springcloud/hmily-demo-springcloud-eureka/.idea/
 /hmily-tcc-springcloud/hmily-demo-springcloud-eureka/target/
@@ -77,3 +82,4 @@ hs_err_pid*
 /rpc01/rpcfx-demo-api/target/
 /rpc01/rpcfx-demo-consumer/target/
 /rpc01/rpcfx-demo-provider/target/
+>>>>>>> 12492a64e4d6fccaa1a6b789449158173f8ea13b

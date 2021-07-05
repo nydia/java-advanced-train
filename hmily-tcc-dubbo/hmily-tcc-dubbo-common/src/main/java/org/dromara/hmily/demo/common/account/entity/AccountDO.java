@@ -25,7 +25,7 @@ import java.util.Date;
 /**
  * The type Account do.
  *
- * @author xiaoyu
+ * @author nydia
  */
 @Data
 public class AccountDO implements Serializable {
@@ -38,7 +38,10 @@ public class AccountDO implements Serializable {
 
     private BigDecimal balance;
 
-    private BigDecimal freezeAmount;
+    /**
+     * 账户类型 RMB - 人民币 / USD - 美元
+     */
+    private String accountType;
 
     private Date createTime;
 

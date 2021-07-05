@@ -13,6 +13,7 @@
 - mysqlShardingSphere-proxy5.0.0-alpha-readwrite-splitting： 使用中间件 Shardingsphere-proxy读写分离
 - mysqlShardingSphere-proxy5.0.0-alpha-sharding： 使用中间件 Shardingsphere-proxy分库分表
 - mysqlShardingSphere-proxy5.0.0-alpha-shardingAndXa： 使用中间件 Shardingsphere-proxy分库分表和分布式事务
+- mysqlShardingSphere-jdbc5.0.0-beta-xa： 使用shardingsphere-jdbc实现分布式事务
 - hmily-tcc-springcloud： 微服务框架SpringCloud + 分布式事务中间件（hmily) 使用tcc协议模式保证事务的一致性
 - hmily-tcc-dubbo： 微服务框架（Dubbo) + 分布式事务中间件（hmily) 使用tcc协议模式保证事务的一致性
 
@@ -26,3 +27,9 @@ idea 安装 HexView插件 -> 右击class查看十六进制编码
 1. nio 阻塞nio
 
 2. nio2 非负责nio
+
+## Companys
+
+CREATE USER 'repl'@'%' IDENTIFIED BY '@Zz123456';
+GRANT ALL ON hmily.* TO 'repl'@'%';
+UPDATE mysql.user SET authentication_string=PASSWORD("Zz123456@") WHERE USER="repl" AND HOST="&";

@@ -38,7 +38,7 @@ import static com.google.common.collect.Lists.newArrayList;
 /**
  * The type Swagger config.
  *
- * @author xiaoyu
+ * @author nydia
  */
 @Configuration
 @EnableSwagger2

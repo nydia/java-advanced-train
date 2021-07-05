@@ -1,4 +1,7 @@
 
+CREATE USER 'repl'@'%' IDENTIFIED BY '@Zz123456';
+
+
 DROP PROCEDURE IF EXISTS `add_data`;
 DELIMITER ;;
 CREATE PROCEDURE `add_data`()
@@ -9,7 +12,7 @@ BEGIN
     WHILE i<=100 DO
         SET j=1;
         WHILE j<100 DO
-            INSERT INTO db(username) VALUES('²âÊÔ');
+            INSERT INTO db(username) VALUES(CONCAT('²âÊÔ',CEILING(RAND()*900+100)));
             SET j = j + 1;
         END WHILE;
         SET i = i + 1;

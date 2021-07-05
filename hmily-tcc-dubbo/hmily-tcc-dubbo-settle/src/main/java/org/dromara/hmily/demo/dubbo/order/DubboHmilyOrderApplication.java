@@ -24,7 +24,7 @@ import org.springframework.context.annotation.ImportResource;
 /**
  * DubboTccOrderApplication.
  *
- * @author xiaoyu
+ * @author nydia
  */
 @SpringBootApplication
 @ImportResource({"classpath:spring-dubbo.xml"})

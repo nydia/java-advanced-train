@@ -25,11 +25,11 @@ import org.springframework.context.annotation.ImportResource;
 /**
  * The DubboHmilyAccountApplication.
  *
- * @author xiaoyu
+ * @author nydia
  */
 @SpringBootApplication
 @ImportResource({"classpath:spring-dubbo.xml"})
-@MapperScan("org.dromara.hmily.demo.common.account.mapper")
+@MapperScan({"org.dromara.hmily.demo.common.account.mapper", "org.dromara.hmily.demo.common.freeze.mapper"})
 public class DubboHmilyAccountApplication {
 
     /**

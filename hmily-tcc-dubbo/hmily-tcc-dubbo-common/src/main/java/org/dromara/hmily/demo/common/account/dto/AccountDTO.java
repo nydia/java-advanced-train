@@ -16,7 +16,7 @@
 
 package org.dromara.hmily.demo.common.account.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -24,9 +24,13 @@ import java.math.BigDecimal;
 /**
  * The type Account dto.
  *
- * @author xiaoyu
+ * @author nydia
  */
-@Data
+@Setter
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountDTO implements Serializable {
 
     private static final long serialVersionUID = 7223470850578998427L;
@@ -40,5 +44,10 @@ public class AccountDTO implements Serializable {
      * 扣款金额
      */
     private BigDecimal amount;
+
+    /**
+     * 账户类型 RMB - 人民币 / USD - 美元
+     */
+    private String accountType;
 
 }
