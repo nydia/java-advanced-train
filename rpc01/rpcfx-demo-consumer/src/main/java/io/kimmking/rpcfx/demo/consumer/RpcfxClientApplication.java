@@ -38,8 +38,6 @@ public class RpcfxClientApplication {
 
 		//
 		UserService userService2 = Rpcfx.createFromRegistry(UserService.class, "localhost:2181", new TagRouter(), new RandomLoadBalancer(), new CuicuiFilter());
-
-//		SpringApplication.run(RpcfxClientApplication.class, args);
 	}
 
 	private static class TagRouter implements Router {
