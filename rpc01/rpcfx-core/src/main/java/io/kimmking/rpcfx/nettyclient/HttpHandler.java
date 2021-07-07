@@ -9,6 +9,7 @@ import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpEntity;
 
 public class HttpHandler extends SimpleChannelInboundHandler<HttpObject> {
 
