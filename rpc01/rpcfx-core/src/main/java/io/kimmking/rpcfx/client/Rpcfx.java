@@ -67,12 +67,11 @@ public final class Rpcfx {
 //        AspectJProxyFactory proxyFactory = new AspectJProxyFactory(serviceClass);
 //        proxyFactory.addAspect(RpcfxAspect.class);
 //        proxyFactory.setProxyTargetClass(true);//是否需要使用CGLIB代理
-        ////return (T)proxyFactory.getProxy();
-        //Object o2 = (T)proxyFactory.getProxy();
-        //return (T)proxyFactory.getProxy();
+//        return (T)proxyFactory.getProxy();
+//        Object o2 = (T)proxyFactory.getProxy();
+//        return (T)proxyFactory.getProxy();
 
 //        try {
-
 //            ProxyFactory proxyFactory = new ProxyFactory();
 //            proxyFactory.setTargetSource(Rpcfx.class);
 //            proxyFactory.setProxyTargetClass(true);
@@ -88,15 +87,16 @@ public final class Rpcfx {
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
-//        ProxyFactory proxyFactory = new ProxyFactory();
-//        proxyFactory.setTarget(serviceClass);
-//        proxyFactory.setInterfaces(new Class[]{serviceClass});
-
-        T t = (T)Proxy.newProxyInstance(Rpcfx.class.getClassLoader(), new Class[]{serviceClass}, new RpcfxInvocationHandler(serviceClass, url, filters));
-        return t;
 
         // 0. 替换动态代理 -> AOP
         //return (T) Proxy.newProxyInstance(Rpcfx.class.getClassLoader(), new Class[]{serviceClass}, new RpcfxInvocationHandler(serviceClass, url, filters));
+
+        T t = (T)Proxy.newProxyInstance(Rpcfx.class.getClassLoader(), new Class[]{serviceClass}, new RpcfxInvocationHandler(serviceClass, url, filters));
+        //打印全限定名称（实际返回的代理对象名称：com.sun.proxy.$Proxy3） 这个是真正的代理类
+        System.out.println(t.getClass().getName());
+        //idea工具显示的代理名称：io.kimmking.rpcfx.demo.provider.UserServiceImpl@29541e4e
+        System.out.println(t.toString());
+        return t;
     }
 
     public static class RpcfxInvocationHandler implements InvocationHandler {
