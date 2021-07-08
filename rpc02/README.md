@@ -1,3 +1,7 @@
 # Java训练营作业
 
-## 第九周作业 第3题
+## 动态代理类
+
+ProxyDemo.java
+
+ProxyDemoInteface.java
