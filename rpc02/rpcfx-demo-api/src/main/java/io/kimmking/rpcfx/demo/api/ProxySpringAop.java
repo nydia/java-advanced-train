@@ -3,10 +3,6 @@ package io.kimmking.rpcfx.demo.api;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.RegexpMethodPointcutAdvisor;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-
 /**
  * @Auther: hqlv
  * @Date: 2021/7/8 23:51
@@ -23,6 +19,12 @@ public class ProxySpringAop {
         //5. 添加环绕增强
         advisor.setAdvice(new BrowserAroundAdvice());
         //6. 设置切入点正则表达式
+        advisor.setPattern("io.kimmking.rpcfx.demo.api");
+        // 7.工厂增加切面
+        proxyFactory.addAdvisor(advisor);
+        ProxyDemoInterface proxyDemoInterface = (ProxyDemoInterface)proxyFactory.getProxy();
+        proxyDemoInterface.proxyMetho(1);
+
     }
 
 }
