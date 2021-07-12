@@ -3,7 +3,8 @@ package io.kimmking.rpcfx.client;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
-import io.kimmking.rpcfx.aop.RpcfxAspect;
+import io.kimmking.rpcfx.aop.BaseServiceProxy;
+import io.kimmking.rpcfx.aop.BaseServiceProxyFactory;
 import io.kimmking.rpcfx.api.*;
 import io.kimmking.rpcfx.nettyclient.HttpClient;
 import okhttp3.MediaType;
@@ -91,12 +92,19 @@ public final class Rpcfx {
         // 0. 替换动态代理 -> AOP
         //return (T) Proxy.newProxyInstance(Rpcfx.class.getClassLoader(), new Class[]{serviceClass}, new RpcfxInvocationHandler(serviceClass, url, filters));
 
-        T t = (T)Proxy.newProxyInstance(Rpcfx.class.getClassLoader(), new Class[]{serviceClass}, new RpcfxInvocationHandler(serviceClass, url, filters));
-        //打印全限定名称（实际返回的代理对象名称：com.sun.proxy.$Proxy3） 这个是真正的代理类
-        System.out.println(t.getClass().getName());
-        //idea工具显示的代理名称：io.kimmking.rpcfx.demo.provider.UserServiceImpl@29541e4e
-        System.out.println(t.toString());
-        return t;
+//        T t = (T)Proxy.newProxyInstance(Rpcfx.class.getClassLoader(), new Class[]{serviceClass}, new RpcfxInvocationHandler(serviceClass, url, filters));
+//        //打印全限定名称（实际返回的代理对象名称：com.sun.proxy.$Proxy3） 这个是真正的代理类
+//        System.out.println(t.getClass().getName());
+//        //idea工具显示的代理名称：io.kimmking.rpcfx.demo.provider.UserServiceImpl@29541e4e
+//        System.out.println(t.toString());
+//        return t;
+
+
+        BaseServiceProxyFactory<T> factory = new BaseServiceProxyFactory<>();
+        factory.setInterfaceClass(serviceClass);
+        factory.setFilters(filters);
+        factory.setUrl(url);
+        return (T)factory.getObject();
     }
 
     public static class RpcfxInvocationHandler implements InvocationHandler {
@@ -147,6 +155,7 @@ public final class Rpcfx {
             return JSON.parse(response.getResult().toString());
         }
 
+        @SuppressWarnings("Duplicates")
         private RpcfxResponse post(RpcfxRequest req, String url) throws IOException {
             String reqJson = JSON.toJSONString(req);
             System.out.println("req json: "+reqJson);
