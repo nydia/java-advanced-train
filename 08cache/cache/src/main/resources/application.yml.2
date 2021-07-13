@@ -1,22 +1,20 @@
 server:
-  port: 8082
+  port: 8080
 
 spring:
   datasource:
     username: root
-    password:
-    url: jdbc:mysql://localhost:3316/db?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    password: 123456
+    url: jdbc:mysql://localhost:3307/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
   cache:
     type: redis
   redis:
-    #host: localhost
-    host: 192.168.8.186
+    host: localhost
     lettuce:
       pool:
         max-active: 16
         max-wait: 10ms
-    password: Pwd@Iboxpay
 
 #    type: ehcache
 #    ehcache:

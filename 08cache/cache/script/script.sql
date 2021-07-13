@@ -15,3 +15,18 @@ insert into user(name, age) values('test3', 3);
 insert into user(name, age) values('test4', 4);
 insert into user(name, age) values('test5', 5);
 insert into user(name, age) values('test6', 6);
+
+
+drop table if EXISTS td_order;
+
+CREATE TABLE `td_order` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `order_no` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+insert into td_order(order_no) values('no1');
+insert into td_order(order_no) values('no2');
+insert into td_order(order_no) values('no3');
+insert into td_order(order_no) values('no4');
+insert into td_order(order_no) values('no5');
