@@ -13,6 +13,7 @@
         <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     </resultMap>
 
+    <!-- userCache = "true" 开启一级缓存 -->
     <select id="find" resultType="io.kimmking.cache.entity.Order" useCache="true">
         select * from td_order where id = #{id}
     </select>

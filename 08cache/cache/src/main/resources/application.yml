@@ -23,6 +23,12 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: io.kimmking.cache.entity
+  configuration:
+    cache-enabled: true # 开启二级缓存
+    # 一级缓存指定为session级别
+    #local-cache-scope: session
+    # #一级缓存指定为statement级别 （每次查询结束都会清掉一级缓存，实际效果就是禁用了一级缓存）
+    local-cache-scope: statement
 
 logging:
   level:
