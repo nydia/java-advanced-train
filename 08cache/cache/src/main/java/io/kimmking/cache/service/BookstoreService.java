@@ -4,6 +4,7 @@ import io.kimmking.cache.entity.Author;
 import io.kimmking.cache.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 //hibernate cache test
@@ -29,7 +30,7 @@ public class BookstoreService {
     }
 
     public Author find(){
-        return (Author)authorRepository.findById(null);
+        return authorRepository.findById(null).get();
     }
 
 }
