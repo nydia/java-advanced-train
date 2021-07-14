@@ -50,7 +50,7 @@ public class MybatisCacheTest {
         System.out.println(user2);
     }
 
-    //mybatis一级缓存测试
+    //mybatis一级缓存测试 (mybatis.configuration.cache-enabled 是否开启全局配置)
     @Test
     public void diffSqlSession(){
         // 不同 sqlSession 进行第一次查询

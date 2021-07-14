@@ -1,20 +1,22 @@
 server:
-  port: 8080
+  port: 8082
 
 spring:
   datasource:
     username: root
-    password: 123456
-    url: jdbc:mysql://localhost:3307/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    password:
+    url: jdbc:mysql://localhost:3316/db?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
   cache:
     type: redis
   redis:
-    host: localhost
+    #host: localhost
+    host: 192.168.8.186
     lettuce:
       pool:
         max-active: 16
         max-wait: 10ms
+    password: Pwd@Iboxpay
 
 #    type: ehcache
 #    ehcache:
@@ -24,11 +26,17 @@ mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: io.kimmking.cache.entity
   configuration:
-    cache-enabled: true # 开启二级缓存
-    # 一级缓存指定为session级别
-    #local-cache-scope: session
-    # #一级缓存指定为statement级别 （每次查询结束都会清掉一级缓存，实际效果就是禁用了一级缓存）
-    local-cache-scope: statement
+    # 使全局的映射器启用或禁用缓存 默认true
+    # 使用二级缓存：
+    #     1. cache-enabled: true
+    #     2. mappering 文件里面设置：<cache type="org.mybatis.caches.ehcache.LoggingEhcache"><property name="memoryStoreEvictionPolicy" value="LRU"/></cache>
+    #     注：单独设置 cache-enabled: true 是不起作用的
+    cache-enabled: true
+    # 缓存的namespace 已经废弃
+    # cache-names:
+    #  - "io.kimmking.cache.mapper.OrderMapper"
+    # 一级缓存  设置本地缓存范围 session:就会有数据的共享  statement:语句范围 (这样就不会有数据的共享 ) defalut:session
+    local-cache-scope: session
 
 logging:
   level:
