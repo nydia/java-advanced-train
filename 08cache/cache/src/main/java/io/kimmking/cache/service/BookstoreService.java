@@ -30,7 +30,7 @@ public class BookstoreService {
     }
 
     public Author find(){
-        return authorRepository.findById(null).get();
+        return authorRepository.findById(1L).get();
     }
 
 }
