@@ -62,7 +62,7 @@
 			<artifactId>commons-pool2</artifactId>
 		</dependency>
 
-
+		<!-- mybatis ehcache cache start -->
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
@@ -73,7 +73,9 @@
 			<artifactId>mybatis-ehcache</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<!-- mybatis ehcache cache end -->
 
+		<!-- mybatis redis cache start -->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
@@ -90,6 +92,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- mybatis redis cache end -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -102,6 +105,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- hibernate start -->
+		<dependency>
+			<groupId>com.vladmihalcea</groupId>
+			<artifactId>hibernate-types-52</artifactId>
+			<version>2.3.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<!-- hibernate end -->
+
 	</dependencies>
 
 	<build>
