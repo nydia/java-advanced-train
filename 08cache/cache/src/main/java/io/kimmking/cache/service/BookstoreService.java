@@ -21,7 +21,7 @@ public class BookstoreService {
 
     public void insertAuthor() {
         Author author = new Author();
-        author.setId(UUID.randomUUID());
+        author.setId(1L);
         author.setName("Joana Nimar");
         author.setGenre("History");
         author.setAge(34);
@@ -29,8 +29,8 @@ public class BookstoreService {
         authorRepository.save(author);
     }
 
-    public Author find(){
-        return authorRepository.findById(1L).get();
+    public Author find(Long id){
+        return authorRepository.getOne(id);
     }
 
 }

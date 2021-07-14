@@ -4,6 +4,8 @@ import io.kimmking.cache.entity.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 //hibernate cache test
 
 

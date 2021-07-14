@@ -1,38 +1,24 @@
 server:
-  port: 8082
+  port: 8080
 
 spring:
   datasource:
     username: root
-    password:
-    url: jdbc:mysql://localhost:3316/db?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    password: 123456
+    url: jdbc:mysql://localhost:3307/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
   cache:
     type: redis
   redis:
-    #host: localhost
-    host: 192.168.8.186
+    host: localhost
     lettuce:
       pool:
         max-active: 16
         max-wait: 10ms
-    password: Pwd@Iboxpay
 
 #    type: ehcache
 #    ehcache:
 #      config: ehcache.xml
-
-  # hibernate配置
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
-    properties:
-      hibernate:
-        #dialect: org.hibernate.dialect.MySQL8Dialect
-        dialect: org.hibernate.dialect.MySQLDialect
-    open-in-view: true
-
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
@@ -50,6 +36,24 @@ mybatis:
     # 一级缓存  设置本地缓存范围 session:就会有数据的共享  statement:语句范围 (这样就不会有数据的共享 ) defalut:session
     local-cache-scope: session
 
+  # hibernate配置
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        #dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          provider_class: org.hibernate.cache.EhCacheProvider
+    open-in-view: true
+
 logging:
   level:
     io:
@@ -57,6 +61,7 @@ logging:
         cache : debug
   org:
     hibernate:
+      sql: debug
       type:
         descriptor:
-          sql: TRACE
+          sql: debug

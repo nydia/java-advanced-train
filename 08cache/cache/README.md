@@ -1,3 +1,9 @@
-curl http://localhost:8080/user/find?id=1
 
+spring cache:
+cul http://localhost:8080/user/find?id=1
+
+mybatis cache: 
 curl http://localhost:8080/order/find?id=1
+
+hibernate cache: 
+curl http://localhost:8080/author/find?id=1
