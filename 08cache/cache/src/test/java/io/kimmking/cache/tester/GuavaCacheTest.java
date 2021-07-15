@@ -1,13 +1,14 @@
 package io.kimmking.cache.tester;
 
-import io.kimmking.cache.service.BookstoreService;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import sun.security.util.Cache;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Copyright (C) 2021 ShangHai IPS Information Technology Co.,Ltd.
@@ -25,14 +26,34 @@ import sun.security.util.Cache;
  * @Auther: nydia.lhq
  * @Date: 2021/7/13 16:13
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 @Slf4j
 public class GuavaCacheTest {
 
-    @Test
+//    @Test
     public void testCache(){
-        Cache<String, String> cache
+
+    }
+
+    public static void main(String[] args) {
+        try {
+            Cache<String, String> cache = CacheBuilder.newBuilder()
+                    .maximumSize(1024)
+                    .expireAfterWrite(2, TimeUnit.SECONDS)
+                    .weakValues() //弱引用
+                    .build();
+            cache.put("word","Hello Guava Cache");
+            System.out.println(cache.getIfPresent("word"));
+
+            Thread.sleep(3000L);
+
+            System.out.println(cache.getIfPresent("word"));//过期
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }

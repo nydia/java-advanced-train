@@ -11,11 +11,11 @@ import java.util.UUID;
 
 
 @Service
-public class BookstoreService {
+public class AuthorService {
 
     private final AuthorRepository authorRepository;
 
-    public BookstoreService(AuthorRepository authorRepository) {
+    public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 

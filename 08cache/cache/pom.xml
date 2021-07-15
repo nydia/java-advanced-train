@@ -37,15 +37,6 @@
 			<version>2.1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.47</version>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
@@ -54,9 +45,21 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.47</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<!-- redis client -->
+		<dependency>
 			<groupId>io.lettuce</groupId>
 			<artifactId>lettuce-core</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-pool2</artifactId>
@@ -126,7 +129,48 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.github.debop</groupId>-->
+			<!--<artifactId>hibernate-redis</artifactId>-->
+			<!--<version>2.3.2</version>-->
+		<!--</dependency>-->
+		<dependency>
+			<groupId>com.github.debop</groupId>
+			<artifactId>hibernate-redis</artifactId>
+			<systemPath>${project.basedir}/libs/hibernate-redis-2.4.0.jar</systemPath>
+			<scope>system</scope>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>de.ruedigermoeller</groupId>
+			<artifactId>fst</artifactId>
+			<version>2.48</version>
+		</dependency>
 		<!-- hibernate end -->
+
+		<!-- 爬虫 start -->
+		<dependency>
+			<groupId>org.xerial.snappy</groupId>
+			<artifactId>snappy-java</artifactId>
+			<version>1.1.7.3</version>
+		</dependency>
+		<!-- 爬虫 end -->
+
+		<!-- guava cache start -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>30.1.1-jre</version>
+		</dependency>
+		<!-- guava cache end -->
+
+
+
 
 	</dependencies>
 

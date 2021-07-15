@@ -1,16 +1,17 @@
 package io.kimmking.cache.tester;
 
-import io.kimmking.cache.entity.User;
-import io.kimmking.cache.mapper.UserMapper;
-import io.kimmking.cache.service.BookstoreService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.kimmking.cache.entity.Author;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.persistence.EntityManagerFactory;
 
 /**
  * Copyright (C) 2021 ShangHai IPS Information Technology Co.,Ltd.
@@ -34,11 +35,29 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class HibernateCacheTest {
 
     @Autowired
-    BookstoreService bookstoreService;
+    private EntityManagerFactory entityManagerFactory;
 
+    //测试一级缓存 （debug断点模式下查看sql）
     @Test
     public void testLv1Cache(){
-        bookstoreService.insertAuthor();
+        try {
+            if (entityManagerFactory.unwrap(SessionFactory.class) == null) {
+                throw new NullPointerException("factory is not a hibernate factory");
+            }
+            SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+
+            Session session = sessionFactory.openSession();
+            //第一次查询 查库
+            Author author = session.get(Author.class, 1L);
+            System.out.println(new ObjectMapper().writeValueAsString(author));
+            //第二次查询 查缓存
+            Author author2 = session.get(Author.class, 1L);
+            System.out.println(new ObjectMapper().writeValueAsString(author2));
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }
