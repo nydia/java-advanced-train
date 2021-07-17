@@ -38,6 +38,7 @@ public class RedissonConfiguration {
     @Value("${spring.redis.timeout:30}")
     private int timeout;
 
+    //rdis.2.4.5 配置protected-mode 有问题，用redis5.0.10可以
     @Bean
     public RedissonClient redissionClient(){
         Config config = new Config();
@@ -45,6 +46,7 @@ public class RedissonConfiguration {
                 //.setAddress("redis://"+host+":" + port)
                 .setAddress(host+":" + port)
                 .setPassword(password)
+                .setTimeout(timeout)
                 .setClientName("redission_lock");
         return Redisson.create(config);
     }

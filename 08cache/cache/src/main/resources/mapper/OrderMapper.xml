@@ -16,7 +16,7 @@
     </resultMap>
 
     <!-- userCache = "true" 开启本条语句的二级缓存 -->
-    <select id="find" resultType="io.kimmking.cache.entity.Order" useCache="false">
+    <select id="find" resultMap="BaseResultMap" useCache="false">
         select * from td_order where id = #{id}
     </select>
 

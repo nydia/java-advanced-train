@@ -1,15 +1,11 @@
 package io.kimmking.cache.redisclient;
 
-import io.lettuce.core.RedisClient;
-import io.lettuce.core.RedisURI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-
-import java.time.Duration;
 
 /**
  * Copyright (C) 2021 ShangHai IPS Information Technology Co.,Ltd.
@@ -48,4 +44,5 @@ public class JedisConfiguration {
         JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout, password);
         return jedisPool.getResource();
     }
+
 }

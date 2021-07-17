@@ -27,12 +27,37 @@ spring:
   # hibernate配置
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
     properties:
+      ## 缓存策略，总是缓存
+      javax:
+        persistence:
+          sharedCache:
+            mode: ALL
       hibernate:
         #dialect: org.hibernate.dialect.MySQL8Dialect
         dialect: org.hibernate.dialect.MySQLDialect
+        cache:
+          # 关闭二级缓存
+          use_second_level_cache: true
+          use_query_cache: true
+          region:
+            #factory_class: org.hibernate.cache.EhCacheProvider
+            factory_class: org.hibernate.cache.redis.hibernate52.SingletonRedisRegionFactory
+          ## 缓存标示前缀
+          region_prefix: hibernate
+          ## 结构化缓存实体
+          use_structured_entries: true
+          ## 配置文件路径
+          provider_configuration_file_resource_path: classpath:hibernate-redis.properties
+      redisson-config: classpath:redisson.yaml
+      redis:
+        expiryInSeconds:
+          default: 120
+          hibernate:
+            common: 0
+            account: 1200
     open-in-view: true
 
 
@@ -45,7 +70,7 @@ mybatis:
     #     1. cache-enabled: true
     #     2. mappering 文件里面设置：<cache type="org.mybatis.caches.ehcache.LoggingEhcache"><property name="memoryStoreEvictionPolicy" value="LRU"/></cache>
     #     注：单独设置 cache-enabled: true 是不起作用的
-    cache-enabled: true
+    cache-enabled: false
     # 缓存的namespace 已经废弃
     # cache-names:
     #  - "io.kimmking.cache.mapper.OrderMapper"

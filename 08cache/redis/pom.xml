@@ -72,6 +72,15 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- 数据连接驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+
+		</dependency>
+
 	</dependencies>
 
 	<build>
