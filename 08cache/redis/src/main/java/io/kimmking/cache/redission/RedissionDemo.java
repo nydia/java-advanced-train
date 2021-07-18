@@ -10,10 +10,11 @@ import org.redisson.config.Config;
 
 public class RedissionDemo {
 
+    //分布式锁
     @SneakyThrows
     public static void main(String[] args) {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://127.0.0.1:6379");
+        config.useSingleServer().setAddress("redis://192.168.99.100:6379");
 
         final RedissonClient client = Redisson.create(config);
         RMap<String, String> rmap = client.getMap("map1");
