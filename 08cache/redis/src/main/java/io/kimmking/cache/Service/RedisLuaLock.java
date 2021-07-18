@@ -18,7 +18,6 @@ public class RedisLuaLock {
     //加锁
     public static void lock(){
         RedisTemplateClient.set("test", "111");
-
         System.out.println(RedisTemplateClient.get("test"));
     }
 
