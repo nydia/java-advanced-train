@@ -1,5 +1,7 @@
 package io.kimmking.cache.Service;
 
+import io.kimmking.cache.redistemplate.RedisTemplateClient;
+import org.springframework.data.redis.core.RedisTemplate;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -15,14 +17,16 @@ public class RedisLuaLock {
 
     //加锁
     public static void lock(){
-        Jedis  jedis = new Jedis("192.168.99.100", 6379);
-        System.out.println(jedis.info());
+        RedisTemplate redisTemplate = RedisTemplateClient.redisTemplate();
+        redisTemplate.set
     }
 
     //解锁
     public static void unlock(){
 
     }
+
+
 
 
 }
