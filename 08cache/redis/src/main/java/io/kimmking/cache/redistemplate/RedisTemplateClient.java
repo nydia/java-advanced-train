@@ -6,9 +6,9 @@ import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,15 +18,38 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedisTemplateClient {
 
+    // ++++++++++ String类型数据 +++++++++++
     //设置值
     public static void set(String key, String val){
         RedisTemplate redisTemplate = redisTemplate();
         redisTemplate.opsForValue().set(key, val, 30, TimeUnit.SECONDS);
     }
 
+    //取值
     public static Object get(String key){
         RedisTemplate redisTemplate = redisTemplate();
         return redisTemplate.opsForValue().get(key);
+    }
+
+    // ++++++++++ Hash 类型数据 +++++++++++
+    /**
+     * HashSet
+     * @param key 键
+     * @param map 对应多个键值
+     * @return true 成功 false 失败
+     */
+    public static void hmset(String key, Map<Object,Object> map){
+        RedisTemplate redisTemplate = redisTemplate();
+        redisTemplate.opsForHash().putAll(key, map);
+    }
+
+    /**
+     * 获取hashKey对应的所有键值
+     * @param key 键
+     * @return 对应的多个键值
+     */
+    public static Map<Object, Object> hmget(String key){
+        return redisTemplate().opsForHash().entries(key);
     }
 
     //获取 RedisTemplate
@@ -49,10 +72,24 @@ public class RedisTemplateClient {
         //集群
 //        JedisConnectionFactory fac = new JedisConnectionFactory(rcc);
         fac.afterPropertiesSet();
-        redisTemplate.setDefaultSerializer(new StringRedisSerializer());
+        //redisTemplate.setDefaultSerializer(new StringRedisSerializer());
         redisTemplate.setConnectionFactory(fac);
         redisTemplate.afterPropertiesSet();
+
+        //protobuf 序列化
+        ProtobufSerializer protobufSerializer = new ProtobufSerializer();
+        redisTemplate.setKeySerializer(protobufSerializer);
+        redisTemplate.setHashValueSerializer(protobufSerializer);
+        redisTemplate.setValueSerializer(protobufSerializer);
+        redisTemplate.setHashKeySerializer(protobufSerializer);
+
         return redisTemplate;
+    }
+
+    public static void main(String[] args) {
+        RedisTemplateClient.set("test", "111");
+        System.out.println(RedisTemplateClient.get("test"));
+
     }
 
 }

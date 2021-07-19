@@ -1,7 +1,9 @@
 package io.kimmking.cache.redistemplate;
 
 import io.protostuff.LinkedBuffer;
+import io.protostuff.ProtostuffIOUtil;
 import io.protostuff.Schema;
+import io.protostuff.runtime.RuntimeSchema;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
@@ -13,7 +15,7 @@ import org.springframework.data.redis.serializer.SerializationException;
 public class ProtobufSerializer<T> implements RedisSerializer<T> {
 
     // RuntimeSchema是一个包含业务对象所有信息的类，包括类信息、字段信息
-    private static final Schema<ProtoStuffWrapper> schema = RuntimeSchema.getSchema(ProtoStuffWrapper.class);
+    Schema<ProtoStuffWrapper> schema = RuntimeSchema.getSchema(ProtoStuffWrapper.class);
 
     @Override
     public byte[] serialize(T t) throws SerializationException {
@@ -21,13 +23,15 @@ public class ProtobufSerializer<T> implements RedisSerializer<T> {
             return null;
         }
         LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
-
-        return new byte[0];
+        byte[] bs = ProtostuffIOUtil.toByteArray(new ProtoStuffWrapper<>(t), schema, buffer);
+        return bs;
     }
 
     @Override
     public T deserialize(byte[] bytes) throws SerializationException {
-        return null;
+        ProtoStuffWrapper<T> protoStuffWrapper = new ProtoStuffWrapper();
+        ProtostuffIOUtil.mergeFrom(bytes, protoStuffWrapper, schema);
+        return protoStuffWrapper.getT();
     }
 
     /**
@@ -54,7 +58,6 @@ public class ProtobufSerializer<T> implements RedisSerializer<T> {
         }
 
         @Override
-        @SuppressWarnings("unchecked")
         public ProtoStuffWrapper<T> clone() {
             try {
                 return (ProtoStuffWrapper<T>) super.clone();
@@ -63,9 +66,5 @@ public class ProtobufSerializer<T> implements RedisSerializer<T> {
             }
         }
     }
-
-//    static class RuntimeSchema{
-//
-//    }
 
 }
