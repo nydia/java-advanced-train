@@ -72,9 +72,19 @@ public class RedisTemplateClient {
         //集群
 //        JedisConnectionFactory fac = new JedisConnectionFactory(rcc);
         fac.afterPropertiesSet();
-        //redisTemplate.setDefaultSerializer(new StringRedisSerializer());
         redisTemplate.setConnectionFactory(fac);
         redisTemplate.afterPropertiesSet();
+
+        //redis的默认序列化方式是JdkSerializationRedisSerializer，需要实现Serializable接口
+//        JdkSerializationRedisSerializer jsr = new JdkSerializationRedisSerializer();
+//        redisTemplate.setKeySerializer(jsr);
+
+        //使用spring data redis的 StringRedisSerializer
+//        redisTemplate.setDefaultSerializer(new StringRedisSerializer());
+
+        //Jackson2JsonRedisSerializer 序列化方式
+        //Jackson2JsonRedisSerializer jk2j = new Jackson2JsonRedisSerializer(String.class);
+//        redisTemplate.setKeySerializer(jk2j);
 
         //protobuf 序列化
         ProtobufSerializer protobufSerializer = new ProtobufSerializer();

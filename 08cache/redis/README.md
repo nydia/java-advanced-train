@@ -138,3 +138,5 @@ public class OrderService {
 
 }
 ```
+
+3. 利用lua脚本实现分布式锁
