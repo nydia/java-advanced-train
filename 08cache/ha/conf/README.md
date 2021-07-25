@@ -1,10 +1,12 @@
-# env : docker, redis6.2.5
+# redis集群使用
+
+### env : docker, redis6.2.5
 
 1. redis tar -zxvf
 2. make prefix=/opt/softs/redis install
 3. redis建立的日志根目录logs, 存储stores, 进程根目录pid（每个redis启动之后会生成一个pid文件，用于锁住进程）
 
-# redi主从
+### redi主从
 
 1. 配置
 - 主要配置参数：dir, pidfile, port, replicaof
@@ -17,7 +19,7 @@
 - redis-server /opt/softs/redis/conf/redis-6380.conf
 
 
-# sentinel哨兵
+### sentinel哨兵
 
 1. 配置：
 - stores根目录下面建立：sentinel0 sentinel1
@@ -30,12 +32,13 @@
 	- redis-server /opt/softs/redis/conf/sentinel0.conf --sentinel
 	- redis-server /opt/softs/redis/conf/sentinel1.conf --sentinel
 
-# cluster分片集群
+### cluster分片集群
 1. 配置
 - stores根目录下面建立：cluster7000 cluster7001  cluster7002  cluster7100 cluster7101 cluster7102
 
 2. 搭建Redis Cluster主要步骤：
 	1.配置开启节点
+		- 一个docker环境里面6个节点，6个端口：7000，7001，7002，7100，7101，7102。其中7000，7001，7002为主节点，7100，7101，7102为从节点。7000通过meet分别与7001，7002建立通信。7100通过meet方式分别与7101，7102建立通信。 7100为7000的从节点，7101为7001的从节点，7102为7002的从节点。
 	2.meet
 	3.指派槽
 	4.主从关系分配
@@ -104,7 +107,47 @@ OK
 127.0.0.1:7000>
 ```
 8. 集群扩容：增加主节点
-
+```sh
+[root@e90dec803b8c conf]# sed 's/7000/7003/g' cluster-master7000.conf > cluster-master7003.conf  #  复制节点配置
+[root@e90dec803b8c conf]# sed 's/7100/7103/g' cluster-salveof7100.conf > cluster-salveof7103.conf # 复制节点配置
+[root@e90dec803b8c conf]# mkdir ../stores/cluster7003 ../stores/cluster7103
+[root@e90dec803b8c conf]# redis-server /opt/softs/redis/conf/cluster-master7003.conf
+[root@e90dec803b8c conf]# redis-server /opt/softs/redis/conf/cluster-salveof7103.conf
+[root@e90dec803b8c conf]# redis-cli -p 7000 cluster meet 127.0.0.1 7003
+OK
+[root@e90dec803b8c conf]# redis-cli -p 7100 cluster meet 127.0.0.1 7103
+OK
+[root@e90dec803b8c conf]# redis-cli -p 7000 cluster nodes
+f8536ac3337bd12971629f42699294ef44043845 127.0.0.1:7000@17000 myself,master - 0 1627209427000 0 connected 0-5461
+d18f179bffdde5ab45ae6e0b1df8b02f4d40b3fa 127.0.0.1:7101@17101 slave bc58cc1e08330bea2d7f66d96031c505437aa3d2 0 1627209428563 1 connected
+f53b4805df7fcda6c4a6e0788b6544cce3ad7485 127.0.0.1:7100@17100 slave f8536ac3337bd12971629f42699294ef44043845 0 1627209428000 0 connected
+8b6d7887f9ef004dd17f9b12b41310d3c8ef8d5f 127.0.0.1:7103@17103 master - 0 1627209426000 7 connected
+c51042f43bc75cee64de2d875aef0df708414c1a 127.0.0.1:7002@17002 master - 0 1627209429590 2 connected 10923-16383
+bc58cc1e08330bea2d7f66d96031c505437aa3d2 127.0.0.1:7001@17001 master - 0 1627209427000 1 connected 5462-10922
+977cd2b865e9292496d6bf75fd15300762849853 127.0.0.1:7003@17003 master - 0 1627209428000 6 connected
+c743425da73f319ac8a5868ce6fbbe2b2a822a6d 127.0.0.1:7102@17102 slave c51042f43bc75cee64de2d875aef0df708414c1a 0 1627209425500 2 connected
+[root@e90dec803b8c conf]# redis-cli -p 7000 cluster info
+cluster_state:ok
+cluster_slots_assigned:16384
+cluster_slots_ok:16384
+cluster_slots_pfail:0
+cluster_slots_fail:0
+cluster_known_nodes:8
+cluster_size:3
+cluster_current_epoch:7
+cluster_my_epoch:0
+cluster_stats_messages_ping_sent:21125
+cluster_stats_messages_pong_sent:21134
+cluster_stats_messages_meet_sent:6
+cluster_stats_messages_sent:42265
+cluster_stats_messages_ping_received:21134
+cluster_stats_messages_pong_received:21131
+cluster_stats_messages_received:42265
+[root@e90dec803b8c conf]# redis-cli -p 7103 cluster relicate 977cd2b865e9292496d6bf75fd15300762849853
+(error) ERR Unknown subcommand or wrong number of arguments for 'relicate'. Try CLUSTER HELP.
+[root@e90dec803b8c conf]# redis-cli -p 7103 cluster replicate 977cd2b865e9292496d6bf75fd15300762849853
+OK
+```
 
 
 # 其他：
