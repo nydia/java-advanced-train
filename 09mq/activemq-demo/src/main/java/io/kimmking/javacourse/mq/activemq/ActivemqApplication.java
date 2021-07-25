@@ -17,8 +17,8 @@ public class ActivemqApplication {
     public static void main(String[] args) {
 
         // 定义Destination
-        Destination destination = new ActiveMQTopic("test.topic");
-        // Destination destination = new ActiveMQQueue("test.queue");
+        // Destination destination = new ActiveMQTopic("test.topic");
+        Destination destination = new ActiveMQQueue("test.queue");
 
         testDestination(destination);
 
