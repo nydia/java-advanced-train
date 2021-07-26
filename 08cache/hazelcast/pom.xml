@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.kimmking.08cache</groupId>
-	<artifactId>redis</artifactId>
+	<artifactId>hazelcast</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>redis</name>
+	<name>hazelcast</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -82,43 +82,6 @@
 			</exclusions>
 		</dependency>
 
-		<!-- 数据连接驱动 -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>io.protostuff</groupId>
-			<artifactId>protostuff-core</artifactId>
-			<version>1.7.2</version>
-		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>io.protostuff</groupId>-->
-			<!--<artifactId>protostuff-runtime</artifactId>-->
-			<!--<version>1.7.0</version>-->
-		<!--</dependency>-->
-
-		<!--<dependency>-->
-			<!--<groupId>io.protostuff</groupId>-->
-			<!--<artifactId>protostuff-core</artifactId>-->
-			<!--<systemPath>${project.basedir}/libs/protostuff-core-1.7.4.jar</systemPath>-->
-			<!--<scope>system</scope>-->
-			<!--<version>1.7.4</version>-->
-		<!--</dependency>-->
-		<dependency>
-			<groupId>io.protostuff</groupId>
-			<artifactId>protostuff-runtime</artifactId>
-			<systemPath>${project.basedir}/libs/protostuff-runtime-1.7.4.jar</systemPath>
-			<scope>system</scope>
-			<version>1.7.4</version>
-		</dependency>
-		<dependency>
-			<groupId>io.protostuff</groupId>
-			<artifactId>protostuff-collectionschema</artifactId>
-			<version>1.7.4</version>
-		</dependency>
 
 	</dependencies>
 </project>
