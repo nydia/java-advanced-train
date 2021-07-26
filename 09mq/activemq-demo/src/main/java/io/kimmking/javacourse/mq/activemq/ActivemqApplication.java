@@ -28,10 +28,13 @@ public class ActivemqApplication {
     public static void testDestination(Destination destination) {
         try {
             // 创建连接和会话
-            ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://127.0.0.1:61616");
+            //ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://127.0.0.1:61616");
+            ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false");
             ActiveMQConnection conn = (ActiveMQConnection) factory.createConnection();
             conn.start();
             Session session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            //客户端确认消息
+//            Session session = conn.createSession(false, Session.CLIENT_ACKNOWLEDGE);
 
             // 创建消费者
             MessageConsumer consumer = session.createConsumer( destination );
@@ -43,16 +46,22 @@ public class ActivemqApplication {
                         // Thread.sleep();
                         System.out.println(count.incrementAndGet() + " => receive from " + destination.toString() + ": " + message);
                         // message.acknowledge(); // 前面所有未被确认的消息全部都确认。
+//                        message.acknowledge();//手动确认消息，之后消息从队列里面删除
 
                     } catch (Exception e) {
                         e.printStackTrace(); // 不要吞任何这里的异常，
+                        try {
+                            session.recover();//消费失败，消息回滚
+                        }catch (Exception ee){
+                            ee.printStackTrace();
+                        }
                     }
                 }
             };
             // 绑定消息监听器
-            consumer.setMessageListener(listener);
+            //consumer.setMessageListener(listener);
 
-            //consumer.receive()
+            consumer.receive();
 
             // 创建生产者，生产100个消息
             MessageProducer producer = session.createProducer(destination);
