@@ -11,14 +11,15 @@ public final class Kmq {
     public Kmq(String topic, int capacity) {
         this.topic = topic;
         this.capacity = capacity;
-        this.queue = new LinkedBlockingQueue(capacity);
+//        this.queue = new LinkedBlockingQueue(capacity);
+        this.list = new ArrayList<>(capacity);
     }
 
     private String topic;
 
     private int capacity;
 
-    private LinkedBlockingQueue<KmqMessage> queue;
+    //private LinkedBlockingQueue<KmqMessage> queue;
 
     private ArrayList<KmqMessage> list;
 
@@ -26,18 +27,20 @@ public final class Kmq {
 
     public boolean send(KmqMessage message) {
         //return queue.offer(message);
-        return list.add(message);
+        boolean b = list.add(message);
+        if(b)
+            position = list.indexOf(message);
+        return b;
     }
 
-    public KmqMessage poll(int index) {
+    public KmqMessage poll(int position) {
 //        return queue.poll();
-        return list.remove(index);
+        return list.get(list.size() - 1);
     }
 
-    @SneakyThrows
-    public KmqMessage poll(long timeout) {
-        return queue.poll(timeout, TimeUnit.MILLISECONDS);
-//        return list.removeIf()
-    }
+//    @SneakyThrows
+//    public KmqMessage poll(long timeout) {
+//        return queue.poll(timeout, TimeUnit.MILLISECONDS);
+//    }
 
 }

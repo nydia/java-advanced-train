@@ -6,6 +6,8 @@ public class KmqConsumer<T> {
 
     private Kmq kmq;
 
+    private int offset; //消费位置
+
     public KmqConsumer(KmqBroker broker) {
         this.broker = broker;
     }
@@ -15,8 +17,12 @@ public class KmqConsumer<T> {
         if (null == kmq) throw new RuntimeException("Topic[" + topic + "] doesn't exist.");
     }
 
-    public KmqMessage<T> poll(long timeout) {
-        return kmq.poll(timeout);
+//    public KmqMessage<T> poll(long timeout) {
+//        return kmq.poll(timeout);
+//    }
+
+    public KmqMessage<T> poll(){
+        return kmq.poll(offset);
     }
 
 }
