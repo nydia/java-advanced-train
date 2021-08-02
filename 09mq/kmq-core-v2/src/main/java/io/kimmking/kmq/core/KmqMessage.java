@@ -13,10 +13,6 @@ public class KmqMessage<T> {
 
     private T body;
 
-    private int size;
-
-    public int getSize(){
-        return body.toString().length();
-    }
+    private int position;
 
 }
