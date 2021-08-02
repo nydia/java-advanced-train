@@ -6,7 +6,7 @@ public class KmqConsumer<T> {
 
     private Kmq kmq;
 
-    private int offset; //消费位置
+    private int offset = 0; //消费位置
 
     public KmqConsumer(KmqBroker broker) {
         this.broker = broker;
@@ -22,7 +22,16 @@ public class KmqConsumer<T> {
 //    }
 
     public KmqMessage<T> poll(){
-        return kmq.poll(offset);
+        return kmq.poll(this);
     }
+
+    public int getOffset(){
+        return this.offset;
+    }
+
+    public void setOffset(int offset){
+        this.offset = offset;
+    }
+
 
 }

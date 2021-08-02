@@ -23,19 +23,28 @@ public final class Kmq {
 
     private ArrayList<KmqMessage> list;
 
-    private int position;
+    private int position = 0;
 
     public boolean send(KmqMessage message) {
         //return queue.offer(message);
         boolean b = list.add(message);
-        if(b)
-            position = list.indexOf(message);
+        if(b){
+            position ++;
+        }
         return b;
     }
 
-    public KmqMessage poll(int position) {
+    public KmqMessage poll(KmqConsumer consumer) {
+
+
 //        return queue.poll();
-        return list.get(list.size() - 1);
+        int offset = consumer.getOffset();
+        if(offset > position -1){
+            return null;
+        }
+        KmqMessage message = list.get(offset++);
+        consumer.setOffset(offset);
+        return message;
     }
 
 //    @SneakyThrows
