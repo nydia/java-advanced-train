@@ -22,7 +22,7 @@ public class KmqDemo {
         flag[0] = true;
         new Thread(() -> {
             while (flag[0]) {
-                KmqMessage<Order> message = consumer.poll(100);
+                KmqMessage<Order> message = consumer.poll();
                 if(null != message) {
                     System.out.println(message.getBody());
                 }
