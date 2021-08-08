@@ -55,9 +55,9 @@ public class ActivemqApplication {
                 }
             };
             // 绑定消息监听器
-            //consumer.setMessageListener(listener);
+            consumer.setMessageListener(listener);
 
-            consumer.receive();
+//            consumer.receive();
 
             // 创建生产者，生产100个消息
             MessageProducer producer = session.createProducer(destination);
