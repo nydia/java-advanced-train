@@ -1,4 +1,4 @@
-package com.nydia.rabbit;
+package com.nydia.camel.rabbit;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
  * @Description:
  */
 @Component
-//@RabbitListener(queues = RabbitConfig.QUEUE_B)
+//@RabbitListener(queues = RabbitConfig.QUEUE_A)
 @Slf4j
-public class MessageReceiverB { //guava ,  EventBus 的一些语法糖
+public class MessageReceiverA {
 
     @RabbitHandler
-    @RabbitListener(queues = RabbitConfig.QUEUE_B)
+    @RabbitListener(queues = RabbitConfig.QUEUE_A)
     public void process(String content){
-        log.info("接收处理队列B当中的消息： " + content);
+        log.info("接收处理队列A当中的消息： " + content);
     }
 
 }

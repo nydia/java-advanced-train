@@ -1,6 +1,7 @@
 package com.nydia.rabbit;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Component;
  * @Description:
  */
 @Component
-@RabbitListener(queues = RabbitConfig.QUEUE_A)
+//@RabbitListener(queues = RabbitConfig.QUEUE_A)
 @Slf4j
 public class MessageReceiverA {
 
+    @RabbitHandler
+    @RabbitListener(queues = RabbitConfig.QUEUE_A)
     public void process(String content){
         log.info("接收处理队列A当中的消息： " + content);
     }
