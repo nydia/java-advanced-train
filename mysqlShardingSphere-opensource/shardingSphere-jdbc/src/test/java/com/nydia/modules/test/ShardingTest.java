@@ -21,9 +21,14 @@ public class ShardingTest {
     //增
     @Test
     public void testShrdingInsert() {
-        for(int i = 0; i < 1; i ++){
+        //清空数据库数据
+        for(int i = 11; i <= 20; i ++){
             //order_id和user_id不能为空，user_id用于库路由,order_id用于表路由，具体参见配置
-            orderService.insert(Order.builder().userId(1L).amount(new BigDecimal(100)).orderNo(UUID.randomUUID().toString()).build());
+            orderService.insert(Order.builder()
+                    .userId(Long.valueOf(i))
+                    .amount(new BigDecimal(100))
+                    .orderNo(UUID.randomUUID().toString())
+                    .build());
         }
     }
     //查
