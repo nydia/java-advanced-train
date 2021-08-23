@@ -1,0 +1,61 @@
+server:
+  port: 8080
+spring:
+#  datasource:
+#     driver-class-name: com.mysql.jdbc.Driver
+#     # proxy 地址和密码
+#     #url: jdbc:mysql://localhost:3308/sharding_db?rewriteBatchedStatements=true&useServerPrepStmts=true&cachePrepStmts=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+#     url: jdbc:mysql://localhost:3307/sharding_db?autoReconnect=true&failOverReadOnly=false&maxReconnects=10&serverTimezone=Asia/Shanghai
+#     username: root
+#     password: root
+#     type: com.zaxxer.hikari.HikariDataSource
+  shardingsphere:
+      datasource:
+          names: ds-0,ds-1
+      ds-0:
+          jdbc-url: jdbc:mysql://localhost:3307/shardingsphere_ds_0?autoReconnect=true&failOverReadOnly=false&maxReconnects=10&serverTimezone=Asia/Shanghai
+          type: com.zaxxer.hikari.HikariDataSource
+          driver-class-name: com.mysql.jdbc.Driver
+          username: root
+          password: 123456
+      ds-1:
+          jdbc-url: jdbc:mysql://localhost:3307/shardingsphere_ds_1?autoReconnect=true&failOverReadOnly=false&maxReconnects=10&serverTimezone=Asia/Shanghai
+          type: com.zaxxer.hikari.HikariDataSource
+          driver-class-name: com.mysql.jdbc.Driver
+          username: root
+          password: 123456
+      rules:
+          sharding:
+              default-database-strategy:
+                  standard:
+                      sharding-column: user_id
+                      sharding-algorithm-name: database_inline
+                      binding-tables: t_order,t_order_item
+              tables:
+                  t_order:
+                      actual-data-nodes: ds-$->{0..1}.t_order
+                      key-generate-strategy:
+                          column: order_id
+                          key-generator-name: snowflake
+                  t_order_item:
+                      actual-data-nodes: ds-$->{0..1}.t_order_item
+                      key-generate-strategy:
+                          column: order_item_id
+                          key-generator-name: snowflake
+              sharding-algorithms:
+                  database_inline:
+                      type: INLINE
+                      props:
+                          algorithm-expression: ds-$->{user_id % 2}
+              key-generators:
+                  snowflake:
+                      type: SNOWFLAKE
+                      props:
+                          worker-id: 123
+
+# mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*.xml
+  configuration:
+    call-setters-on-nulls: true # mybatis空字段返回null
+  type-aliases-package: com.nydia.modules.entity

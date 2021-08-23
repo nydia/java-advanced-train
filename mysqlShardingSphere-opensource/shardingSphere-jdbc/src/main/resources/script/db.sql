@@ -9,8 +9,7 @@ CREATE TABLE `t_order` (
   `status` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '0' COMMENT '状态',
   `user_id` bigint(20) NOT NULL COMMENT '用户id',
   `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
-  PRIMARY KEY (`order_id`),
-  UNIQUE KEY `uk_coll_order_no` (`order_no`)
+  PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='订单';
 
 drop table if exists t_order_item;

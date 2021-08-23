@@ -94,6 +94,12 @@
             <version>5.0.0-beta</version>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shardingsphere.example</groupId>-->
+            <!--<artifactId>example-spring-mybatis</artifactId>-->
+            <!--<version>5.0.0-beta</version>-->
+        <!--</dependency>-->
+
     </dependencies>
 
     <build>
