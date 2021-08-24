@@ -84,7 +84,7 @@ spring.shardingsphere.rules.sharding.key-generators.snowflake.props.worker-id=12
 1. 数据库表沿用上面的sql
 2. 配置准备
 ```yaml
-# 上面的分库分表的配置沿用上面的配置
+## 分库分表沿用上面的配置
 ## 读写分离
 spring.shardingsphere.rules.readwrite-splitting.data-sources.ds-0.write-data-source-name=ds-0
 spring.shardingsphere.rules.readwrite-splitting.data-sources.ds-0.read-data-source-names=ds-1
@@ -100,6 +100,7 @@ spring.shardingsphere.rules.readwrite-splitting.data-sources.ds-1.read-data-sour
 1. 数据库表沿用上面的sql
 2. 配置准备
 ```yaml
+## 分库分表和读写分离沿用上面的配置
 ## 数据加解密
 spring.shardingsphere.rules.encrypt.encryptors.order-no-encryptor.type=AES
 spring.shardingsphere.rules.encrypt.encryptors.order-no-encryptor.props.aes-key-value=123456abc
