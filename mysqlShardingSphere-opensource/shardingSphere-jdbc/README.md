@@ -13,7 +13,7 @@
  - 项目根目录执行命令： mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true
  - 当然你有更好的编译命令，你也可以尝试，反正错了，你还会回来的。
 
-注：项目源码是为了阅读shardingsphere源码 (废话)。
+注：下载项目源码是为了进步学习shardingsphere原理 (废话)。
 
 2. 实战项目准备
 
