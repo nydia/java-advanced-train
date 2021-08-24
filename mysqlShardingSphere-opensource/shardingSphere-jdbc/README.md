@@ -4,14 +4,19 @@
 
 8-23 周一：JDBC  搞定ShardingSphere-5.0.0-beta的 jdbc版本，实现最简单的分库分表、读写分离（可以用假的从库）、加密功能演示。记录自己的过程，提交文档。
 
+## 官方文档
+
+- [数据分片](https://shardingsphere.apache.org/document/current/cn/features/sharding/)
+- [读写分离](https://shardingsphere.apache.org/document/current/cn/features/readwrite-splitting/)
+- [数据加密](https://shardingsphere.apache.org/document/current/cn/features/encrypt/)
+
 ## 前置准备
 
 1. 源码准备
-- 下载 shardingsphere-5.0.0-beta项目。 项目下载很慢可以拉个shi。
-- 编译源码 maven下载包的速度相当慢，可以去跑个步。
-- 项目编译前烧个香，会有各种错误，需要坚持，坚持，在坚持。坚持不住就放弃（开玩笑，看在money的面子上也不能放弃）。
- - 项目根目录执行命令： mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true
- - 当然你有更好的编译命令，你也可以尝试，反正错了，你还会回来的。
+- fork shardingsphere项目的源码，然后下载下来，在master上新建一个分支5.0.0-beta。方便以后对源码的注解。（项目下载很慢可以拉个shi）
+- 导入项目源码到IDEA。 (maven下载包的速度相当慢，可以去跑个步)
+- 编译源码项目编译前烧个香，会有各种错误，需要坚持，坚持，在坚持。坚持不住就放弃（开玩笑，看在money的面子上也不能放弃）。
+- 项目根目录执行命令： mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true。 （当然你有更好的编译命令，你也可以尝试，反正错了，你还会回来的）
 
 注：下载项目源码是为了进步学习shardingsphere原理 (废话)。
 
@@ -53,9 +58,9 @@ spring.shardingsphere.rules.sharding.default-database-strategy.standard.sharding
 spring.shardingsphere.rules.sharding.default-database-strategy.standard.sharding-algorithm-name=database-inline
 spring.shardingsphere.rules.sharding.binding-tables=t_order
 
-# 分库
+# 分库不分表
 # spring.shardingsphere.rules.sharding.tables.t_order.actual-data-nodes=ds-$->{0..1}.t_order
-# 分表
+# 分库分表
 spring.shardingsphere.rules.sharding.tables.t_order.actual-data-nodes=ds-$->{0..1}.t_order_$->{0..1}
 # 分表策略
 spring.shardingsphere.rules.sharding.tables.t_order.table-strategy.standard.sharding-column=order_id
@@ -64,13 +69,14 @@ spring.shardingsphere.rules.sharding.tables.t_order.table-strategy.standard.shar
 spring.shardingsphere.rules.sharding.tables.t_order.key-generate-strategy.column=order_id
 spring.shardingsphere.rules.sharding.tables.t_order.key-generate-strategy.key-generator-name=snowflake
 
-# 分库算法
+# 分库算法，对user_id模2算法分为两个库
 spring.shardingsphere.rules.sharding.sharding-algorithms.database-inline.type=INLINE
 spring.shardingsphere.rules.sharding.sharding-algorithms.database-inline.props.algorithm-expression=ds-$->{user_id % 2}
-# 分表算法
+# 分表算法，对order_id模2算法分为两个表
 spring.shardingsphere.rules.sharding.sharding-algorithms.t-order-inline.type=INLINE
 spring.shardingsphere.rules.sharding.sharding-algorithms.t-order-inline.props.algorithm-expression=t_order_$->{order_id % 2}
 
+# 订单id，order_id生成策略，雪花算法
 spring.shardingsphere.rules.sharding.key-generators.snowflake.type=SNOWFLAKE
 spring.shardingsphere.rules.sharding.key-generators.snowflake.props.worker-id=123
 
