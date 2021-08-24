@@ -17,9 +17,9 @@
 
 2. 实战项目准备
 
-自己结合了 shardingsphere-jdbc , mybatis, springboot2 对shardingsphere进行实战训练。关于springboot配置 shardingsphere的时候遇到的一些问题可以看下面的错误记录。
+自己结合了 shardingsphere-jdbc , mybatis, springboot2 对shardingsphere进行实战训练。关于springboot配置 shardingsphere的时候遇到的一些问题可以本节的后面的问题记录。
 
-https://github.com/nydia/JavaAdvancedTrain/tree/main/mysqlShardingSphere-opensource/shardingSphere-jdbc
+实战项目目录： https://github.com/nydia/JavaAdvancedTrain/tree/main/mysqlShardingSphere-opensource/shardingSphere-jdbc
 
 ## 分库分表
 
@@ -77,7 +77,7 @@ spring.shardingsphere.rules.sharding.key-generators.snowflake.props.worker-id=12
 ```
 
 3. 准备数据： 向t_order插入10条数据， user_id分别为从1到10 ，order_id采用雪花算法生成。
-  - 结果： user_id 为2，4，6，8，10的数据插入到 shardingsphere_ds_0库， user_id 为2，4，6，8，10的数据插入到 shardingsphere_ds_1库。
+  - 结果： user_id 为2，4，6，8，10的数据插入到 shardingsphere_ds_0库， user_id 为1，3，5，7，9的数据插入到 shardingsphere_ds_1库。
 
 ## 读写分离
 
@@ -93,7 +93,7 @@ spring.shardingsphere.rules.readwrite-splitting.data-sources.ds-1.read-data-sour
 
 ```  
 3. 准备数据： 向t_order插入10条数据， user_id分别为从1到10 ，order_id采用雪花算法生成。
-  - 结果： user_id 为2，4，6，8，10的数据插入到 shardingsphere_ds_0库的t_order_1， user_id 为2，4，6，8，10的数据插入到 shardingsphere_ds_1库的t_order_0。
+  - 结果： user_id 为1，3，5，7，9的数据插入到 shardingsphere_ds_1库的t_order_1， user_id 为2，4，6，8，10的数据插入到 shardingsphere_ds_1库的t_order_0。
 
 ## 数据加密
 
