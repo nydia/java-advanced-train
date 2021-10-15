@@ -1,2 +1,19 @@
-#server:
-#  port: 8081
+server:
+  port: 8081
+
+feign:
+  httpclient:
+    enabled: false
+    # 关闭SSL证书校验(默认：开启校验-false)，适用于httpclient和okhttpclient
+    disable-ssl-validation: true
+  okhttp:
+    enabled: true
+  client:
+    config:
+      # 默认配置，启动Ribbon时失效（即启用了服务注册发现机制时）
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+  # 开启熔断
+  hystrix:
+    enabled: false
