@@ -17,3 +17,16 @@ feign:
   # 开启熔断
   hystrix:
     enabled: false
+
+### 请求处理的超时时间
+ribbon:
+  # 等待请求响应的超时时间. 单位：ms
+  ReadTimeout: 5000
+  # 连接超时时间. 单位：ms
+  ConnectTimeout: 1000
+  # 是否对所有请求进行失败重试, 设置为 false, 让feign只针对Get请求进行重试.
+  OkToRetryOnAllOperations: false
+  # Max number of retries on the same server (excluding the first try)
+  MaxAutoRetries: 3
+  # Max number of next servers to retry (excluding the first server)
+  MaxAutoRetriesNextServer: 0

@@ -17,7 +17,11 @@ public class FeignController {
 
     @RequestMapping(value = "getdata", method = {RequestMethod.POST, RequestMethod.GET})
     public String data(Map map){
-
+        try {
+            Thread.sleep(1000 * 60);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "this is server data, you are get ok!!!";
     }
 
