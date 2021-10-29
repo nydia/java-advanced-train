@@ -72,3 +72,9 @@ slave1-db:
 ### 日志配置
 log:
   level: debug
+  com.nydia.modules.mapper.master: DEBUG
+
+mybatis:
+  # spring boot集成mybatis的方式打印sql
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
