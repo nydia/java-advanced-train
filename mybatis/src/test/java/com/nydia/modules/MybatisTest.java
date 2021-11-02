@@ -30,7 +30,7 @@ public class MybatisTest extends SpringContextWebTestSupport {
     public void forInsert() {
         try {
             long start = System.currentTimeMillis();
-            //userService.insertUser(User.builder().userName("测试20211029").password("1").nickName("1").idCard("1").build());
+            //userService.insertUser(SlaveUser.builder().userName("测试20211029").password("1").nickName("1").idCard("1").build());
             for(int i = 1; i <= 100; i ++){
                 userDao.insertUser(User.builder().userName("测试20211029").password("1").nickName("1").idCard("1").build());
             }
@@ -46,6 +46,7 @@ public class MybatisTest extends SpringContextWebTestSupport {
         try {
             long start = System.currentTimeMillis();
             SqlSession sqlSession = materNodeSessionTemplate.getSqlSessionFactory().openSession(ExecutorType.BATCH, false);
+            //SqlSession sqlSession = materNodeSessionTemplate.getSqlSessionFactory().openSession();
             UserDao mapper = sqlSession.getMapper(UserDao.class);
             for(int i = 1; i <= 100; i ++){
                 mapper.insertUser(User.builder().userName("测试20211029").password("1").nickName("1").idCard("1").build());

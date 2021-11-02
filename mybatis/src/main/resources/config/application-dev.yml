@@ -11,7 +11,7 @@ spring:
 master-db:
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
-      url: jdbc:mysql://localhost:3316/db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://localhost:3316/db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
       username: root
       password:
       initial-size: 2
@@ -41,7 +41,7 @@ master-db:
 slave1-db:
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
-      url: jdbc:mysql://localhost:3326/db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://localhost:3326/db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
       username: root
       password:
       initial-size: 2

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -115,13 +116,14 @@ public class MasterDataSourceConfig {
      */
     @Primary
     @Bean(name = "materNodeSessionFactory")
-    public SqlSessionFactory materNodeSessionFactory(@Qualifier("masterNodeDataSource") DataSource reportDataSource) throws Exception {
+    public SqlSessionFactory materNodeSessionFactory(@Qualifier("masterNodeDataSource") DataSource reportDataSource, MybatisProperties mybatisProperties) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(reportDataSource);
         sessionFactory.setTypeAliasesPackage(MasterDataSourceConfig.TYPE_ALIAS_PACKAGE);
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
                 // 设置mapper文件路径
                 .getResources(MasterDataSourceConfig.MAPPER_LOCATION));
+        sessionFactory.setConfiguration(mybatisProperties.getConfiguration());//打印多数据源的sql日志
         return sessionFactory.getObject();
     }
 

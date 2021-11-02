@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class SlaveUser {
 
     private Integer userId;
     private String userName;

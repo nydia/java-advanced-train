@@ -1,7 +1,8 @@
 package com.nydia.modules.web;
 
+import com.nydia.modules.entity.slave1.SlaveUser;
+import com.nydia.modules.service.slave1.ISlaveUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +19,7 @@ public class UserController {
     private com.nydia.modules.service.master.IUserService masterUserService;
 
     @Autowired
-    private com.nydia.modules.service.slave1.IUserService slave1UserService;
+    private ISlaveUserService slave1UserService;
 
     @RequestMapping(value = "/user", method = {RequestMethod.GET, RequestMethod.POST})
     public String handleUser(){
@@ -29,7 +30,7 @@ public class UserController {
         userInsert.setIdCard("34112");
         masterUserService.insertUser(userInsert);
 
-        com.nydia.modules.entity.slave1.User user = slave1UserService.selectUser(null);
+        SlaveUser user = slave1UserService.selectUser(null);
         return user.getUserName();
     }
 
