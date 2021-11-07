@@ -1,4 +1,4 @@
-# Java进阶训练营实战
+# Java进阶训练营的练习
 
 ## 目录
 
@@ -16,20 +16,17 @@
 - mysqlShardingSphere-jdbc5.0.0-beta-xa： 使用shardingsphere-jdbc实现分布式事务
 - hmily-tcc-springcloud： 微服务框架SpringCloud + 分布式事务中间件（hmily) 使用tcc协议模式保证事务的一致性
 - hmily-tcc-dubbo： 微服务框架（Dubbo) + 分布式事务中间件（hmily) 使用tcc协议模式保证事务的一致性
+- rpc01 手写rpc
+- rpc02 手写rpc
+- 01jvm
+- 08cache
+- 09mq
+- springcloud-nacos feign的请求参数：超时重试等分析
+- druid 德鲁伊数据库连接池
 
-## 1. Jvm实战
+
+## jvm 二进制文件
 
 1. 在Idea里面查看class的二级制字节码文件
 
 idea 安装 HexView插件 -> 右击class查看十六进制编码
-
-## 2. NIO 
-1. nio 阻塞nio
-
-2. nio2 非负责nio
-
-## Companys
-
-CREATE USER 'repl'@'%' IDENTIFIED BY '@Zz123456';
-GRANT ALL ON hmily.* TO 'repl'@'%';
-UPDATE mysql.user SET authentication_string=PASSWORD("Zz123456@") WHERE USER="repl" AND HOST="&";
