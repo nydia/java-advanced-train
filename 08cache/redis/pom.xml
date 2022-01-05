@@ -94,11 +94,11 @@
 			<artifactId>protostuff-core</artifactId>
 			<version>1.7.2</version>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>io.protostuff</groupId>-->
-			<!--<artifactId>protostuff-runtime</artifactId>-->
-			<!--<version>1.7.0</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>io.protostuff</groupId>
+			<artifactId>protostuff-runtime</artifactId>
+			<version>1.7.4</version>
+		</dependency>
 
 		<!--<dependency>-->
 			<!--<groupId>io.protostuff</groupId>-->
@@ -107,13 +107,13 @@
 			<!--<scope>system</scope>-->
 			<!--<version>1.7.4</version>-->
 		<!--</dependency>-->
-		<dependency>
-			<groupId>io.protostuff</groupId>
-			<artifactId>protostuff-runtime</artifactId>
-			<systemPath>${project.basedir}/libs/protostuff-runtime-1.7.4.jar</systemPath>
-			<scope>system</scope>
-			<version>1.7.4</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>io.protostuff</groupId>-->
+			<!--<artifactId>protostuff-runtime</artifactId>-->
+			<!--<systemPath>${project.basedir}/libs/protostuff-runtime-1.7.4.jar</systemPath>-->
+			<!--<scope>system</scope>-->
+			<!--<version>1.7.4</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>io.protostuff</groupId>
 			<artifactId>protostuff-collectionschema</artifactId>
