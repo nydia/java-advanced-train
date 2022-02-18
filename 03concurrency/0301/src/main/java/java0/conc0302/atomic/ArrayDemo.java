@@ -27,8 +27,7 @@ public class ArrayDemo {
                 Map.Entry<Integer, Integer> entry = map.entrySet().iterator().next();
                 integerArray.getAndAdd(entry.getKey(), entry.getValue());
                 longArray.getAndAdd(entry.getKey(), entry.getValue());
-                referenceArray.getAndUpdate(entry.getKey(), )
-
+                referenceArray.getAndUpdate()
             }).start();
         }
 
