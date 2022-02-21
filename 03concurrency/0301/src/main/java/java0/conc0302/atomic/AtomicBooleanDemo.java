@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @Date 2022/2/16 14:10
  * @Created by <a href="mailto:nydia_lhq@hotmail.com">lvhuaqiang</a>
  */
-public class BooleanDemo {
+public class AtomicBooleanDemo {
     private static AtomicBoolean b = new AtomicBoolean(false);
 
     public static void main(String[] args) {
