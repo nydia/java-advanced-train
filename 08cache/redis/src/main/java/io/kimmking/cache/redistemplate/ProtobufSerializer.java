@@ -5,7 +5,6 @@ import io.protostuff.ProtostuffIOUtil;
 import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.SerializationException;
 
 /**
  * @Auther: hqlv
@@ -18,7 +17,7 @@ public class ProtobufSerializer<T> implements RedisSerializer<T> {
     Schema<ProtoStuffWrapper> schema = RuntimeSchema.getSchema(ProtoStuffWrapper.class);
 
     @Override
-    public byte[] serialize(T t) throws SerializationException {
+    public byte[] serialize(T t) {
         if(t == null){
             return null;
         }
@@ -28,7 +27,7 @@ public class ProtobufSerializer<T> implements RedisSerializer<T> {
     }
 
     @Override
-    public T deserialize(byte[] bytes) throws SerializationException {
+    public T deserialize(byte[] bytes) {
         ProtoStuffWrapper<T> protoStuffWrapper = new ProtoStuffWrapper();
         ProtostuffIOUtil.mergeFrom(bytes, protoStuffWrapper, schema);
         return protoStuffWrapper.getT();
