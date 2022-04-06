@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: shenyu-server
+  profiles:
+    active: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace:
+        enabled: true # 不注册到注册中心，默认true
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        namespace:
+        prefix: ${spring.application.name}
+        group:
+  inetutils:
+    preferred-networks:
+      - 192.168
