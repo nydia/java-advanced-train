@@ -11,6 +11,7 @@ management:
   endpoint:
     gateway:
       enabled: true # default value
+  endpoints:
     web:
       exposure:
         include: gateway
@@ -35,8 +36,16 @@ spring:
         namespace: springcloud-gateway
         prefix: ${spring.application.name}
         #group: nhqk
+        group: springcloud-gateway
+
     gateway:
       enabled: true
+      routes:
+      - id: after_route
+        uri: http://localhost:8082/image/png
+        predicates:
+        - Cookie=mycookie,mycookievalue
+
   inetutils:
     preferred-networks:
       - 127.0.0.1

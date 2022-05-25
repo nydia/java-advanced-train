@@ -27,4 +27,9 @@ public class GatewayController {
         return proxy.uri(home.toString() + "/image/png").get();
     }
 
+    @GetMapping("/image/png")
+    public String getPng() throws Exception {
+        return "success";
+    }
+
 }
