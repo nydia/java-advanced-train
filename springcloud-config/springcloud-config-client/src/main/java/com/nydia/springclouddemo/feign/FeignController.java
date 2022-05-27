@@ -18,13 +18,9 @@ import java.util.Map;
 @RequestMapping
 public class FeignController {
 
-    @Autowired
-    private FeignService feignService;
-
     @RequestMapping(value = "getdata", method = {RequestMethod.POST, RequestMethod.GET})
     public String data(HttpServletRequest request){
-        Map map = new HashMap();
-        return feignService.requestStr(map);
+        return "";
     }
 
 }

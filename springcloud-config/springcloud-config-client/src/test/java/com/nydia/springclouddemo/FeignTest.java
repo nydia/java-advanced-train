@@ -1,6 +1,5 @@
 package com.nydia.springclouddemo;
 
-import com.nydia.springclouddemo.feign.FeignService;
 import lombok.SneakyThrows;
 import org.junit.Test;
 import org.junit.runner.RunWith;
