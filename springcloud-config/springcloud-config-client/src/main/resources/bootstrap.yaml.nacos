@@ -1,12 +1,12 @@
 spring:
   application:
-    name: springcloud-server
+    name: springcloud-client
   profiles:
-    active: local
+    active: native
 
 ---
 spring:
-  profiles: local
+  profiles: native
   cloud:
     nacos:
       discovery:
@@ -15,6 +15,11 @@ spring:
         namespace: springcloud-gateway
         enabled: true # 不注册到注册中心，默认true
         group: springcloud-gateway
+    # config
+    config:
+      uri: http://localhost:8888
+      profile: native
+      #label: k8s
   inetutils:
     preferred-networks:
       - 127.0

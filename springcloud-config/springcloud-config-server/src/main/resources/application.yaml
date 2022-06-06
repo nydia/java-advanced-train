@@ -1,5 +1,26 @@
 server:
-  port: 8082
+  port: 8888
+
+spring:
+  application:
+    name: springcloud-server
+  profiles:
+    #active: native
+    active: composite
+  cloud:
+    config:
+      ## You can change the priority of all overrides in the client to be more like default values, letting applications supply their own values in environment variables or System propertie
+      overrideNone: true
+      server:
+        composite:
+          - type: native
+            search-locations: classpath:/conf
+        bootstrap: true
+        #native:
+          #searchLocations: classpath:/conf
+          #searchLocations=/appserver/gtp/config
+
+
 
 feign:
   httpclient:

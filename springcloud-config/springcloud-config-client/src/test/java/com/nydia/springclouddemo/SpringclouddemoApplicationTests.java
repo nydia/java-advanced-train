@@ -9,12 +9,9 @@ import java.util.HashMap;
 @SpringBootTest
 class SpringclouddemoApplicationTests {
 
-	@Autowired
-	private FeignService feignService;
 
 	@Test
 	void contextLoads() {
-		feignService.requestStr(new HashMap());
 	}
 
 }

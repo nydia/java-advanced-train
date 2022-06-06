@@ -16,13 +16,9 @@ import java.util.HashMap;
 @SpringBootTest(classes = ClientApplication.class)
 public class FeignTest extends SpringContextWebTestSupport {
 
-    @Autowired
-    private FeignService feignService;
-
     @Test
     @SneakyThrows
     public void test() {
-        feignService.requestStr(new HashMap());
     }
 
 
