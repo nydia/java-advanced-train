@@ -1,15 +1,13 @@
 package com.nydia.springclouddemo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Description TODO
@@ -19,14 +17,15 @@ import java.util.Map;
 @RestController
 @RequestMapping
 @Configuration
+@RefreshScope
 public class FeignController {
 
-//    @Value("${config.value}")
-//    private String value;
-//
-//    @RequestMapping(value = "getdata", method = {RequestMethod.POST, RequestMethod.GET})
-//    public String data(HttpServletRequest request){
-//        return "success: " + value;
-//    }
+    @Value("${testnihao}")
+    private String value;
+
+    @RequestMapping(value = "getdata", method = {RequestMethod.POST, RequestMethod.GET})
+    public String data(HttpServletRequest request) {
+        return "success: " + value;
+    }
 
 }

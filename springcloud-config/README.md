@@ -7,7 +7,14 @@ springcloud-config
 
 # server
 - http://localhost:8888/conf/config-info-dev.yaml
-- 
+
 # client
 
 # Spring Cloud Bus热刷新
+
+刷新服务端：
+- curl -X POST http://localhost:8888/actuator/busrefresh
+
+刷新客户端：
+- 测试配置 curl -X GET http://localhost:8082/getdata
+- 刷新配置 curl -X POST  http://localhost:8082/actuator/refresh

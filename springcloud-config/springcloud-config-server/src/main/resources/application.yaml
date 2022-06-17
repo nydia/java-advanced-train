@@ -19,8 +19,31 @@ spring:
         #native:
           #searchLocations: classpath:/conf
           #searchLocations=/appserver/gtp/config
+    bus:
+      trace:
+        enabled: true
 
+  #rabbitmq  for auto reflesh config
+  rabbitmq:
+    host: 192.168.23.147
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 
+#是否开启基本的鉴权，默认为true
+security:
+  basic:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 feign:
   httpclient:

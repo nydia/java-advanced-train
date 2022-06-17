@@ -1,3 +1,23 @@
+spring:
+  #rabbitmq  for auto reflesh config
+  rabbitmq:
+    host: 192.168.23.147
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+#打开info,health等断点，所以需要添加management.endpoints.web.exposure.include=*配置，其他的不变
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+
 feign:
   httpclient:
     enabled: false
