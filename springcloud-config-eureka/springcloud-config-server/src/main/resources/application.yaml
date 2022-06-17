@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: springcloud-server
+    name: config-server
   # 如果添加了devtools,需要按照这个处理 Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
   devtools:
     add-properties: false
@@ -47,6 +47,13 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
 
 feign:
   httpclient:
