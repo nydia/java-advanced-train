@@ -1,28 +1,4 @@
-server:
-  port: 8888
-
 spring:
-  application:
-    name: springcloud-server
-  profiles:
-    #active: native
-    active: composite
-  cloud:
-    config:
-      ## You can change the priority of all overrides in the client to be more like default values, letting applications supply their own values in environment variables or System propertie
-      overrideNone: true
-      server:
-        composite:
-          - type: native
-            search-locations: classpath:/conf
-        bootstrap: true
-        #native:
-          #searchLocations: classpath:/conf
-          #searchLocations=/appserver/gtp/config
-    bus:
-      trace:
-        enabled: true
-
   #rabbitmq  for auto reflesh config
   rabbitmq:
     host: 192.168.23.147
@@ -31,19 +7,16 @@ spring:
     password: guest
     virtual-host: /
 
-#是否开启基本的鉴权，默认为true
-security:
-  basic:
-    enabled: false
-
+#打开info,health等断点，所以需要添加management.endpoints.web.exposure.include=*配置，其他的不变
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: '*'
   endpoint:
     health:
-      show-details: ALWAYS
+      show-details: always
+
 
 feign:
   httpclient:
