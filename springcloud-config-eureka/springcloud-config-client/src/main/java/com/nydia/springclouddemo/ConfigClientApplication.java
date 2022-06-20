@@ -8,10 +8,10 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @EnableEurekaClient
 @SpringBootApplication
-public class ClientApplication implements CommandLineRunner {
+public class ConfigClientApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ClientApplication.class, args);
+		SpringApplication.run(ConfigClientApplication.class, args);
 	}
 	@Value("${testnihao}")
 	private String testnihao;

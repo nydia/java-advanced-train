@@ -5,6 +5,7 @@ spring:
   application:
     name: config-server
   # 如果添加了devtools,需要按照这个处理 Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+  # 不使用默认属性
   devtools:
     add-properties: false
   profiles:
@@ -48,12 +49,16 @@ management:
     health:
       show-details: ALWAYS
 
-
 eureka:
   client:
     serviceUrl:
       defaultZone: http://127.0.0.1:8761/eureka/
-
+    register-with-eureka: true
+    fetch-registry: false
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${eureka.instance.ip-address}:${server.port}
 
 feign:
   httpclient:
