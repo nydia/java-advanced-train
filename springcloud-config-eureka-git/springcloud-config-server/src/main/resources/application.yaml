@@ -8,21 +8,18 @@ spring:
   # 不使用默认属性
   devtools:
     add-properties: false
-  profiles:
-    #active: native
-    active: composite
   cloud:
     config:
       ## You can change the priority of all overrides in the client to be more like default values, letting applications supply their own values in environment variables or System propertie
       overrideNone: true
       server:
-        composite:
-          - type: native
-            search-locations: classpath:/conf
         bootstrap: true
-        #native:
-          #searchLocations: classpath:/conf
-          #searchLocations=/appserver/gtp/config
+        git:
+          basedir: D:\temp\springcloud-config
+          uri: https://gitee.com/nydia/spring-cloud-config-repo.git
+          search-paths: conf
+          username: ***
+          password: ***
     bus:
       trace:
         enabled: true

@@ -60,6 +60,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		<!-- 动态刷新配置
+		  更新了Git仓库中的配置文件，那如何让config-client能够及时感知到呢?
+		  动态刷新配置
+	    -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
