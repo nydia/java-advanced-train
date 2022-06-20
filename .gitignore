@@ -31,3 +31,4 @@ mvnw.cmd
 .mvn/
 logs/
 activemq-data/
+temp/

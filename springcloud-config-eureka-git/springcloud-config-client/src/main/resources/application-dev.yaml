@@ -1,7 +1,7 @@
 spring:
   #rabbitmq  for auto reflesh config
   rabbitmq:
-    host: 192.168.23.147
+    host: 192.168.99.100
     port: 5672
     username: guest
     password: guest
@@ -24,7 +24,7 @@ eureka:
   instance:
     prefer-ip-address: true
     ip-address: 127.0.0.1
-    instance-id: ${eureka.instance.ip-address}:${server.port}
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
 
 feign:
   httpclient:
