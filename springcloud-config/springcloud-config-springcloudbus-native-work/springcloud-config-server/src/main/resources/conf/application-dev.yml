@@ -11,4 +11,18 @@ spring:
     password: guest
     virtual-host: /
 
+#是否开启基本的鉴权，默认为true
+security:
+  basic:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
 testnihao: testNo888

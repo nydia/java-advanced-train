@@ -1,12 +1,12 @@
 package com.nydia.springclouddemo;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class SpringclouddemoApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 
