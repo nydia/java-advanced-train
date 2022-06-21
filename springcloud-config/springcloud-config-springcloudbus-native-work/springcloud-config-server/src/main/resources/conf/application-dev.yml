@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev 
+    #指定为开发环境
+
+#rabbitmq
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+testnihao: testNo888

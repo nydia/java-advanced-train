@@ -1,0 +1,79 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: springcloud-server
+  # 如果添加了devtools,需要按照这个处理 Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+  devtools:
+    add-properties: false
+  profiles:
+    #active: native
+    active: composite
+  cloud:
+    config:
+      ## You can change the priority of all overrides in the client to be more like default values, letting applications supply their own values in environment variables or System propertie
+      overrideNone: true
+      server:
+        composite:
+          - type: native
+            # target目录下面的配置文件
+            search-locations: classpath:/conf/
+        bootstrap: true
+    bus:
+      trace:
+        enabled: true
+
+  #rabbitmq  for auto reflesh config
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+#是否开启基本的鉴权，默认为true
+security:
+  basic:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+
+#----------------------- 其他配置与config无关 ---------
+feign:
+  httpclient:
+    enabled: false
+    # 关闭SSL证书校验(默认：开启校验-false)，适用于httpclient和okhttpclient
+    disable-ssl-validation: true
+  okhttp:
+    enabled: true
+  client:
+    config:
+      # 默认配置，启动Ribbon时失效（即启用了服务注册发现机制时）
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+  # 开启熔断
+  hystrix:
+    enabled: false
+
+### 请求处理的超时时间
+ribbon:
+  # 等待请求响应的超时时间. 单位：ms
+  ReadTimeout: 5000
+  # 连接超时时间. 单位：ms
+  ConnectTimeout: 1000
+  # 是否对所有请求进行失败重试, 设置为 false, 让feign只针对Get请求进行重试.
+  OkToRetryOnAllOperations: false
+  # Max number of retries on the same server (excluding the first try)
+  MaxAutoRetries: 3
+  # Max number of next servers to retry (excluding the first server)
+  MaxAutoRetriesNextServer: 0

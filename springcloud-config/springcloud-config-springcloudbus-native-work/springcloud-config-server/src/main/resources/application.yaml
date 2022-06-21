@@ -1,0 +1,48 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: springcloud-server
+  # 如果添加了devtools,需要按照这个处理 Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+  devtools:
+    add-properties: false
+  profiles:
+    #active: native
+    active: composite
+  cloud:
+    config:
+      ## You can change the priority of all overrides in the client to be more like default values, letting applications supply their own values in environment variables or System propertie
+      overrideNone: true
+      server:
+        composite:
+          - type: native
+            # target目录下面的配置文件
+            search-locations: classpath:/conf/
+        bootstrap: true
+    bus:
+      trace:
+        enabled: true
+
+  #rabbitmq  for auto reflesh config
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+#是否开启基本的鉴权，默认为true
+security:
+  basic:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+

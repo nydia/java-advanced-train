@@ -1,0 +1,33 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: config-client
+  profiles:
+    active: dev
+  cloud:
+    config:
+      enabled: true
+      #如果连接不上获取配置有问题，快速响应失败
+      fail-fast: true
+      request-read-timeout: 10000
+      request-connect-timeout: 10000
+      uri: http://localhost:8888/
+      name: config-info
+      profile: dev
+      label: demo
+      discovery:
+        enabled: true
+        # config server's application name
+        service-id: config-server
+      # 重试
+      retry:
+        #下一间隔时间的乘数，默认是 1.1
+        multiplier: 1.1
+        #默认重试的间隔时间，默认 1000ms
+        initial-interval: 1000
+        #最大重试次数，默认 6 次
+        max-attempts: 6
+        #最大间隔时间，最大 2000ms
+        max-interval: 2000

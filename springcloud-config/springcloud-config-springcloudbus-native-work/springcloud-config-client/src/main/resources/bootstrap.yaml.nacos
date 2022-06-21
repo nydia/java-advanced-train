@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: springcloud-client
+  profiles:
+    active: native
+
+---
+spring:
+  profiles: native
+  cloud:
+    nacos:
+      discovery:
+        #server-addr: 192.168.41.82:8848,192.168.41.83:8848,192.168.41.84:8848
+        server-addr: 127.0.0.1:8848
+        namespace: springcloud-gateway
+        enabled: true # 不注册到注册中心，默认true
+        group: springcloud-gateway
+    # config
+    config:
+      uri: http://localhost:8888
+      profile: native
+      #label: k8s
+  inetutils:
+    preferred-networks:
+      - 127.0
