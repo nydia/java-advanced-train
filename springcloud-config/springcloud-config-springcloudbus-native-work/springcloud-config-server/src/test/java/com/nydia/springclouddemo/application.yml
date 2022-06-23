@@ -1,0 +1,57 @@
+server:
+  port: 8888
+spring:
+
+
+#公用配置
+spring:
+  profiles:
+    active: native
+  application:
+    name: springcloud-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/conf
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+pay:
+  freight:
+    calc:
+      #1-1000金额2,计算固定；1000-200000金额为0.005,金额计算；200000-100000000金额为1000,计算固定
+      - index: 1
+        min-amt: 0
+        max-amt: 1000
+        freight: 2
+        fixed: true
+      - index: 2
+        min-amt: 1000
+        max-amt: 200000
+        freight: 0.005
+        fixed: false
+      - index: 3
+        min-amt: 200000
+        max-amt: 100000000
+        freight: 1000 
+        fixed: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

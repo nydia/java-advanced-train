@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: springcloud-gateway-nacos
+  profiles:
+    active: local
+  main:
+    web-application-type: reactive
+
+# gateway Actuator API
+management:
+  endpoint:
+    gateway:
+      enabled: true # default value
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+
+---
+spring:
+  profiles: local
+  cloud:
+    nacos:
+      discovery:
+        #server-addr: 192.168.41.82:8848,192.168.41.83:8848,192.168.41.84:8848
+        #namespace: local
+        server-addr: 127.0.0.1:8848
+        namespace: springcloud-gateway
+        enabled: true # 不注册到注册中心，默认true
+      config:
+        #server-addr: 192.168.41.82:8848,192.168.41.83:8848,192.168.41.84:8848
+        #file-extension: yaml
+        #namespace: local
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        namespace: springcloud-gateway
+        prefix: ${spring.application.name}
+        #group: nhqk
+        group: springcloud-gateway
+
+    gateway:
+      enabled: true
+      routes:
+      - id: after_route
+        uri: http://localhost:8082/image/png
+        predicates:
+        - Cookie=mycookie,mycookievalue
+
+  inetutils:
+    preferred-networks:
+      - 127.0.0.1

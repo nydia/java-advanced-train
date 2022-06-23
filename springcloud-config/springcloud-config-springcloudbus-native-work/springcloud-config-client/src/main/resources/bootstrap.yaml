@@ -13,6 +13,6 @@ spring:
       request-read-timeout: 10000
       request-connect-timeout: 10000
       uri: http://localhost:8888/
-      #name: config-info
+      name: config-info
       profile: dev
       #label: demo

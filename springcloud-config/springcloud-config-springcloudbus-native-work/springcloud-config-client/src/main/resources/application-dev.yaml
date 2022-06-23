@@ -6,7 +6,18 @@ spring:
     username: guest
     password: guest
     virtual-host: /
-
+  listener:
+    simple:
+      acknowledge-mode: auto  # 自动ack
+      retry:
+        enabled: true
+        max-attempts: 5
+        max-interval: 10000   # 重试最大间隔时间
+        initial-interval: 2000  # 重试初始间隔时间
+        multiplier: 2 # 间隔时间乘子，间隔时间*乘子=下一次的间隔时间，最大不能超过设置的最大间隔时间
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
 #打开info,health等断点，所以需要添加management.endpoints.web.exposure.include=*配置，其他的不变
 management:
   endpoints:
