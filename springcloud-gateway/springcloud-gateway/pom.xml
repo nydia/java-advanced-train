@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nydia</groupId>
-	<artifactId>springcloud-gateway-nacos</artifactId>
+	<artifactId>springcloud-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springcloud-gateway-nacos</name>
-	<description>springcloud-gateway-nacos</description>
+	<name>springcloud-gateway</name>
+	<description>springcloud-gateway</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
@@ -49,14 +49,6 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.cloud</groupId>
-			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.cloud</groupId>
-			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
