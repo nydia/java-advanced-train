@@ -18,7 +18,9 @@ management:
 
 ---
 spring:
-  profiles: local
+  config:
+    activate:
+      on-profile: local
   cloud:
     gateway:
       enabled: true
@@ -27,3 +29,14 @@ spring:
         uri: http://localhost:8082/image/png
         predicates:
         - Cookie=mycookie,mycookievalue
+
+      - id: path1
+        uri: http://localhost:8083/route1
+        predicates:
+        - Path=/route1/**
+
+      - id: path2
+        uri: http://localhost:8083/route2
+        predicates:
+        - Path=/route2/**
+
