@@ -4,14 +4,14 @@ springcloud-config
 
 # SpringCloud http://localhost:8080/h2-console
 
-## H2 http://localhost:8080/h2-console
+## H2 http://localhost:8080/h2-consol*e
 
 # server
 - http://localhost:8888/conf/config-info-dev.yaml
 
 # client
 
-# Spring Cloud Actuator 热刷新
+# Spring Cloud Actuator 热刷新*
 
 刷新客户端：
 - 获取参数 curl -X GET http://localhost:8082/getdata

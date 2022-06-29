@@ -11,7 +11,7 @@ springcloud-config
 
 # client
 
-# Spring Cloud Bus热刷新
+# Spring Cloud Bus热刷新            
 
 刷新服务端：
 - 服务端刷新配置 curl -X POST http://localhost:8888/actuator/bus-refresh
