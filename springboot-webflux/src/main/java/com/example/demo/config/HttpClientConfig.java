@@ -4,10 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.http.client.reactive.JettyClientHttpConnector;
 import org.springframework.http.client.reactive.JettyResourceFactory;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.netty.resources.ConnectionProvider;
 
 import java.net.http.HttpClient;
+import java.time.Duration;
 
 /**
  * @Auther: hqlv
@@ -27,6 +30,18 @@ public class HttpClientConfig {
         ClientHttpConnector connector =
                 new JettyClientHttpConnector(httpClient, resourceFactory());
         return WebClient.builder().clientConnector(connector).build();
+    }
+
+    //@Bean
+    public WebClient webClient2() {
+        ConnectionProvider provider = ConnectionProvider.builder("order")
+                .maxConnections(100)
+                .maxIdleTime(Duration.ofSeconds(30))
+                .pendingAcquireTimeout(Duration.ofMillis(100))
+                .build();
+        return WebClient
+                .builder().clientConnector(new ReactorClientHttpConnector(HttpClient.create(provider)));
+
     }
 
 
