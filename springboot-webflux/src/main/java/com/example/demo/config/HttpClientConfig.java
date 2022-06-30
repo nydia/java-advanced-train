@@ -32,7 +32,7 @@ public class HttpClientConfig {
         return WebClient.builder().clientConnector(connector).build();
     }
 
-    //@Bean
+    //@Bean 
     public WebClient webClient2() {
         ConnectionProvider provider = ConnectionProvider.builder("order")
                 .maxConnections(100)
