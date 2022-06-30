@@ -17,14 +17,17 @@ public class DemoController {
 
     @RequestMapping(value = "1")
     public String getData1() {
+        System.out.println("get1 start");
         String result = createStr();
-
+        System.out.println("get1 end.");
         return result;
     }
 
     @RequestMapping(value = "2")
     public Mono<String> getData2() {
+        System.out.println("get2 start");
         Mono<String> result = Mono.fromSupplier(() -> createStr());
+        System.out.println("get2 end.");
         return result;
     }
 
