@@ -93,7 +93,7 @@ public class OrderService {
         // [2]
         return orderMono.flatMap(o -> {
             // [3]
-            Mono<User> userMono =  getMono("http://user-service/user/mock/" + o.getUserId(), User.class).onErrorReturn(new User());
+            Mono<User> userMono = getMono("http://user-service/user/mock/" + o.getUserId(), User.class).onErrorReturn(new User());
             Flux<Goods> goodsFlux = getFlux("http://goods-service/goods/mock/list?ids=" +
                     StringUtils.join(o.getGoodsIds(), ","), Goods.class)
                     .filter(g -> g.getPrice() > 10)
@@ -108,6 +108,7 @@ public class OrderService {
         });
     }
 
+    //如果接口参数同时传入了订单id，仓库id，产品id，我们也可以同时获取这三个数据，再组装起来
     public Mono<Order> getOrder(long orderId, long warehouseId, List<Long> goodsIds) {
         Mono<Order> orderMono = mockOrderMono(orderId);
 
@@ -116,11 +117,33 @@ public class OrderService {
             return o;
         }).zipWith(getFlux("http://goods-service/goods/mock/list?ids=" +
                 StringUtils.join(goodsIds, ","), Goods.class)
-                .filter(g -> g.getPrice() > 10).take(5).collectList(), (o, gs) -> {
+                .filter(g -> g.getPrice() > 10)
+                .take(5)
+                .collectList(), (o, gs) -> {
             o.setGoods(gs);
             return o;
         });
     }
+
+    //如果我们需要串行获取订单，仓库，商品这三个数据，实现如下
+    //zipWith方法可以组合两个Mono，并返回新的Mono类型，这里组合仓库、产品数据，最后返回Mono
+    public Mono<Order> getOrderInLabel(long orderId) {
+        Mono<Order> orderMono = mockOrderMono(orderId);
+
+        return orderMono.zipWhen(o -> getMono("http://warehouse-service/warehouse/mock/" + o.getWarehouseId(), Warehouse.class), (o, w) -> {
+            o.setWarehouse(w);
+            return o;
+        }).zipWhen(o -> getFlux("http://goods-service/goods/mock/list?ids=" +
+                StringUtils.join(o.getGoodsIds(), ",") + "&label=" + o.getWarehouse().getLabel() , Goods.class)
+                .filter(g -> g.getPrice() > 10)
+                .take(5)
+                .collectList(), (o, gs) -> {
+            o.setGoods(gs);
+            return o;
+        });
+    }
+
+
 
     public Order mockOrder(long orderId) {
         return null;

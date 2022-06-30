@@ -13,4 +13,6 @@ import lombok.Setter;
 public class Warehouse {
     private Long id;
 
+    private String label;
+
 }
