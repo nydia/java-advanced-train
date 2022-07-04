@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: springcloud-gateway
+  profiles:
+    active: local
+  main:
+    web-application-type: reactive
+
+# gateway Actuator API
+management:
+  endpoint:
+    gateway:
+      enabled: true # default value
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  cloud:
+    gateway:
+      enabled: true
+      routes:
+      # 路由id
+      - id: after_route
+        # 目的url
+        uri: http://localhost:8082/image/png
+        # 断言
+        predicates:
+        - Cookie=mycookie,mycookievalue
+
+      # 路由id
+      - id: path1
+        # 目标url
+        uri: http://localhost:8083/
+        # 断言
+        predicates:
+        - Path=/base-api/route1/**
+        # 过滤器
+        filters:
+        # 丢弃/base-api/的部分
+        - StripPrefix=1
+
+      - id: path2
+        uri: http://localhost:8083/
+        predicates:
+        - Path=/admin-api/route2/**
+        filters:
+        - StripPrefix=1
+
