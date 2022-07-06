@@ -3,8 +3,6 @@ spring:
     name: springcloud-gateway
   profiles:
     active: local
-  main:
-    web-application-type: reactive
 
 # gateway Actuator API
 management:

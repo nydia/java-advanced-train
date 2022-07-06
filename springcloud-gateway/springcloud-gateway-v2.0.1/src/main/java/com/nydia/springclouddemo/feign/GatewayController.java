@@ -1,7 +1,6 @@
 package com.nydia.springclouddemo.feign;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.gateway.webflux.ProxyExchange;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +20,6 @@ public class GatewayController {
 
     @Value("${remote.home}")
     private URI home;
-
-    @GetMapping("/test")
-    public Mono<ResponseEntity<byte[]>> proxy(ProxyExchange<byte[]> proxy) throws Exception {
-        return proxy.uri(home.toString() + "/image/png").get();
-    }
 
     @GetMapping("/image/png")
     public String getPng() throws Exception {
