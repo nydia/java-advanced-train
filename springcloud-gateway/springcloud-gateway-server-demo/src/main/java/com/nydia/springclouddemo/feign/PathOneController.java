@@ -24,4 +24,9 @@ public class PathOneController {
         return "success-path1";
     }
 
+    //@GetMapping("/")
+    public String getRoot() throws Exception {
+        return "success-path1";
+    }
+
 }

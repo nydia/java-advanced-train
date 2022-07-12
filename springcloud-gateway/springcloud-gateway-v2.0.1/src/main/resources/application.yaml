@@ -6,5 +6,9 @@ server:
       max-connections: 200
       max-http-header-size: 2097152   00
 
+logging:
+  level:
+    root: debug
+
 remote:
   home: http://localhost:8082
