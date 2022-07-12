@@ -33,7 +33,7 @@ spring:
 
       # 路由id
       - id: path1
-        # 目标url
+        # 目标url,uri 不能以 / 结尾,会出现404,如 http://localhost:8083/
         uri: http://localhost:8083
         # 断言
         predicates:
@@ -44,6 +44,7 @@ spring:
         - StripPrefix=1
 
       - id: path2
+        # uri 不能以 / 结尾,会出现404,如 http://localhost:8083/
         uri: http://localhost:8083
         predicates:
         - Path=/admin-api/route2/**
