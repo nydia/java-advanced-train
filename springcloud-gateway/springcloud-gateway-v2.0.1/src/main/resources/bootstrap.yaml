@@ -34,17 +34,17 @@ spring:
       # 路由id
       - id: path1
         # 目标url
-        uri: http://localhost:8083/
+        uri: http://localhost:8083
         # 断言
         predicates:
         - Path=/base-api/route1/**
         # 过滤器
-        #filters:
+        filters:
         # 丢弃/base-api/的部分
-        #- StripPrefix=1
+        - StripPrefix=1
 
       - id: path2
-        uri: http://localhost:8083/
+        uri: http://localhost:8083
         predicates:
         - Path=/admin-api/route2/**
         filters:
