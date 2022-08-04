@@ -32,3 +32,23 @@
   clickmap:'default',
 });
 sensors.quick('autoTrack'); //神策系统必须是1.4最新版及以上
+
+//自定义数据
+var i=0
+sensors.registerPage({
+  index: function() {
+    return ++i; // 返回数字
+  },
+  istrue: function() {
+    return i<10 ? true : false; // 返回bool
+  },
+  isEmptyString: function() {
+    return ""; // 返回字符串
+  },
+  isDate: function() {
+    return new Date('December 17, 1995 03:24:00'); // 返回日期类型
+  },
+  isArrayOfStr: function() {
+    return ["1","2","3"] // 返回元素是字符串的数组
+  }
+})
