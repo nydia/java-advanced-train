@@ -2,6 +2,8 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 
 @SpringBootApplication
 public class SpringbootNativeApplication {
@@ -10,4 +12,22 @@ public class SpringbootNativeApplication {
 		SpringApplication.run(SpringbootNativeApplication.class, args);
 	}
 
+	@Bean
+	public NewTopic topic() {
+		return TopicBuilder.name("topic1")
+				.partitions(10)
+				.replicas(1)
+				.build();
+	}
+	@Bean
+	public ApplicationRunner runner(KafkaTemplate<String, String> template) {
+		return args -> {
+			template.send("topic1", "test");
+		};
+	}
+
+	@KafkaListener(id = "myId", topics = "topic1")
+	public void listen(String in) {
+		System.out.println(in);
+	}
 }
