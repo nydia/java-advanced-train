@@ -1,5 +1,7 @@
 package com.nydia.algorithm.p216;
 
+import com.nydia.algorithm.base.ListNode;
+
 /**
  * @Auther: hqlv
  * @Date: 2021/11/3 22:44

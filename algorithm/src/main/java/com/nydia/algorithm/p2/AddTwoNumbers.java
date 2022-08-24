@@ -1,6 +1,7 @@
 package com.nydia.algorithm.p2;
 
 import com.google.gson.Gson;
+import com.nydia.algorithm.base.ListNode;
 
 /**
  * Copyright (C) 2020 ShangHai IPS Information Technology Co.,Ltd.

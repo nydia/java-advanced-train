@@ -1,4 +1,4 @@
-package com.nydia.algorithm.p2;
+package com.nydia.algorithm.base;
 
 public class ListNode {
     public int val;
