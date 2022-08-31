@@ -82,10 +82,15 @@
 			<artifactId>canal.protocol</artifactId>
 			<version>1.1.6</version>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.alibaba.rocketmq</groupId>-->
+<!--			<artifactId>rocketmq-remoting</artifactId>-->
+<!--			<version>3.2.6</version>-->
+<!--		</dependency>-->
 		<dependency>
-			<groupId>com.alibaba.rocketmq</groupId>
-			<artifactId>rocketmq-remoting</artifactId>
-			<version>3.2.6</version>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-spring-boot-starter</artifactId>
+			<version>2.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.ddlutils</groupId>
