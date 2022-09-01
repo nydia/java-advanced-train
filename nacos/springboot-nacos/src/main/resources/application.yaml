@@ -30,3 +30,10 @@ ribbon:
   MaxAutoRetries: 3
   # Max number of next servers to retry (excluding the first server)
   MaxAutoRetriesNextServer: 0
+
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: ERROR
+    com.howtodoinjava: DEBUG
+    org.hibernate: ERROR
