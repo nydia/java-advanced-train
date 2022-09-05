@@ -78,8 +78,8 @@
 							<addClasspath>true</addClasspath>
 						</manifest>
 						<manifestEntries>
-							<Premain-Class>com.example.demo.PreMainTraceAgent</Premain-Class>
-							<Agent-Class>com.example.demo.PreMainTraceAgent</Agent-Class>
+							<Premain-Class>com.example.demo.Main</Premain-Class>
+							<Agent-Class>com.example.demo.Main</Agent-Class>
 							<Can-Redefine-Classes>true</Can-Redefine-Classes>
 							<Can-Retransform-Classes>true</Can-Retransform-Classes>
 						</manifestEntries>
