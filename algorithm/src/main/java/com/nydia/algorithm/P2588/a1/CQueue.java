@@ -3,6 +3,7 @@ package com.nydia.algorithm.P2588.a1;
 import java.util.LinkedList;
 import java.util.Stack;
 
+//2588
 public class CQueue {
 
     Stack<Integer> stackIn;

@@ -3,6 +3,8 @@ package com.nydia.algorithm.P2588.a2;
 import java.util.Deque;
 import java.util.LinkedList;
 
+//2588
+//使用Deque实现Stack
 public class CQueue {
 
     Deque<Integer> stackIn;
