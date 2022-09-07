@@ -1,16 +1,17 @@
 package com.nydia.algorithm.P2588.a2;
 
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class CQueue {
 
-    Stack<Integer> stackIn;
-    Stack<Integer> stackOut;
+    Deque<Integer> stackIn;
+    Deque<Integer> stackOut;
     public CQueue() {
-        stackIn = new Stack<>();
-        stackOut = new Stack<>();
+        stackIn = new LinkedList();
+        stackOut = new LinkedList();
     }
-    
+
     public void appendTail(int value) {
         stackIn.push(value);
     }
