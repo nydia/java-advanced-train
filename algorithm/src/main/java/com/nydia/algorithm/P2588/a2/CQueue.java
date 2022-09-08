@@ -1,4 +1,4 @@
-package com.nydia.algorithm.P2588.a2;
+package com.nydia.algorithm.p2588.a2;
 
 import java.util.Deque;
 import java.util.LinkedList;

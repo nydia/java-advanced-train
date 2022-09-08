@@ -1,6 +1,5 @@
-package com.nydia.algorithm.P2588.a1;
+package com.nydia.algorithm.p2588.a1;
 
-import java.util.LinkedList;
 import java.util.Stack;
 
 //2588

@@ -1,6 +1,6 @@
 package com.nydia.algorithm;
 
-import com.nydia.algorithm.P2588.a1.CQueue;
+import com.nydia.algorithm.p2588.a1.CQueue;
 
 /**
  * @Auther: hqlv
