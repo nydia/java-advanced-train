@@ -14,7 +14,7 @@
 	<name>agent</name>
 	<description>agent</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<repackage.classifier/>
 		<spring-native.version>0.11.5</spring-native.version>
 	</properties>
@@ -32,7 +32,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>agent1</finalName>
+		<finalName>agent</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
