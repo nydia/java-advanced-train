@@ -7,25 +7,22 @@ import java.security.ProtectionDomain;
 
 /**
  * @Auther: hqlv
- * @Date: 2022/9/5 23:41
+ * @Date: 2022/9/15 00:17
  * @Description:
  */
-public class PreMainTraceAgent {
+public class AgentMainTest {
 
-    public static void premain(String agentArgs, Instrumentation inst) {
-        System.out.println("agentArgs: " + agentArgs);
-        inst.addTransformer(new DefineTransformer(), true);
-        inst.addTransformer(new MyClassTransformer(), true);
+    public static void agentmain(String agentArgs, Instrumentation instrumentation) {
+        instrumentation.addTransformer(new DefineTransformer(), true);
     }
 
     static class DefineTransformer implements ClassFileTransformer {
 
         @Override
         public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-            System.out.println("premain load class: " + className);
+            System.out.println("premain load Class:" + className);
             return classfileBuffer;
         }
     }
-
 
 }
