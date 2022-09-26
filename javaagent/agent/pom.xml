@@ -28,11 +28,11 @@
 			<artifactId>spring-native</artifactId>
 			<version>${spring-native.version}</version>
 		</dependency>
-        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.27.0-GA</version>
-        </dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.28.0-GA</version>
+		</dependency>
 
 	</dependencies>
 
@@ -51,7 +51,7 @@
 						</manifest>
 						<manifestEntries>
 							<Premain-Class>com.agent.demo.PreMainTraceAgent</Premain-Class>
-							<Agent-Class>com.agent.demo.PreMainTraceAgent</Agent-Class>
+							<Agent-Class>com.agent.demo.AgentMainTest</Agent-Class>
 							<Can-Redefine-Classes>true</Can-Redefine-Classes>
 							<Can-Retransform-Classes>true</Can-Retransform-Classes>
 						</manifestEntries>
