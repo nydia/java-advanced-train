@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: springcloud-gateway
+  profiles:
+    active: local
+
+# gateway Actuator API
+management:
+  endpoint:
+    gateway:
+      enabled: true # default value
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  # 解决数据库
+  cloud:
+    refresh:
+      refreshable: none
+    gateway:
+      enabled: true
+      routes:
+      # 路由id
+      - id: route1
+        # 目标url,uri 不能以 / 结尾,会出现404,如 http://localhost:8083/
+        uri: http://localhost:8082
+        # 断言
+        predicates:
+        - Path=/base-api/route1/**
+        # 过滤器
+        filters:
+        # 丢弃/base-api/的部分
+        - StripPrefix=1
+
+      - id: route2
+        # uri 不能以 / 结尾,会出现404,如 http://localhost:8083/
+        uri: http://localhost:8082
+        predicates:
+        - Path=/base-api/route2/**
+        filters:
+        - StripPrefix=1
+

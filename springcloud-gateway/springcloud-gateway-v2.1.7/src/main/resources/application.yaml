@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+logging:
+  level:
+    root: debug
+
+remote:
+  home: http://localhost:8082
+
+# 权限
+security:
+  token:
+    # 过期时间，秒
+    expirytime: 300
+  jwt:
+    #跳过认证的路由
+    skip-auth-urls:
+      - /healthCheck
