@@ -93,7 +93,7 @@ public class JWTAuthFilter implements GlobalFilter, Ordered {
 
         ErrorMessage res = ErrorMessage.builder()
                 .status(200100)
-                .message("用户无权限访问")
+                .message("no auth")
                 .build();
 
         byte[] responseByte = JsonUtils.objectToJson(res).toString().getBytes(StandardCharsets.UTF_8);

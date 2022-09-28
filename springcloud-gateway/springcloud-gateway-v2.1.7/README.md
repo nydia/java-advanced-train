@@ -10,3 +10,9 @@
 - curl http://localhost:8082/base-api/route1/msg
 - curl http://localhost:8082/base-api/route1/healthCheck
 - curl http://localhost:8082/base-api/route2/msg
+
+
+curl http://localhost:8082/base-api/route1/msg -H "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NjQ5ODc3NDl9.ESd_8rz90EMLbatFpAIGLMrcVBgg7IE8wjhTEalthkc"
+
+
+curl http://localhost:8082/base-api/route1/msg -X POST -H "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NjQ5ODc3NDl9.ESd_8rz90EMLbatFpAIGLMrcVBgg7IE8wjhTEalthkc"
