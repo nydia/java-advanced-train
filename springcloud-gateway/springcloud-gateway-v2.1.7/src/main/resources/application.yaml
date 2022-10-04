@@ -16,4 +16,5 @@ security:
   jwt:
     #跳过认证的路由
     skip-auth-urls:
-      - /base-api/route1/healthCheck
+      #- /base-api/route1/healthCheck
+      - /base-api/**

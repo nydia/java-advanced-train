@@ -31,3 +31,12 @@ mvnw.cmd
 .mvn/
 logs/
 activemq-data/
+
+# vscode
+.vscode/
+.dist/
+.vscode
+
+# eclipse
+.eclipse/
+.eclipse

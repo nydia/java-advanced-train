@@ -28,7 +28,7 @@ import java.nio.charset.StandardCharsets;
  * @Date 2022/9/27 15:40
  * @Created by <a href="mailto:nydia_lhq@hotmail.com">lvhuaqiang</a>
  */
-@Component//需要在项目启动的时候加载
+//@Component//需要在项目启动的时候加载
 @Slf4j
 @ConfigurationProperties(prefix = "security.jwt")//@ConfigurationProperties 和 @Setter 需要同时使用
 @Setter

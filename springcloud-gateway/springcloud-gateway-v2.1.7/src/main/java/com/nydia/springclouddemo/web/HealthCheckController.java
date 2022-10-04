@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Description TODO
+ * @Description 健康检查
  * @Date 2022/5/15 13:46
  * @Created by <a href="mailto:nydia_lhq@hotmail.com">lvhuaqiang</a>
  */
