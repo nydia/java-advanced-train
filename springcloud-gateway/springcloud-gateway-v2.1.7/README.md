@@ -1,8 +1,5 @@
 # gateway
 
-## gateway流程
-jwt鉴权 -> 路由route
-
 ## H2 
 
 - SpringCloud http://localhost:8082/h2-console
@@ -42,3 +39,6 @@ curl -X POST -d '{}' http://localhost:8082/routePredicate1/methodRoute
 ### token
 
 curl http://localhost:8082/base-api/route1/msg -H "Authorization:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NjQ5ODc3NDl9.ESd_8rz90EMLbatFpAIGLMrcVBgg7IE8wjhTEalthkc"
+
+## gateway流程
+jwt鉴权 -> 路由route
