@@ -12,6 +12,7 @@
 
 # Package Files #
 *.jar
+!springboot-mpush/src/main/resources/jars/*
 *.war
 *.nar
 *.ear
