@@ -1,4 +1,5 @@
 # gateway
+将spring的日志级别开到debug就可以看到完整的日志了。
 
 ## gateway流程
 jwt鉴权 -> 路由route

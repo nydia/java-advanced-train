@@ -15,6 +15,11 @@ management:
     web:
       exposure:
         include: gateway
+
+logging:
+  level:
+    org.springframework: debug
+
 # 自定义参数
 app:
   host: localhost
