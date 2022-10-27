@@ -23,6 +23,7 @@ jwt鉴权 -> 路由route
 
 #### RoutePredicate1Controller
 
+curl http://localhost:8082/base-api/routePredicate1/msg
 curl http://localhost:8082/base-api/routePredicate1/afterRoute
 curl http://localhost:8082/base-api/routePredicate1/beforeRoute
 curl http://localhost:8082/base-api/routePredicate1/betweenRoute
