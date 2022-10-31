@@ -1,0 +1,10 @@
+server:
+  port: 8082
+  max-http-header-size: 209715200
+  tomcat:
+      accept-count: 200
+      max-connections: 200
+      max-http-header-size: 2097152   00
+
+remote:
+  home: http://localhost:8082
