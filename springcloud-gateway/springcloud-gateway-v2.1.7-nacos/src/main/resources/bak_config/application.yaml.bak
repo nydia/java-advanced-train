@@ -1,0 +1,174 @@
+server:
+  port: 8082
+
+logging:
+  level:
+    root: info
+    com:
+      alibaba:
+        nacos: error
+
+remote:
+  home: http://localhost:8082
+
+# 权限
+security:
+  token:
+    # 过期时间，秒
+    expirytime: 300
+  jwt:
+    #跳过认证的路由
+    skip-auth-urls:
+      #- /base-api/route1/healthCheck
+      - /base-api_bak/**
+
+# gateway Actuator API
+management:
+  endpoint:
+    gateway:
+      enabled: true # default value
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+
+# 自定义参数
+app:
+  host: localhost
+  port: ${server.port}
+  prefixPath: /base-api
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  # 解决数据库
+  cloud:
+    refresh:
+      refreshable: none
+    gateway:
+      enabled: true
+      routes:
+      # 普通示例 对应 RoutePredicate1Controller
+      # 路由id
+      - id: route1
+        # 资源标志 (uri 不能以 / 结尾,会出现404,如 http://localhost:8083/)
+        uri: http://${app.host}:${app.port}
+        # 谓词
+        predicates:
+        # 为了演示作用，我们不用正则匹配的方式，采用精确路径
+        # - Path=/base-api/routePredicate1/**
+        - Path=/base-api/routePredicate1/msg
+        # 过滤器
+        filters:
+        # 从url路径的地 n 个/后面开发访问，前面的丢弃（比如这里是丢弃/base-api/的部分）
+        - StripPrefix=1
+
+      # =================  RoutePredicate1Controller =================
+
+      # 时间后路由 (指定时间之前访问原有路径，指定时间之后访问新规则下路由路径)
+      # (为了演示效果，我们把指定时间后路径路由到 另外Server服务 里面的 afterRoute)
+      - id: route1_afterRoute
+        #uri: http://${app.host}:${app.port}
+        # 为了方便请求 另外一个server
+        uri: http://localhost:8083
+        # 谓词
+        predicates:
+        # 后面的+08:00[Asia/Shanghai] 仅仅指明时区并不是真正的加上+08:00
+        - After=2022-10-04T18:00:00.000+08:00[Asia/Shanghai]
+        - Path=/base-api/routePredicate1/afterRoute
+        filters:
+        - StripPrefix=1
+
+      # 时间前路由 (指定时间之后访问原有路径，指定时间之前访问新规则下路由路径)
+      # (为了演示效果，我们把指定时间前路径路由到 另外Server服务 里面的 before)
+      - id: route1_beforeRoute
+        # uri: http://${app.host}:${app.port}
+        # 为了方便请求 另外一个server
+        uri: http://localhost:8083
+        # 两个谓词： Before, Path
+        predicates:
+        - Before=2022-10-04T18:00:00.000+08:00[Asia/Shanghai]
+        - Path=/base-api/routePredicate1/beforeRoute
+        filters:
+        - StripPrefix=1
+
+      # 时间段之间路由 (指定时间之间访问原有路径，指定时间之外访问新规则下路由路径)
+      # (为了演示效果，我们把指定时间前路径路由到 另外Server服务 里面的 before)
+      - id: route1_betweenRoute
+        uri: http://localhost:8083
+        # 两个谓词： Between, Path
+        predicates:
+        - Between=2022-10-04T18:00:00.000+08:00[Asia/Shanghai],2022-10-04T19:00:00.000+08:00[Asia/Shanghai]
+        - Path=/base-api/routePredicate1/betweenRoute
+        filters:
+        - StripPrefix=1
+
+      # Cookie路由
+      - id: route1_cookieRoute
+        uri: http://${app.host}:${app.port}
+        # 两个谓词： Cookie, Path
+        predicates:
+        - name: Cookie
+          args:
+            name: mycookie
+            regexp: testval
+        - Path=${app.prefixPath}/routePredicate1/cookieRoute
+        filters:
+        - StripPrefix=1
+
+      # Header路由
+      - id: route1_headerRoute
+        uri: http://${app.host}:${app.port}
+        # 两个谓词： Header, Path
+        predicates:
+        - Header=token,T10000
+        - Path=${app.prefixPath}/routePredicate1/headerRoute
+        filters:
+        - StripPrefix=1
+
+      # Host路由
+      - id: route1_hostRoute
+        uri: http://${app.host}:${app.port}
+        # 两个谓词： Host, Path
+        predicates:
+        - Host=localhost
+        - Path=${app.prefixPath}/routePredicate1/hostRoute
+        filters:
+        - StripPrefix=1
+
+       # 新版本springboot的method路由
+#      # method路由
+#      - id: route1_methodRoute
+#        uri: http://${app.host}:${app.port}
+#        # 两个谓词： Method, Path
+#        predicates:
+#        - Method=GET,POST
+#        - Path=${app.prefixPath}/routePredicate1/methodRoute
+#        filters:
+#        - StripPrefix=1
+
+      # 旧版本springboot的method路由, Method多个值不匹配，原因未知
+      # method路由
+      - id: route1_methodRoute
+        uri: http://${app.host}:${app.port}
+        # 两个谓词： Method, Path
+        predicates:
+        - Method=POST
+        - Path=${app.prefixPath}/routePredicate1/methodRoute
+        filters:
+        - StripPrefix=1
+
+      # =================  RoutePredicate2Controller =================
+      # 路由id
+      - id: route2
+        # 资源标志 (uri 不能以 / 结尾,会出现404,如 http://localhost:8083/)
+        uri: http://${app.host}:${app.port}
+        # 谓词
+        predicates:
+        # - Path=/base-api/routePredicate1/**
+        - Path=/base-api/routePredicate2/msg
+        # 过滤器
+        filters:
+        # 丢弃/base-api/的部分
+        - StripPrefix=1

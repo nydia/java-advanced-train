@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: springcloud-gateway
+  profiles:
+    active: local
+
+---
+spring:
+  profiles: local
+  # 解决数据库
+  cloud:
+    refresh:
+      refreshable: none
+    nacos:
+      server-addr: 192.168.133.1:8848
+      config:
+        file-extension: yaml
+        prefix: ${spring.application.name}
+        namespace: public
+        group: DEFAULT_GROUP
