@@ -23,6 +23,13 @@
 - 09mq
 - springcloud-nacos feign的请求参数：超时重试等分析
 - druid 德鲁伊数据库连接池
+- springboot-inlong inlong网关示例
+- springboot-kafka：springboot + kafka结合示例
+- springboot-mpush：springboot + 消息推送系统 mpush示例
+- springboot-native：springboot native示例
+- springboot-skywalking：skywalking的实际运用
+- springcloud-gateway：gateway的各种用法
+- springcloud-shenyu ： shenyu网关的各种用法
 
 
 ## jvm 二进制文件
