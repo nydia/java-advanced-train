@@ -1,0 +1,15 @@
+server:
+  port: 8085
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.h2.Driver
+
+apps:
+  nodes:
+    - "192.168.43.71:26379"
+    - "192.168.43.72:26379"
+    - "192.168.43.73:26379"

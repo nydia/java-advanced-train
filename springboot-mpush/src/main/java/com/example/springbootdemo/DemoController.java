@@ -1,9 +1,7 @@
 package com.example.springbootdemo;
 
 import com.alibaba.fastjson.JSON;
-import com.example.springbootdemo.service.ApiService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,10 +20,6 @@ import java.util.Map;
 @RequestMapping(value = "/api2")
 @Slf4j
 public class DemoController {
-
-    //列表可以获取所有的service的接口实现列表
-    @Autowired
-    private List<ApiService> apiServiceList;
 
     public String demo(HttpServletRequest request){
         String s = "";
@@ -57,21 +50,5 @@ public class DemoController {
         } catch (Exception e) {
         }
     }
-
-    //curl http://localhost:8085/api2/test?apiId=1
-    @RequestMapping(value = "/test")
-    @ResponseBody
-    public String apiRequest(HttpServletRequest request){
-
-        String apiId = request.getParameter("apiId");
-        for(ApiService apiService : apiServiceList){
-            if(apiId.equalsIgnoreCase(apiId)){
-                return apiService.test();
-            }
-        }
-
-        return "nil";
-    }
-
 
 }

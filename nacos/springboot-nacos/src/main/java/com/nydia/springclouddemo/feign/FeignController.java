@@ -1,6 +1,8 @@
 package com.nydia.springclouddemo.feign;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +18,14 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping
+@Configuration
 public class FeignController {
+
+    @Value("${ticai.wccclose.chptime:}")
+    private String chptime;
+
+    @Value("${ticai.wccclose.fnltime:}")
+    private String fnltime;
 
     @Autowired
     private FeignService feignService;
