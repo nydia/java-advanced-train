@@ -6,6 +6,7 @@
 
 # Spring Cloud Gateway
 
+
 - curl http://localhost:8082/actuator/gateway/routes
 - curl http://localhost:8082/test
 - curl -X GET http://localhost:8082/base-api/route1/test
