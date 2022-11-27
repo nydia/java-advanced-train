@@ -1,6 +1,10 @@
 # 访问
 curl http://localhost:8082/healthCheck
 
+ab -n 100 -c 10 http://localhost:8082/healthCheck
+
+
+
 # 启动 apm
 startup.cmd
 
