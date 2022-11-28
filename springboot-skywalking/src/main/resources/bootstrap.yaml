@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: springcloud-skywalking-agent
+  profiles:
+    active: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  # 解决数据库
+  cloud:
+    refresh:
+      refreshable: none
