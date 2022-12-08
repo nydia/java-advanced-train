@@ -1,6 +1,5 @@
 package com.nydia.algorithm.p2;
 
-import com.google.gson.Gson;
 import com.nydia.algorithm.base.ListNode;
 
 /**
@@ -45,6 +44,5 @@ public class AddTwoNumbers {
         ListNode l1 = new ListNode(4, new ListNode(5, new ListNode(9)));
         ListNode l2 = new ListNode(1, new ListNode(4, new ListNode(2)));
         ListNode result = addTwoNumbers(l1, l2);
-        System.out.println(new Gson().toJson(result));
     }
 }
