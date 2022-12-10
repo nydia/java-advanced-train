@@ -31,7 +31,6 @@
 - springcloud-gateway：gateway的各种用法
 - springcloud-shenyu ： shenyu网关的各种用法
 - design-pattern-java：设计模式java实现
-- algorithm：leetcode算法
 
 
 ## jvm 二进制文件
