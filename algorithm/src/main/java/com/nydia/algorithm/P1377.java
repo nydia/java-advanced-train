@@ -1,9 +1,10 @@
+package com.nydia.algorithm;
+
 /**
  * @Auther: nydia_lhq@hotmail.com
  * @Date: 2022/12/9 00:06
- * @Description: P1377
- * <p>剑指 Offer 20. 表示数值的字符串  https://leetcode.cn/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof/?favorite=xb9nqhhg</p>
- * <p>https://leetcode.cn/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof/solutions/</p>
+ * @Description: com.nydia.algorithm.P1377
+ * <p>Office 20 / P1377</p>
  */
 public class P1377 {
 
