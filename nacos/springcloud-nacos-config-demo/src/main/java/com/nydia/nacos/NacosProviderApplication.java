@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class NacosProviderApplication {
 
 	public static void main(String[] args) {
+		//修改nacos的目录(必须在下面的启动命令上面执行）
+		System.setProperty("JM.SNAPSHOT.PATH","C:\\temp\\nacos-client");
+
 		SpringApplication.run(NacosProviderApplication.class, args);
 	}
 

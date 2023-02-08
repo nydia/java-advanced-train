@@ -1,0 +1,4 @@
+spring.cloud.nacos.config.server-addr=172.30.42.82:8848,172.30.42.83:8848,172.30.42.84:8848
+spring.cloud.nacos.config.file-extension=properties
+
+spring.application.name=example
