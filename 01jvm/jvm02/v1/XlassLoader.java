@@ -16,25 +16,26 @@ import java.util.List;
 public class XlassLoader extends ClassLoader {
 
     public static void main(String[] args) throws Exception {
-        // 相关参数
-        final String className = "Hello";
-        final String methodName = "hello";
-        // 创建类加载器
-        ClassLoader classLoader = new XlassLoader();
-        // 加载相应的类
-        Class<?> clazz = classLoader.loadClass(className);
-        // 看看里面有些什么方法
-        for (Method m : clazz.getDeclaredMethods()) {
-            System.out.println(clazz.getSimpleName() + "." + m.getName());
-        }
-        // 创建对象
-        Object instance = clazz.getDeclaredConstructor().newInstance();
-        // 调用实例方法
-        Method method = clazz.getMethod(methodName);
-        method.invoke(instance);
+        //加载class
+        loadClass();
+        //加载xlass
+        loadXlass();
     }
 
     // ================= 类加载 start ===================
+
+    private static void loadClass(){
+        //启动类加载器 -- 属性
+        bootClassLoader_properties();
+        //启动类加载器 -- api
+        bootClassLoader_api();
+        //扩展类加载器 -- 属性
+        extClassLoader_properties();
+        //扩展类加载器 -- api
+        extClassLoader_api();
+        //应用类加载器 -- api
+        appClassLoader_api();
+    }
 
     //启动类加载器 -- 属性
     public static void bootClassLoader_properties() {
@@ -64,7 +65,12 @@ public class XlassLoader extends ClassLoader {
 
     //应用类加载器 -- api
     public static void appClassLoader_api() {
+        System.out.println("自定义类加载路径：");
         printClassloader("应用类加载器", XlassLoader.class.getClassLoader());
+        System.out.println("对应Parent ClassLoader：");
+        System.out.println(XlassLoader.getSystemClassLoader().getParent());
+        System.out.println("对应父类的父类 ClassLoader：");
+        System.out.println(XlassLoader.getSystemClassLoader().getParent().getParent());
     }
 
     private static void printClassloader(String name, ClassLoader classLoader) {
@@ -103,6 +109,27 @@ public class XlassLoader extends ClassLoader {
     }
 
     //=============== 类加载 end =====================
+
+    //=============== 加载 xlass start =====================
+
+    public static void loadXlass() throws Exception{
+        // 相关参数
+        final String className = "Hello";
+        final String methodName = "hello";
+        // 创建类加载器
+        ClassLoader classLoader = new XlassLoader();
+        // 加载相应的类
+        Class<?> clazz = classLoader.loadClass(className);
+        // 看看里面有些什么方法
+        for (Method m : clazz.getDeclaredMethods()) {
+            System.out.println(clazz.getSimpleName() + "." + m.getName());
+        }
+        // 创建对象
+        Object instance = clazz.getDeclaredConstructor().newInstance();
+        // 调用实例方法
+        Method method = clazz.getMethod(methodName);
+        method.invoke(instance);
+    }
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
@@ -147,4 +174,7 @@ public class XlassLoader extends ClassLoader {
             }
         }
     }
+
+    //=============== 加载 xlass end =====================
+
 }
