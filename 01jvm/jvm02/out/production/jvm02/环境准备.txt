@@ -35,4 +35,3 @@ mvn clean package
 提取码：sp85 
 
 java -jar -Xmx512m -Xms512 gateway-server-0.0.1-SNAPSHOT.jar
-

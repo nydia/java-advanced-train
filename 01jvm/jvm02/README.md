@@ -20,7 +20,15 @@
 
 5.（选做）本机使用 G1 GC 启动一个程序，仿照课上案例分析一下 JVM 情况。
 
+> 扩展作业：
 
+从Classloader到模块化，动态加载的插件机制。
+
+1. 10-使用自定义Classloader机制，实现xlass的加载：xlass是作业材料。
+2. 20-实现xlass打包的xar（类似class文件打包的jar）的加载：xar里是xlass。
+3. 30-基于自定义Classloader实现类的动态加载和卸载：需要设计加载和卸载。
+4. 30-基于自定义Classloader实现模块化机制：需要设计模块化机制。
+5. 30-使用xar作为模块，实现xar动态加载和卸载：综合应用前面的内容。
 
 ## 操作步骤
 
@@ -47,7 +55,7 @@
 8. 创建实例，以及调用方法
 9. 执行.
 
-具体代码可参考: [XlassLoader.java](./XlassLoader.java)
+具体代码可参考: [v1.XlassLoader.java](./XlassLoader.java)
 
 
 ### 作业3（必做）
@@ -112,6 +120,8 @@ java -Xmx2g -Xms2g -XX:+UseG1GC -verbose:gc -XX:+PrintGCDateStamps -XX:+PrintGCD
 尝试使用课程中介绍的各种工具JDK命令行和图形工具来进行分析。
 
 其中 [GCLogAnalysis.java](./GCLogAnalysis.java) 文件也可以从课件资料zip中找到.
+
+### 扩展作业
 
 ## 更多资料
 

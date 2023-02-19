@@ -7,17 +7,17 @@ public class JvmClassLoaderPrintPath {
 
     public static void main(String[] args) {
 
-        // 启动类加载器
+        // 启动类（BootStrap ）加载器
         URL[] urls = sun.misc.Launcher.getBootstrapClassPath().getURLs();
-        System.out.println("启动类加载器");
+        System.out.println("启动类加载器 BootStrap");
         for (URL url : urls) {
             System.out.println(" ===> " + url.toExternalForm());
         }
 
-        // 扩展类加载器
+        // 扩展类（ExtClassLoader）加载器
         printClassloader("扩展类加载器",JvmClassLoaderPrintPath.class.getClassLoader().getParent());
 
-        // 应用类加载器
+        // 应用类（AppClassLoader ）加载器
         printClassloader("应用类加载器",JvmClassLoaderPrintPath.class.getClassLoader());
 
     }

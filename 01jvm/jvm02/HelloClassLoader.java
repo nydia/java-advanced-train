@@ -1,5 +1,3 @@
-package jvm;
-
 import java.util.Base64;
 
 public class HelloClassLoader extends ClassLoader {
