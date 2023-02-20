@@ -1,7 +1,7 @@
 package com.example.springbootdemo;
 
-import com.alibaba.fastjson.JSON;
 import com.example.springbootdemo.service.ApiService;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,7 +70,7 @@ public class DemoController {
     private static void requestService(RequestMethod requestType, String url, Map<String, Object> paramMap) {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         StackTraceElement stack = stackTraceElements[2];
-        log.info("方法:[{}] request parameter :[{}][{}]", stack.getMethodName(), url, JSON.toJSONString(paramMap));
+        log.info("方法:[{}] request parameter :[{}][{}]", stack.getMethodName(), url, new Gson().toJson(paramMap));
         String resultData;
         String resultJson;
         try {
