@@ -127,3 +127,4 @@ java -Xmx2g -Xms2g -XX:+UseG1GC -verbose:gc -XX:+PrintGCDateStamps -XX:+PrintGCD
 
 - 更多中英文的技术文章和参考资料: <https://github.com/cncounter/translation>
 - 这博客流程很好： https://www.cnblogs.com/holddie/p/java-jin-jie-zhijvm-shi-zhan.html
+  - https://github.com/Asxing/java-p7-in-action

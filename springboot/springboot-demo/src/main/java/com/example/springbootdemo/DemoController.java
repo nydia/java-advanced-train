@@ -58,7 +58,7 @@ public class DemoController {
         System.out.println(request1.getRemotePort());
         System.out.println(request1.getServerPort());
         System.out.println("real-ip" + IpUtils.getIpAddress());
-        System.out.println("real-image-" + NetworkUtils.getImagePrefixUrl());
+        //System.out.println("real-image-" + NetworkUtils.getImagePrefixUrl());
 
         return ApplicationUtils.getBean(DemoService.class).hello();
     }

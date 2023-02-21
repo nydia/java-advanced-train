@@ -20,11 +20,13 @@ public class XlassLoader extends ClassLoader {
         loadClass();
         //加载xlass
         loadXlass();
+        //加载resources
+        printResourcePath();
     }
 
     // ================= 类加载 start ===================
 
-    private static void loadClass(){
+    private static void loadClass() {
         //启动类加载器 -- 属性
         bootClassLoader_properties();
         //启动类加载器 -- api
@@ -108,11 +110,19 @@ public class XlassLoader extends ClassLoader {
         return null;
     }
 
+    private static void printResourcePath() {
+        System.out.println("XlassLoader.class.getResource(\"\")):\n" + XlassLoader.class.getResource(""));
+        System.out.println("XlassLoader.class.getResource(\"/\")):\n" + XlassLoader.class.getResource("/"));
+        System.out.println("XlassLoader.class.getClassLoader().getResource(\"\")):\n" + XlassLoader.class.getClassLoader().getResource(""));
+        System.out.println("XlassLoader.getSystemResource(\"))\n" + ClassLoader.getSystemResource(""));
+        System.out.println("Thread.currentThread().getContextClassLoader().getResource(\"\")\n" + Thread.currentThread().getContextClassLoader().getResource(""));
+    }
+
     //=============== 类加载 end =====================
 
     //=============== 加载 xlass start =====================
 
-    public static void loadXlass() throws Exception{
+    public static void loadXlass() throws Exception {
         // 相关参数
         final String className = "Hello";
         final String methodName = "hello";
