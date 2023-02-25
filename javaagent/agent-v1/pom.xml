@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.agent.demo</groupId>
-	<artifactId>agent</artifactId>
+	<artifactId>agent-v1</artifactId>
 	<version>0.0.1</version>
-	<name>agent</name>
+	<name>agent-v1</name>
 	<description>agent</description>
 	<properties>
 		<java.version>8</java.version>
