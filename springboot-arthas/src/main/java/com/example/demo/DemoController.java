@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,9 @@ import java.util.Map;
 @RequestMapping(value = "/api2")
 @Slf4j
 public class DemoController {
+
+    @Autowired
+    private DemoService demoService;
 
     @ResponseBody
     @GetMapping("/hello")
@@ -45,7 +49,9 @@ public class DemoController {
         System.out.println(request1.getScheme());
         System.out.println(request1.getRemotePort());
         System.out.println(request1.getServerPort());
-        return null;
+
+        demoService.hello();
+        return "ok";
     }
 
 
