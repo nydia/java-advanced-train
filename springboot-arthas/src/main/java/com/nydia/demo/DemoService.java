@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.nydia.demo;
 
 import org.springframework.stereotype.Component;
 

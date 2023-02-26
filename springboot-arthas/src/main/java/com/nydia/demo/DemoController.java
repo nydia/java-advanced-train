@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.nydia.demo;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import java.util.Map;
  * @Description:
  */
 @Controller
-@RequestMapping(value = "/api2")
+@RequestMapping
 @Slf4j
 public class DemoController {
 
@@ -30,26 +30,6 @@ public class DemoController {
     @ResponseBody
     @GetMapping("/hello")
     public String hello(HttpServletRequest request) {
-        System.out.println(request.getRemoteAddr());
-        System.out.println(request.getRemoteHost());
-        System.out.println(request.getRemotePort());
-        System.out.println(request.getRequestURL());
-        System.out.println(request.getRequestURI());
-        System.out.println(request.getScheme());
-
-        System.out.println("----------------------------");
-
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request1 = requestAttributes.getRequest();
-
-        System.out.println(request1.getRemoteAddr());
-        System.out.println(request1.getRemoteHost());
-        System.out.println(request1.getRequestURL());
-        System.out.println(request1.getRequestURI());
-        System.out.println(request1.getScheme());
-        System.out.println(request1.getRemotePort());
-        System.out.println(request1.getServerPort());
-
         demoService.hello();
         return "ok";
     }
