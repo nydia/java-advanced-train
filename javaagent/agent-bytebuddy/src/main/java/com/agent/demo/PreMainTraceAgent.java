@@ -1,11 +1,9 @@
 package com.agent.demo;
 
-import com.agent.demo.transformer.DefineTransformer;
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.agent.builder.AgentBuilder;
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.matcher.ElementMatchers;
-import net.bytebuddy.utility.JavaModule;
 
 import java.lang.instrument.Instrumentation;
 
@@ -14,32 +12,33 @@ import java.lang.instrument.Instrumentation;
  * @Date: 2022/9/5 23:41
  * @Description:
  */
+@Slf4j
 public class PreMainTraceAgent {
 
     public static void premain(String agentArgs, Instrumentation inst) {
-        System.out.println("agentArgs: " + agentArgs);
-        inst.addTransformer(new DefineTransformer(), true);
+        log.info("agentArgs: " + agentArgs);
+        //inst.addTransformer(new DefineTransformer(), true);
 
-        AgentBuilder.Listener listener = new AgentBuilder.Listener() {
-            @Override
-            public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, DynamicType dynamicType) {}
-
-            @Override
-            public void onIgnored(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module) { }
-
-            @Override
-            public void onError(String typeName, ClassLoader classLoader, JavaModule module, Throwable throwable) { }
-
-            @Override
-            public void onComplete(String typeName, ClassLoader classLoader, JavaModule module) { }
-        };
-
-        new AgentBuilder
-                .Default()
-                .type(ElementMatchers.nameStartsWith("com.example.demo")) // 指定需要拦截的类
-                .transform(new DefineTransformer())
-                .with(listener)
-                .installOn(inst);
+        try {
+            // 拦截spring controller
+            AgentBuilder.Identified.Extendable agentBuilder = new AgentBuilder.Default()
+                    // 拦截@Controller 和 @RestController的类
+                    .type(ElementMatchers.isAnnotatedWith(ElementMatchers.named("org.springframework.stereotype.Controller")
+                                    .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))
+                            //.or(ElementMatchers.named("org.springframework.stereotype.Service"))
+                    ))
+                    .transform((builder, typeDescription, classLoader, javaModule) ->
+                            // 拦截 @RestMapping 或者 @Get/Post/Put/DeleteMapping
+                            builder.method(ElementMatchers.isPublic().and(ElementMatchers.isAnnotatedWith(
+                                    ElementMatchers.nameStartsWith("org.springframework.web.bind.annotation")
+                                            .and(ElementMatchers.nameEndsWith("Mapping")))))
+                                    // 拦截后交给 SpringControllerInterceptor 处理
+                                    .intercept(MethodDelegation.to(LogInterceptor.class)));
+            // 装载到 instrumentation 上
+            agentBuilder.installOn(inst);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
