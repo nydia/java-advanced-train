@@ -4,5 +4,5 @@
 # agent-client build
 docker build -t  agent-client:1.0 .
 
-# find images
+# find images windows
 docker image ls |findstr "agent"
