@@ -7,7 +7,7 @@
     <relativePath>pom.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.agent.demo</groupId>
+  <groupId>com.nydia.agent</groupId>
   <artifactId>agent-bytebuddy</artifactId>
   <name>agent-bytebuddy</name>
   <version>1.0.0</version>

@@ -50,7 +50,7 @@
 							<addClasspath>true</addClasspath>
 						</manifest>
 						<manifestEntries>
-							<Premain-Class>com.agent.demo.PreMainTraceAgent</Premain-Class>
+							<Premain-Class>PreMainTraceAgent</Premain-Class>
 							<Agent-Class>com.agent.demo.AgentMainTest</Agent-Class>
 							<Can-Redefine-Classes>true</Can-Redefine-Classes>
 							<Can-Retransform-Classes>true</Can-Retransform-Classes>

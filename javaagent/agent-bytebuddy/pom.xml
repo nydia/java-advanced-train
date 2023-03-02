@@ -8,7 +8,7 @@
         <version>2.6.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.agent.demo</groupId>
+    <groupId>com.nydia.agent</groupId>
     <artifactId>agent-bytebuddy</artifactId>
     <version>1.0.0</version>
     <name>agent-bytebuddy</name>
@@ -101,8 +101,8 @@
                             </descriptorRefs>
                             <archive>
                                 <manifestEntries>
-                                    <Premain-Class>com.agent.demo.PreMainTraceAgent</Premain-Class>
-                                    <Agent-Class>com.agent.demo.PreMainTraceAgent</Agent-Class>
+                                    <Premain-Class>PreMainTraceAgent</Premain-Class>
+                                    <Agent-Class>PreMainTraceAgent</Agent-Class>
                                     <Can-Redefine-Classes>true</Can-Redefine-Classes>
                                     <Can-Retransform-Classes>true</Can-Retransform-Classes>
                                     <Specification-Title>${project.name}</Specification-Title>
