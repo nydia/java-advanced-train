@@ -13,7 +13,6 @@
 # Package Files #
 *.jar
 !springboot-mpush/src/main/resources/jars/*
-!javaagent/agent-client/src/main/resources/docker/libs/*
 *.war
 *.nar
 *.ear
