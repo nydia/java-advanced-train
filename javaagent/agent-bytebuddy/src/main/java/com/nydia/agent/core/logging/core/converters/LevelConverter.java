@@ -16,26 +16,22 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.logging.core.converters;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
+import com.nydia.agent.core.logging.core.Converter;
+import com.nydia.agent.core.logging.core.LogEvent;
 
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
-
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
+/**
+ * Just return logEvent.getLevel().name()
+ */
+public class LevelConverter implements Converter {
+    @Override
+    public String convert(LogEvent logEvent) {
+        return logEvent.getLevel().name();
     }
 
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
+    @Override
+    public String getKey() {
+        return "level";
     }
-
-
 }

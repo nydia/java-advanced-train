@@ -16,26 +16,20 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.conf;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
+public class Constants {
+    public static String PATH_SEPARATOR = System.getProperty("file.separator", "/");
 
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
+    public static String LINE_SEPARATOR = System.getProperty("line.separator", "\n");
 
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
-    }
+    public static String EMPTY_STRING = "";
 
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
-    }
+    public static char SERVICE_NAME_PART_CONNECTOR = '|';
 
+    // The name of the layer that represents agent-installed services,
+    // which is defined at https://github.com/apache/skywalking/blob/85ce1645be53e46286f36c0ea206c60db2d1a716/oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/Layer.java#L30
+    public static String EVENT_LAYER_NAME = "GENERAL";
 
+    public static int NULL_VALUE = 0;
 }

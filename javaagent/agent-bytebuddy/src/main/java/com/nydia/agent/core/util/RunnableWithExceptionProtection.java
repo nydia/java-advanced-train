@@ -16,26 +16,27 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.util;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
+public class RunnableWithExceptionProtection implements Runnable {
+    private Runnable run;
+    private CallbackWhenException callback;
 
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
-
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
+    public RunnableWithExceptionProtection(Runnable run, CallbackWhenException callback) {
+        this.run = run;
+        this.callback = callback;
     }
 
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
+    @Override
+    public void run() {
+        try {
+            run.run();
+        } catch (Throwable t) {
+            callback.handle(t);
+        }
     }
 
-
+    public interface CallbackWhenException {
+        void handle(Throwable t);
+    }
 }

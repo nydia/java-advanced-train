@@ -16,26 +16,24 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.boot;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
+public class DefaultNamedThreadFactory implements ThreadFactory {
+    private static final AtomicInteger BOOT_SERVICE_SEQ = new AtomicInteger(0);
+    private final AtomicInteger threadSeq = new AtomicInteger(0);
+    private final String namePrefix;
 
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
+    public DefaultNamedThreadFactory(String name) {
+        namePrefix = "SkywalkingAgent-" + BOOT_SERVICE_SEQ.incrementAndGet() + "-" + name + "-";
     }
 
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
+    @Override
+    public Thread newThread(Runnable r) {
+        Thread t = new Thread(r, namePrefix + threadSeq.getAndIncrement());
+        t.setDaemon(true);
+        return t;
     }
-
-
 }

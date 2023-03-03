@@ -16,26 +16,8 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.logging.core;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
-
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
-
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
-    }
-
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
-    }
-
-
+public enum LogLevel {
+    TRACE, DEBUG, INFO, WARN, ERROR, OFF
 }

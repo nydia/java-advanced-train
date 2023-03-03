@@ -16,26 +16,24 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.boot;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
-
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
-    }
-
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
-    }
-
-
+/**
+ * ConfigInitializationService provides the config class which should host all parameters originally from agent setup.
+ * {@link com.nydia.agent.core.conf.Config} provides the core level config, all plugins could implement
+ * this interface to have the same capability about initializing config from agent.config, system properties and system
+ * environment variables.
+ */
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PluginConfig {
+    /**
+     * @return Class as the root to do config initialization.
+     */
+    Class<?> root();
 }

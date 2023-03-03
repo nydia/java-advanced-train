@@ -16,26 +16,22 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.logging.core;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
+import com.google.gson.Gson;
+import com.nydia.agent.core.logging.api.ILog;
+import com.nydia.agent.core.logging.api.LogResolver;
 
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
+public class JsonLogResolver implements LogResolver {
+    private static final Gson GSON = new Gson();
 
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
+    @Override
+    public ILog getLogger(Class<?> aClass) {
+        return new JsonLogger(aClass, GSON);
     }
 
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
+    @Override
+    public ILog getLogger(String s) {
+        return new JsonLogger(s, GSON);
     }
-
-
 }

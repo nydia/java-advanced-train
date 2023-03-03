@@ -16,26 +16,25 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.conf;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
+import com.nydia.agent.core.logging.api.ILog;
+import com.nydia.agent.core.logging.api.LogManager;
 
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
+import java.util.Properties;
 
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
+/**
+ * The <code>SnifferConfigInitializer</code> initializes all configs in several way.
+ */
+public class SnifferConfigInitializer {
+    private static ILog LOGGER = LogManager.getLogger(SnifferConfigInitializer.class);
+    private static final String SPECIFIED_CONFIG_PATH = "skywalking_config";
+    private static final String DEFAULT_CONFIG_FILE_NAME = "/config/agent.config";
+    private static final String ENV_KEY_PREFIX = "skywalking.";
+    private static Properties AGENT_SETTINGS;
+    private static boolean IS_INIT_COMPLETED = true;
+
+    public static boolean isInitCompleted() {
+        return IS_INIT_COMPLETED;
     }
-
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
-    }
-
-
 }

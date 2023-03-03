@@ -16,26 +16,27 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.boot;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
+/**
+ * The <code>BootService</code> is an interface to all remote, which need to boot when plugin mechanism begins to work.
+ * {@link #boot()} will be called when <code>BootService</code> start up.
+ */
+public interface BootService {
+    void prepare() throws Throwable;
 
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
+    void boot() throws Throwable;
 
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
+    void onComplete() throws Throwable;
+
+    void shutdown() throws Throwable;
+
+    /**
+     * {@code BootService}s with higher priorities will be started earlier, and shut down later than those {@code BootService}s with lower priorities.
+     *
+     * @return the priority of this {@code BootService}.
+     */
+    default int priority() {
+        return 0;
     }
-
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
-    }
-
-
 }

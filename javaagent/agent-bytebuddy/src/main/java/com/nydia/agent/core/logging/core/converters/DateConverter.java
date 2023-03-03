@@ -16,26 +16,26 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.logging.core.converters;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
+import com.nydia.agent.core.logging.core.Converter;
+import com.nydia.agent.core.logging.core.LogEvent;
 
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
+/**
+ * The Converter is used to return a now date with format.
+ */
+public class DateConverter implements Converter {
+
+    @Override
+    public String convert(LogEvent logEvent) {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
     }
 
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
+    @Override
+    public String getKey() {
+        return "@timestamp";
     }
-
-
 }

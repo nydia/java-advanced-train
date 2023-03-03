@@ -16,26 +16,19 @@
  *
  */
 
-package com.nydia.agent.core;
+package com.nydia.agent.core.logging.core;
 
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
+import java.io.PrintStream;
 
-public class PluginFinder {
-    private static boolean IS_PLUGIN_INIT_COMPLETED = true;
+public enum SystemOutWriter implements IWriter {
+    INSTANCE;
 
-    public ElementMatcher<? super TypeDescription> buildMatch() {
-        // 拦截@Controller 和 @RestController的类
-        return ElementMatchers.isAnnotatedWith(//
-                ElementMatchers.named("org.springframework.stereotype.Controller")//
-                        .or(ElementMatchers.named("org.springframework.web.bind.annotation.RestController"))//
-        );
+    /**
+     * Tricky codes for avoiding style-check. Because, in here, "system.out.println" is the only choice to output logs.
+     */
+    @Override
+    public void write(String message) {
+        PrintStream out = System.out;
+        out.println(message);
     }
-
-    public static boolean isPluginInitCompleted() {
-        return IS_PLUGIN_INIT_COMPLETED;
-    }
-
-
 }
