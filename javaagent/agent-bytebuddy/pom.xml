@@ -49,6 +49,14 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+        </dependency>
 
     </dependencies>
 
@@ -88,6 +96,8 @@
                             <!-- 只有加上这个才能打印日志 -->
                             <include>org.slf4j:slf4j-api:jar:</include>
                             <include>ch.qos.logback:logback-classic:jar:</include>
+                            <include>ch.qos.logback:logback-core:jar:</include>
+                            <include>ch.qos.logback:logback-access:jar:</include>
                         </includes>
                     </artifactSet>
                 </configuration>

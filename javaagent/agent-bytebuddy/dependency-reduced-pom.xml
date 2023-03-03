@@ -44,6 +44,8 @@
               <include>net.bytebuddy:byte-buddy-agent:jar:</include>
               <include>org.slf4j:slf4j-api:jar:</include>
               <include>ch.qos.logback:logback-classic:jar:</include>
+              <include>ch.qos.logback:logback-core:jar:</include>
+              <include>ch.qos.logback:logback-access:jar:</include>
             </includes>
           </artifactSet>
         </configuration>
@@ -84,6 +86,18 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
+      <version>1.2.11</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.2.11</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-access</artifactId>
       <version>1.2.11</version>
       <scope>provided</scope>
     </dependency>
