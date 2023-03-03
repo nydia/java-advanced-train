@@ -1,12 +1,12 @@
 package com.nydia.agent;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nydia.agent.core.logging.api.ILog;
+import com.nydia.agent.core.logging.api.LogManager;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.SuperCall;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.WebRequest;
 
 import java.lang.reflect.Method;
@@ -16,8 +16,8 @@ import java.util.concurrent.Callable;
 public class LogInterceptor {
 
     private static ObjectMapper mapper = new ObjectMapper();
-
-    private static Logger log = LoggerFactory.getLogger(LogInterceptor.class);
+    private static final ILog log = LogManager.getLogger(PreMainTraceAgent.class);
+    //private static Logger log = LoggerFactory.getLogger(LogInterceptor.class);
 
     @RuntimeType
     public static Object intercept(@Origin Method method,

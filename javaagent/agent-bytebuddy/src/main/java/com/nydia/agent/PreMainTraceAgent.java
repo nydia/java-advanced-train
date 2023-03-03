@@ -1,7 +1,8 @@
 package com.nydia.agent;
 
 import com.nydia.agent.core.PluginFinder;
-import lombok.extern.slf4j.Slf4j;
+import com.nydia.agent.core.logging.api.ILog;
+import com.nydia.agent.core.logging.api.LogManager;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
@@ -16,8 +17,9 @@ import java.lang.instrument.Instrumentation;
  * @Date: 2022/9/5 23:41
  * @Description:
  */
-@Slf4j
 public class PreMainTraceAgent {
+    private static final ILog log = LogManager.getLogger(PreMainTraceAgent.class);
+    //private static Logger log = LoggerFactory.getLogger(PreMainTraceAgent.class);
 
     public static void premain(String agentArgs, Instrumentation inst) {
         log.info("agentArgs: " + agentArgs);
