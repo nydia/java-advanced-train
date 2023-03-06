@@ -42,10 +42,6 @@
               <include>javassist:javassist:jar:</include>
               <include>net.bytebuddy:byte-buddy:jar:</include>
               <include>net.bytebuddy:byte-buddy-agent:jar:</include>
-              <include>org.slf4j:slf4j-api:jar:</include>
-              <include>ch.qos.logback:logback-classic:jar:</include>
-              <include>ch.qos.logback:logback-core:jar:</include>
-              <include>ch.qos.logback:logback-access:jar:</include>
             </includes>
           </artifactSet>
         </configuration>
@@ -81,25 +77,25 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>1.7.36</version>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.2.11</version>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
       <version>1.2.11</version>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-access</artifactId>
       <version>1.2.11</version>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>

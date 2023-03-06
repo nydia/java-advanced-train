@@ -2,4 +2,7 @@ server:
   port: 8081
 logging:
   level:
-    root: debug
+    root: info
+    org.springframework.beans: info
+    com.example: debug
+    com.nydia: debug

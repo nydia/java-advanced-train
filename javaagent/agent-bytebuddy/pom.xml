@@ -100,10 +100,10 @@
                             <include>net.bytebuddy:byte-buddy:jar:</include>
                             <include>net.bytebuddy:byte-buddy-agent:jar:</include>
                             <!-- 只有加上这个才能打印日志 -->
-                            <include>org.slf4j:slf4j-api:jar:</include>
-                            <include>ch.qos.logback:logback-classic:jar:</include>
-                            <include>ch.qos.logback:logback-core:jar:</include>
-                            <include>ch.qos.logback:logback-access:jar:</include>
+<!--                            <include>org.slf4j:slf4j-api:jar:</include>-->
+<!--                            <include>ch.qos.logback:logback-classic:jar:</include>-->
+<!--                            <include>ch.qos.logback:logback-core:jar:</include>-->
+<!--                            <include>ch.qos.logback:logback-access:jar:</include>-->
                         </includes>
                     </artifactSet>
                 </configuration>
