@@ -42,73 +42,37 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <!--指定MANIFEST.MF文件路径-->
-                        <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <artifactSet>
-                        <includes>
-                            <include>net.bytebuddy:byte-buddy:jar:</include>
-                            <include>net.bytebuddy:byte-buddy-agent:jar:</include>
-                            <!-- 只有加上这个才能打印日志 -->
-<!--                            <include>org.slf4j:slf4j-api:jar:</include>-->
-<!--                            <include>ch.qos.logback:logback-classic:jar:</include>-->
-<!--                            <include>ch.qos.logback:logback-core:jar:</include>-->
-<!--                            <include>ch.qos.logback:logback-access:jar:</include>-->
-                        </includes>
-                    </artifactSet>
-                </configuration>
-            </plugin>
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <phase>package</phase>
                         <configuration>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                            <archive>
-                                <manifestEntries>
-                                    <Premain-Class>PreMainTraceAgent</Premain-Class>
-                                    <Agent-Class>PreMainTraceAgent</Agent-Class>
-                                    <Can-Redefine-Classes>true</Can-Redefine-Classes>
-                                    <Can-Retransform-Classes>true</Can-Retransform-Classes>
-                                    <Specification-Title>${project.name}</Specification-Title>
-                                    <Specification-Version>${project.version}</Specification-Version>
-                                    <Implementation-Title>${project.name}</Implementation-Title>
-                                    <Implementation-Version>${project.version}</Implementation-Version>
-                                </manifestEntries>
-                            </archive>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Premain-Class>com.sample.InterceptorAgent.Agent</Premain-Class>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            -->
+            </plugin><!-- end -->
         </plugins>
     </build>
 
