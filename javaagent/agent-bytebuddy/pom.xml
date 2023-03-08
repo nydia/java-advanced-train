@@ -4,14 +4,14 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hust.foolwc</groupId>
-    <artifactId>agent</artifactId>
+    <groupId>com.nydia</groupId>
+    <artifactId>nydia-agent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>dy-agent-log4j</module>
-        <module>dy-agent-core</module>
-        <module>dy-agent-release</module>
+        <module>nydia-agent-log4j</module>
+        <module>nydia-agent-core</module>
+        <module>nydia-agent-release</module>
     </modules>
 
     <name>agent</name>
@@ -20,21 +20,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bytebuddy.version>1.8.15</bytebuddy.version>
         <reflections.version>0.9.11</reflections.version>
-        <dy-agent-log4j.version>1.0-SNAPSHOT</dy-agent-log4j.version>
+        <nydia-agent-log4j.version>1.0-SNAPSHOT</nydia-agent-log4j.version>
         <reflections.version>0.9.11</reflections.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.hust.foolwc</groupId>
-                <artifactId>dy-agent-log4j-api</artifactId>
-                <version>${dy-agent-log4j.version}</version>
+                <groupId>com.nydia</groupId>
+                <artifactId>nydia-agent-log4j-api</artifactId>
+                <version>${nydia-agent-log4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.hust.foolwc</groupId>
-                <artifactId>dy-agent-log4j-core</artifactId>
-                <version>${dy-agent-log4j.version}</version>
+                <groupId>com.nydia</groupId>
+                <artifactId>nydia-agent-log4j-core</artifactId>
+                <version>${nydia-agent-log4j.version}</version>
             </dependency>
             <!-- skyeye-core dependencies -->
             <dependency>
