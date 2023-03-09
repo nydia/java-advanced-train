@@ -10,10 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.nydia</groupId>
-    <artifactId>nydia-agent-release</artifactId>
+    <artifactId>agent</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>nydia-agent-release</name>
+    <name>agent</name>
 
     <dependencies>
         <dependency>
@@ -59,7 +59,7 @@
                                     <pattern>com.</pattern>
                                     <shadedPattern>third.com.</shadedPattern>
                                     <excludes>
-                                        <exclude>com.hust.**</exclude>
+                                        <exclude>com.nydia.**</exclude>
                                         <exclude>com.uber.**</exclude>
                                         <exclude>com.twitter.zipkin.**</exclude>
 
