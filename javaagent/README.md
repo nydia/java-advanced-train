@@ -17,6 +17,7 @@ docker image ls |findstr "agent"
 
 ## 访问
 http://192.168.99.100:8081/demo
+curl -X GET http://localhost:8081/demo
 
 ## rm
 docker rm -f agent-demo

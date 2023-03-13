@@ -13,14 +13,8 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-install-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.2.4</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -28,54 +22,76 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <finalName>${project.artifactId}-${project.parent.version}</finalName>
+              <shadedArtifactAttached>false</shadedArtifactAttached>
+              <createDependencyReducedPom>true</createDependencyReducedPom>
+              <createSourcesJar>true</createSourcesJar>
+              <shadeSourcesContent>true</shadeSourcesContent>
               <transformers>
                 <transformer>
+                  <resource>beeapm.def</resource>
+                </transformer>
+                <transformer>
                   <manifestEntries>
-                    <Premain-Class>com.nydia.agent.core.AgentLauncher</Premain-Class>
+                    <Premain-Class>${premain.class}</Premain-Class>
                     <Can-Retransform-Classes>true</Can-Retransform-Classes>
-                    <Can-Redefine-Classes>true</Can-Redefine-Classes>
                   </manifestEntries>
                 </transformer>
               </transformers>
+              <artifactSet>
+                <excludes>
+                  <exclude>commons-logging:*</exclude>
+                  <exclude>jline:*</exclude>
+                  <exclude>io.netty:*</exclude>
+                  <exclude>log4j:*</exclude>
+                </excludes>
+              </artifactSet>
               <relocations>
                 <relocation>
-                  <pattern>com.</pattern>
-                  <shadedPattern>third.com.</shadedPattern>
-                  <excludes>
-                    <exclude>com.nydia.**</exclude>
-                    <exclude>com.uber.**</exclude>
-                    <exclude>com.twitter.zipkin.**</exclude>
-                    <exclude>com.alibaba.dubbo.**</exclude>
-                    <exclude>com.mysql.**</exclude>
-                    <exclude>org.apache.commons.pool2..**</exclude>
-                  </excludes>
+                  <pattern>net.bytebuddy</pattern>
+                  <shadedPattern>${shade.package}.net.bytebuddy</shadedPattern>
                 </relocation>
                 <relocation>
-                  <pattern>javassist.</pattern>
-                  <shadedPattern>third.javassist.</shadedPattern>
+                  <pattern>com.alibaba.fastjson</pattern>
+                  <shadedPattern>${shade.package}.com.alibaba.fastjson</shadedPattern>
                 </relocation>
                 <relocation>
-                  <pattern>io.</pattern>
-                  <shadedPattern>third.io.</shadedPattern>
-                  <excludes>
-                    <exclude>io.grpc.**</exclude>
-                    <exclude>io.opentracing.**</exclude>
-                  </excludes>
+                  <pattern>org.apache.commons.lang3</pattern>
+                  <shadedPattern>${shade.package}.org.apache.commons.lang3</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>org.yaml</pattern>
+                  <shadedPattern>${shade.package}.org.yaml</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>com.lmax.disruptor</pattern>
+                  <shadedPattern>${shade.package}.com.lmax.disruptor</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>org.apache.zookeeper</pattern>
+                  <shadedPattern>${shade.package}.org.apache.zookeeper</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>org.slf4j</pattern>
+                  <shadedPattern>${shade.package}.org.slf4j</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>org.apache.jute</pattern>
+                  <shadedPattern>${shade.package}.org.apache.jute</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>org.I0Itec</pattern>
+                  <shadedPattern>${shade.package}.org.I0Itec</shadedPattern>
                 </relocation>
               </relocations>
             </configuration>
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.8.2</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
+  <properties>
+    <file.name>bee-agent</file.name>
+    <shade.package>net.beeapm.agent.dependencies</shade.package>
+    <premain.class>com.nydia.agent.core.AgentLauncher</premain.class>
+  </properties>
 </project>
-
