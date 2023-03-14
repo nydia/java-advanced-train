@@ -1,64 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.nydia</groupId>
-    <artifactId>agent-bytebuddy</artifactId>
+    <groupId>net.beeapm</groupId>
+    <artifactId>beeapm</artifactId>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>nydia-agent-log4j</module>
-        <module>nydia-agent-core</module>
-        <module>nydia-agent-release</module>
-    </modules>
+    <name>beeapm</name>
+    <url>http://www.beeapm.net</url>
 
-    <name>agent-bytebuddy</name>
+    <modules>
+        <module>bee-apm-agent</module>
+        <module>bee-apm-server</module>
+        <module>bee-apm-ui</module>
+        <module>bee-apm-agent-test</module>
+        <module>bee-plugin-annotation</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <bytebuddy.version>1.8.15</bytebuddy.version>
-        <reflections.version>0.9.11</reflections.version>
-        <nydia-agent-log4j.version>1.0-SNAPSHOT</nydia-agent-log4j.version>
-        <reflections.version>0.9.11</reflections.version>
+        <compiler.version>1.6</compiler.version>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.nydia</groupId>
-                <artifactId>nydia-agent-log4j-api</artifactId>
-                <version>${nydia-agent-log4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.nydia</groupId>
-                <artifactId>nydia-agent-log4j-core</artifactId>
-                <version>${nydia-agent-log4j.version}</version>
-            </dependency>
-            <!-- skyeye-core dependencies -->
-            <dependency>
-                <groupId>net.bytebuddy</groupId>
-                <artifactId>byte-buddy</artifactId>
-                <version>${bytebuddy.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.bytebuddy</groupId>
-                <artifactId>byte-buddy-agent</artifactId>
-                <version>${bytebuddy.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.25</version>
-            </dependency>
-            <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>${reflections.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
+    <build>
+        <finalName>beeapm</finalName>
+    </build>
 </project>
