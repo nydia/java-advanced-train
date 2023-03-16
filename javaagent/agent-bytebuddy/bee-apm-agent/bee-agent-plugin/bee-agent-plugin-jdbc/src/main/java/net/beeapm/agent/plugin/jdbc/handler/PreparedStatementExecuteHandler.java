@@ -24,7 +24,7 @@ import java.util.Map;
  * @date 2022-09-22
  */
 public class PreparedStatementExecuteHandler extends AbstractHandler {
-    private static final ILog log = LogFactory.getLog(ConnectionHandler.class.getSimpleName());
+    //private static final ILog log = LogFactory.getLog(ConnectionHandler.class.getSimpleName());
 
 
     @Override
@@ -94,13 +94,13 @@ public class PreparedStatementExecuteHandler extends AbstractHandler {
                     rs.last();
                     count = rs.getRow();
                 } catch (Exception e) {
-                    log.warn("ResultSet::last exception");
+                    //log.warn("ResultSet::last exception");
                 } finally {
                     try {
                         //移动到第一行前
                         rs.first();
                     } catch (Exception e) {
-                        log.error("ResultSet::absolute exception", e);
+                        //log.error("ResultSet::absolute exception", e);
                     }
                 }
             }

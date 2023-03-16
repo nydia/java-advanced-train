@@ -25,7 +25,7 @@ public class Log implements ILog {
     protected void logger(LogLevel level, String message, Throwable e) {
         String msg = format(level, message, e);
         if (BeeConfig.me().isLogConsole()) {
-            System.out.println("[BeeLog]: " + msg);
+            System.out.println("[Mengxiu]: " + msg);
         }
         LogWriter.me().writeLog(msg);
     }

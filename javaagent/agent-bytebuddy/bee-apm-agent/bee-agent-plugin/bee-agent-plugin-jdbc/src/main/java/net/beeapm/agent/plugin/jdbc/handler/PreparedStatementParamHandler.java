@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 public class PreparedStatementParamHandler extends AbstractHandler {
-    private static final ILog log = LogFactory.getLog(ConnectionHandler.class.getSimpleName());
+    //private static final ILog log = LogFactory.getLog(ConnectionHandler.class.getSimpleName());
 
 
     @Override
