@@ -1,0 +1,6 @@
+server.port=8070
+spring.application.name=service-provider
+
+spring.cloud.nacos.discovery.server-addr=172.30.42.82:8848,172.30.42.83:8848,172.30.42.84:8848
+
+logging.level.root=debug

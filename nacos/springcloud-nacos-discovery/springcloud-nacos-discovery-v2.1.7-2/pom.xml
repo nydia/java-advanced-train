@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nydia</groupId>
-	<artifactId>springcloud-nacos-discovery</artifactId>
+	<artifactId>springcloud-nacos-discovery-v2.1.7-2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springcloud-nacos-discovery</name>
+	<name>springcloud-nacos-discovery-v2.1.7-2</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -40,11 +40,13 @@
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
 		</dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>RELEASE</version>
         </dependency>
+
     </dependencies>
 
 	<dependencyManagement>

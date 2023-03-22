@@ -17,8 +17,6 @@ spring:
         enabled: true # 不注册到注册中心，默认true
       config:
         #server-addr: 192.168.41.82:8848,192.168.41.83:8848,192.168.41.84:8848
-        #file-extension: yaml
-        #namespace: local
         server-addr: 127.0.0.1:8848
         file-extension: yaml
         namespace: public
