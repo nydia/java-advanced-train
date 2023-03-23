@@ -6,12 +6,11 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.api.naming.pojo.ListView;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.util.CollectionUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @description: naocs服务发现重写
@@ -22,7 +21,7 @@ public class NacosServiceDiscoveryV2 extends NacosDiscoveryClient {
  
     private final NacosShareProperties nacosShareProperties;
  
-    public NacosServiceDiscoveryV2(NacosDiscoveryPropertiesV2 discoveryProperties, NacosShareProperties nacosShareProperties, NacosServiceManager nacosServiceManager) {
+    public NacosServiceDiscoveryV2(NacosDiscoveryPropertiesV2 discoveryProperties, NacosShareProperties nacosShareProperties) {
         super(discoveryProperties);
         this.discoveryProperties = discoveryProperties;
         this.nacosShareProperties = nacosShareProperties;
@@ -35,16 +34,15 @@ public class NacosServiceDiscoveryV2 extends NacosDiscoveryClient {
      * @throws NacosException nacosException
      */
     public List<ServiceInstance> getInstances(String serviceId) throws NacosException {
-        String group = discoveryProperties.getGroup();
         List<Instance> instances = discoveryProperties.namingServiceInstance()
-                .selectInstances(serviceId, group, true);
-        if (isEmpty(instances)) {
+                .selectInstances(serviceId, true);
+        if (CollectionUtils.isEmpty(instances)) {
             Map<String, Set<String>> namespaceGroupMap = nacosShareProperties.getNamespaceGroupMap();
             Map<String, NamingService> namespace2NamingServiceMap = discoveryProperties.shareNamingServiceInstances();
             for (Map.Entry<String, NamingService> entry : namespace2NamingServiceMap.entrySet()) {
                 String namespace;
                 NamingService namingService;
-                if (isNull(namespace = entry.getKey()) || isNull(namingService = entry.getValue()))
+                if (isNull(namespace = entry.getKey()) || StringUtils.isBlank(namingService = entry.getValue()))
                     continue;
                 Set<String> groupNames = namespaceGroupMap.get(namespace);
                 List<Instance> shareInstances;
