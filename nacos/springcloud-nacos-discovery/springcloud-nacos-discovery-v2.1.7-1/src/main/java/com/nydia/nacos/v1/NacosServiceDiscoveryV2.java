@@ -42,24 +42,24 @@ public class NacosServiceDiscoveryV2 extends NacosDiscoveryClient {
             for (Map.Entry<String, NamingService> entry : namespace2NamingServiceMap.entrySet()) {
                 String namespace;
                 NamingService namingService;
-                if (isNull(namespace = entry.getKey()) || StringUtils.isBlank(namingService = entry.getValue()))
+                if (StringUtils.isBlank(namespace = entry.getKey()) || Objects.isNull(namingService = entry.getValue()))
                     continue;
                 Set<String> groupNames = namespaceGroupMap.get(namespace);
                 List<Instance> shareInstances;
-                if (isEmpty(groupNames)) {
-                    shareInstances = namingService.selectInstances(serviceId, group, true);
-                    if (nonEmpty(shareInstances))
+                if (Objects.isNull(groupNames)) {
+                    shareInstances = namingService.selectInstances(serviceId, true);
+                    if (Objects.isNull(shareInstances))
                         break;
                 } else {
                     shareInstances = new ArrayList<>();
                     for (String groupName : groupNames) {
                         List<Instance> subShareInstances = namingService.selectInstances(serviceId, groupName, true);
-                        if (nonEmpty(subShareInstances)) {
+                        if (Objects.isNull(subShareInstances)) {
                             shareInstances.addAll(subShareInstances);
                         }
                     }
                 }
-                if (nonEmpty(shareInstances)) {
+                if (Objects.isNull(shareInstances)) {
                     instances = shareInstances;
                     break;
                 }
@@ -73,10 +73,9 @@ public class NacosServiceDiscoveryV2 extends NacosDiscoveryClient {
      * @return list of service names
      * @throws NacosException nacosException
      */
-    public List<String> getServices() throws NacosException {
-        String group = discoveryProperties.getGroup();
+    public List<String> getServices() {
         ListView<String> services = discoveryProperties.namingServiceInstance()
-                .getServicesOfServer(1, Integer.MAX_VALUE, group);
+                .getServicesOfServer(1, Integer.MAX_VALUE);
         return services.getData();
     }
  
