@@ -22,13 +22,10 @@ public class NacosServiceDiscoveryV2 extends NacosDiscoveryClient {
  
     private final NacosShareProperties nacosShareProperties;
  
-    private final NacosServiceManager nacosServiceManager;
- 
     public NacosServiceDiscoveryV2(NacosDiscoveryPropertiesV2 discoveryProperties, NacosShareProperties nacosShareProperties, NacosServiceManager nacosServiceManager) {
-        super(discoveryProperties, nacosServiceManager);
+        super(discoveryProperties);
         this.discoveryProperties = discoveryProperties;
         this.nacosShareProperties = nacosShareProperties;
-        this.nacosServiceManager = nacosServiceManager;
     }
  
     /**
@@ -120,10 +117,5 @@ public class NacosServiceDiscoveryV2 extends NacosDiscoveryClient {
             nacosServiceInstance.setSecure(secure);
         }
         return nacosServiceInstance;
-    }
- 
-    private NamingService namingService() {
-        return nacosServiceManager
-                .getNamingService(discoveryProperties.getNacosProperties());
     }
 }
