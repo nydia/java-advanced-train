@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @org.springframework.cloud.openfeign.FeignClient(name = "example2", path = "/")
 public interface NydiaFeignClient {
 
-    @RequestMapping("/echo/test")
+    @RequestMapping("/echo")
     public String test();
 
 }

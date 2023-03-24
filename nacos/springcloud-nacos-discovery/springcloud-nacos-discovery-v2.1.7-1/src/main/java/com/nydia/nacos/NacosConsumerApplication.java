@@ -1,14 +1,9 @@
 package com.nydia.nacos;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -22,14 +17,5 @@ public class NacosConsumerApplication {
 		SpringApplication.run(NacosConsumerApplication.class, args);
 	}
 
-	@RestController
-	class EchoController {
-		@Autowired
-		private NydiaFeignClient nydiaFeignClient;
 
-		@RequestMapping(value = "/echo", method = RequestMethod.GET)
-		public String echo(@PathVariable String string) {
-			return nydiaFeignClient.test();
-		}
-	}
 }
