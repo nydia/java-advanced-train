@@ -10,7 +10,6 @@ import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.AbstractLoadBalancerRule;
 import com.netflix.loadbalancer.DynamicServerListLoadBalancer;
 import com.netflix.loadbalancer.Server;
-import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,6 @@ public class ShareNacosNamespaceRule extends AbstractLoadBalancerRule {
      * @param key
      * @return
      */
-    @SneakyThrows
     @Override
     public Server choose(Object key) {
         try {
@@ -52,7 +50,7 @@ public class ShareNacosNamespaceRule extends AbstractLoadBalancerRule {
             if (CollectionUtils.isEmpty(instances)) {
                 LOGGER.warn("no instance in service {}, then to get share service's instance", name);
                 List<Instance> shareNamingService = this.getShareNamingService(name);
-                if (nonEmpty(shareNamingService))
+                if (!CollectionUtils.isEmpty(shareNamingService))
                     instances = shareNamingService;
                 else
                     return null;
@@ -100,20 +98,20 @@ public class ShareNacosNamespaceRule extends AbstractLoadBalancerRule {
                 continue;
             Set<String> groupNames = namespaceGroupMap.get(namespace);
             List<Instance> shareInstances;
-            if (isEmpty(groupNames)) {
+            if (Objects.isNull(groupNames)) {
                 shareInstances = namingService.selectInstances(serviceId, true);
-                if (nonEmpty(shareInstances))
+                if (!CollectionUtils.isEmpty(shareInstances))
                     break;
             } else {
                 shareInstances = new ArrayList<>();
                 for (String groupName : groupNames) {
                     List<Instance> subShareInstances = namingService.selectInstances(serviceId, groupName, true);
-                    if (nonEmpty(subShareInstances)) {
+                    if (!CollectionUtils.isEmpty(subShareInstances)) {
                         shareInstances.addAll(subShareInstances);
                     }
                 }
             }
-            if (nonEmpty(shareInstances)) {
+            if (!CollectionUtils.isEmpty(shareInstances)) {
                 instances = shareInstances;
                 break;
             }

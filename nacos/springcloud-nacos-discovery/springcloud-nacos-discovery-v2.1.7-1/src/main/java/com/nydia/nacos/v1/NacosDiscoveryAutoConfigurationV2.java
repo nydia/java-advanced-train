@@ -1,7 +1,7 @@
 package com.nydia.nacos.v1;
 
 import com.alibaba.cloud.nacos.ConditionalOnNacosDiscoveryEnabled;
-import com.alibaba.cloud.nacos.NacosDiscoveryAutoConfiguration;
+import com.alibaba.cloud.nacos.discovery.NacosDiscoveryClientAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.client.ConditionalOnDiscoveryEnabled;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnDiscoveryEnabled
 @ConditionalOnNacosDiscoveryEnabled
-@AutoConfigureBefore({NacosDiscoveryAutoConfiguration.class})
+@AutoConfigureBefore({NacosDiscoveryClientAutoConfiguration.class})
 public class NacosDiscoveryAutoConfigurationV2 {
 
     @Bean
@@ -29,6 +29,6 @@ public class NacosDiscoveryAutoConfigurationV2 {
     public DiscoveryClient nacosDiscoveryClient(
             NacosDiscoveryPropertiesV2 discoveryPropertiesV2, NacosShareProperties nacosShareProperties
     ) {
-        return new NacosServiceDiscoveryV2(discoveryPropertiesV2, nacosShareProperties);
+        return new NacosDiscoveryClientV2(discoveryPropertiesV2, nacosShareProperties);
     }
 }

@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-public class NacosProviderApplication {
+public class NacosConsumerApplication {
 
 	public static void main(String[] args) {
 		//修改nacos的目录(必须在下面的启动命令上面执行）
 		System.setProperty("JM.SNAPSHOT.PATH","C:\\temp\\nacos-client");
 
-		SpringApplication.run(NacosProviderApplication.class, args);
+		SpringApplication.run(NacosConsumerApplication.class, args);
 	}
 
 	@RestController
