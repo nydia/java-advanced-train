@@ -1,4 +1,4 @@
-package com.nydia.nacos.v2;//package com.nydia.nacos;
+//package com.nydia.nacos.v2;
 //
 //import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 //import com.alibaba.cloud.nacos.ribbon.NacosServer;
