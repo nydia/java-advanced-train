@@ -35,7 +35,7 @@ public class NacosShareProperties {
                 .forEach(entity -> {
                     Set<String> groupNames = NAMESPACE_TO_GROUP_NAME_MAP.computeIfAbsent(entity.getNamespace(), k -> new HashSet<>());
                     if (nonNull(entity.getGroupNames()))
-                        groupNames.addAll(entity.getGroupNames());
+                          groupNames.addAll(entity.getGroupNames());
                 });
         return new HashMap<>(NAMESPACE_TO_GROUP_NAME_MAP);
     }

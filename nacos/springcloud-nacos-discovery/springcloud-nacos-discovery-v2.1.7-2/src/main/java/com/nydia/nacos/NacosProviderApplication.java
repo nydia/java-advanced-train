@@ -21,9 +21,9 @@ public class NacosProviderApplication {
 
 	@RestController
 	class EchoController {
-		@RequestMapping(value = "/echo/{string}", method = RequestMethod.GET)
-		public String echo(@PathVariable String string) {
-			return "Hello Nacos Discovery " + string;
+		@RequestMapping(value = "/echo", method = RequestMethod.GET)
+		public String echo() {
+			return "Hello Nacos Discovery2 ";
 		}
 	}
 }
