@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Date: 2023/3/22 23:18
  * @Description: FeignClient
  */
-@org.springframework.cloud.openfeign.FeignClient(name = "example2", path = "/")
-public interface NydiaFeignClient {
+@org.springframework.cloud.openfeign.FeignClient(name = "example3", path = "/")
+public interface FeignClientEcho {
 
     @RequestMapping("/echo")
     public String test();
