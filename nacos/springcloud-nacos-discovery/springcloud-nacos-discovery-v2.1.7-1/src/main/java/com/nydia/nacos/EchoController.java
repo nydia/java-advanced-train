@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping
 public class EchoController {
-		@Autowired
-		private NydiaFeignClient nydiaFeignClient;
+    @Autowired
+    private NydiaFeignClient nydiaFeignClient;
 
-		@RequestMapping(value = "/echo", method = RequestMethod.GET)
-		public String echo() {
-			return nydiaFeignClient.test();
-		}
-	}
+    @RequestMapping(value = "/echo", method = RequestMethod.GET)
+    public String echo() {
+        return nydiaFeignClient.test();
+    }
+}
