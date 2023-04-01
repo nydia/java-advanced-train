@@ -56,7 +56,8 @@ public class NacosDiscoveryPropertiesV2 extends NacosDiscoveryProperties {
 
     private Properties getNacosProperties(String namespace) {
         Properties properties = new Properties();
-        properties.put(SERVER_ADDR, getServerAddr());
+        //properties.put(SERVER_ADDR, getServerAddr());
+        properties.put("serverAddr", nacosShareProperties.getServerAddr());
         properties.put(NAMESPACE, namespace);
         properties.put(UtilAndComs.NACOS_NAMING_LOG_NAME, getLogName());
         String endpoint = getEndpoint();

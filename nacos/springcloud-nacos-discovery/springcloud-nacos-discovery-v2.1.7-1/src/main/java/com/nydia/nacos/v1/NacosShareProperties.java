@@ -16,6 +16,8 @@ import static java.util.Objects.nonNull;
 @ConfigurationProperties(prefix = "nacos.share")
 public class NacosShareProperties {
 
+    private String serverAddr;
+
     private final Map<String, Set<String>> NAMESPACE_TO_GROUP_NAME_MAP = new ConcurrentHashMap<>();
     /**
      * 共享nacos实体列表
@@ -28,6 +30,14 @@ public class NacosShareProperties {
 
     public void setEntities(List<NacosShareEntity> entities) {
         this.entities = entities;
+    }
+
+    public String getServerAddr() {
+        return serverAddr;
+    }
+
+    public void setServerAddr(String serverAddr) {
+        this.serverAddr = serverAddr;
     }
 
     public Map<String, Set<String>> getNamespaceGroupMap() {
