@@ -10,6 +10,7 @@ import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.AbstractLoadBalancerRule;
 import com.netflix.loadbalancer.DynamicServerListLoadBalancer;
 import com.netflix.loadbalancer.Server;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ShareNacosNamespaceRule extends AbstractLoadBalancerRule {
             String clusterName = this.nacosDiscoveryPropertiesV2.getClusterName();
             DynamicServerListLoadBalancer loadBalancer = (DynamicServerListLoadBalancer) getLoadBalancer();
             String name = loadBalancer.getName();
- 
+
             NamingService namingService = nacosDiscoveryPropertiesV2
                     .namingServiceInstance();
             List<Instance> instances = namingService.selectInstances(name, true);
@@ -56,7 +57,7 @@ public class ShareNacosNamespaceRule extends AbstractLoadBalancerRule {
                     return null;
             }
             List<Instance> instancesToChoose = instances;
-            if (org.apache.commons.lang3.StringUtils.isNotBlank(clusterName)) {
+            if (StringUtils.isNotBlank(clusterName)) {
                 List<Instance> sameClusterInstances = instances.stream()
                         .filter(instance -> Objects.equals(clusterName,
                                 instance.getClusterName()))
