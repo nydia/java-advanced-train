@@ -22,7 +22,7 @@ public class ProviderApplication2 {
 	class EchoController {
 		@RequestMapping(value = "/echo", method = RequestMethod.GET)
 		public String echo() {
-			return "Hello Nacos Discovery2 ";
+			return "Hello Nacos springcloud-nacos-discovery-v2.1.7-2 ";
 		}
 	}
 }
