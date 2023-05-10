@@ -2,7 +2,6 @@
 -- create schema demo_ds_0;
 -- create schema demo_ds_1;
 
-
 -- demo_ds_0 表初始化
 
 USE `demo_ds_0`;
