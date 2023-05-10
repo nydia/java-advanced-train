@@ -12,7 +12,7 @@
     <artifactId>mysql</artifactId>
     <packaging>jar</packaging>
     <name>mysql</name>
-    <description>mysql</description>
+    <description>mysqlShardingSphere-proxy5.0.0-alpha-shardingAndXa</description>
     <version>1.0.0</version>
 
     <properties>

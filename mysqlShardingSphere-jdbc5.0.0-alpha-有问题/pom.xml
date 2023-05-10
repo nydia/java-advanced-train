@@ -12,7 +12,7 @@
     <artifactId>mysql</artifactId>
     <packaging>jar</packaging>
     <name>mysql</name>
-    <description>mysql</description>
+    <description>shardingsphere集成mysql</description>
     <version>1.0.0</version>
 
     <properties>
