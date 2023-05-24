@@ -17,7 +17,7 @@ class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {
-		User user = userMapper.selectById(1);
+		User user = userMapper.selectById(3);
 		System.out.println(user);
 	}
 
