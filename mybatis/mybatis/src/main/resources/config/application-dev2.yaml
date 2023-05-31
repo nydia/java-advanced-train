@@ -2,8 +2,8 @@ server:
   port: 8081
 spring:
   datasource:
-    password: Dba#2021@ipS
-    username: root
+    password: 123456
+    username: test
     url: jdbc:mysql://10.200.200.145:3310/test?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
 
