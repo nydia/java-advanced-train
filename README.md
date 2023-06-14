@@ -31,6 +31,7 @@
 - springcloud-gateway：gateway的各种用法
 - springcloud-shenyu ： shenyu网关的各种用法
 - design-pattern-java：设计模式java实现
+- task 定时任务
 
 
 ## jvm 二进制文件
