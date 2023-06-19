@@ -17,8 +17,12 @@ class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {
-		User user = userMapper.selectById(3);
-		System.out.println(user);
+		int cnt  = 100;
+		while (cnt -- > 0){
+			User user = userMapper.selectById(3);
+			System.out.println(user.getUsername());
+		}
+
 	}
 
 }
