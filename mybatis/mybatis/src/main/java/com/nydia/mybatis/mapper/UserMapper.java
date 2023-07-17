@@ -4,7 +4,7 @@ import com.nydia.mybatis.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
-@Component("userMapper")
+@Component
 @Mapper
 public interface UserMapper {
 

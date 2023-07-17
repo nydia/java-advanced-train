@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = DemoApplication.class)
 class DemoApplicationTests {
 
 	@Autowired
@@ -17,16 +18,9 @@ class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {
-<<<<<<< HEAD
-		int cnt = 100;
-		while (cnt-- > 0){
-			User user = userMapper.selectById(3);
-			System.out.println(user);
-=======
 		int cnt  = 100;
 		while (cnt -- > 0){
 			User user = userMapper.selectById(3);
->>>>>>> 07380db41ecf2520e18f9204a7c3a0ea08f7ffee
 			System.out.println(user.getUsername());
 		}
 
