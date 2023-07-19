@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @Slf4j
 @Import({MyDeferredImportSelector.class, MyImportSelector.class})
-public class SpringbootDemoApplication2 {
+public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootDemoApplication2.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 
 }
