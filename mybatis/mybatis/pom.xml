@@ -55,6 +55,12 @@
 			<version>RELEASE</version>
 		</dependency>
 
+		<!--添加MyBatis依赖（为了单独使用mybatis）-->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

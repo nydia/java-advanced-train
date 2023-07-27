@@ -1,5 +1,6 @@
-package com.nydia.mybatis;
+package com.nydia.mybatis.test;
 
+import com.nydia.mybatis.DemoApplication;
 import com.nydia.mybatis.entity.User;
 import com.nydia.mybatis.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
