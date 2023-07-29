@@ -3,6 +3,7 @@ package com.nydia.mybatis.test;
 import com.nydia.mybatis.entity.User;
 import com.nydia.mybatis.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -59,7 +60,7 @@ public class BatchExecutorTest {
         //1、获取SqlSessionFactory实例
         SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
         //2、打开一个会话
-        SqlSession openSession = sqlSessionFactory.openSession();
+        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
         try {
             // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
             UserMapper mapper = openSession.getMapper(UserMapper.class);
