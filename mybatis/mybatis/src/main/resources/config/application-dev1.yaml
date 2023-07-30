@@ -7,6 +7,10 @@ spring:
     url: jdbc:mysql://localhost:3307/test?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+logging:
+  level:
+    com.nydia.mybatis.mapper: debug
+
 mybatis:
   #核心配置
   configuration:

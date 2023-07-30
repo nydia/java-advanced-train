@@ -65,9 +65,12 @@ public class BatchExecutorTest {
             // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
             UserMapper mapper = openSession.getMapper(UserMapper.class);
             int result = mapper.insert(User.builder()
-                    .password("name2").password("123456")
+                    .username("name-test").password("123456test")
                     .build());
+            openSession.commit();//这里不添加commit，会默认自动回滚
             System.out.println(result);
+        } catch (Exception e){
+            e.printStackTrace();
         } finally {
             //4、使用完毕后关闭会话
             openSession.close();
