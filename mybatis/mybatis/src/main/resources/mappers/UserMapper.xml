@@ -9,8 +9,16 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <!-- 使用自增主键 -->
   <insert id="insert" parameterType="com.nydia.mybatis.entity.User">
     insert into tbl_user(username,password) values (#{username},#{password})
+  </insert>
+
+  <insert id="insert2" parameterType="com.nydia.mybatis.entity.User">
+    <selectKey order="AFTER" keyProperty="id" resultType="INTEGER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tbl_user(id,username,password) values (#{id}, #{username},#{password})
   </insert>
 
 </mapper>

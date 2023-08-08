@@ -12,4 +12,6 @@ public interface UserMapper {
 
     int insert(User user);
 
+    int insert2(User user);
+
 }
