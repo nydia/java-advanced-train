@@ -10,7 +10,7 @@
   </select>
 
   <!-- 使用自增主键 -->
-  <insert id="insert" parameterType="com.nydia.mybatis.entity.User">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.nydia.mybatis.entity.User">
     insert into tbl_user(username,password) values (#{username},#{password})
   </insert>
 

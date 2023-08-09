@@ -21,7 +21,8 @@ public class BatchExecutorTest {
 
     public SqlSessionFactory getSqlSessionFactory() throws IOException {
         //注意此处路径不要写错
-        String resource = "config/mybatis-config.xml";
+        //String resource = "config/mybatis-config-dev1.xml";
+        String resource = "config/mybatis-config-dev2.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         return new SqlSessionFactoryBuilder().build(inputStream);
     }
