@@ -11,6 +11,7 @@
     <environments default="mysql">
         <environment id="mysql">
             <transactionManager type="JDBC"/>
+
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <!--数据库地址-->
