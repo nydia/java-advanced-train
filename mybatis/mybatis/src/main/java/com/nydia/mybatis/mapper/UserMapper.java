@@ -14,4 +14,6 @@ public interface UserMapper {
 
     int insert2(User user);
 
+    User lasyLoadQuery(Integer id);
+
 }
