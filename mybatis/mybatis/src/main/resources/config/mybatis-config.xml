@@ -3,6 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!--添加properties配置文件路径(外部配置、动态替换)-->
+    <properties resource="config/jdbc.properties" />
 
     <settings>
         <setting name="logImpl" value="STDOUT_LOGGING"/>
@@ -17,13 +19,13 @@
             <transactionManager type="JDBC"/>
 
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="driver" value="${jdbc.driver}"/>
                 <!--数据库地址-->
-                <property name="url" value="jdbc:mysql://10.200.200.145:3310/test"/>
+                <property name="url" value="${jdbc.url}"/>
                 <!--数据库账号-->
-                <property name="username" value="test"/>
+                <property name="username" value="${jdbc.username}"/>
                 <!--数据库密码-->
-                <property name="password" value="Aa!123456"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>

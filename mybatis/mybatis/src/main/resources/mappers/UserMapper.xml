@@ -10,20 +10,28 @@
     <result property="username" column="username"/>
     <result property="password" column="password"  javaType="java.lang.String" jdbcType="VARCHAR" typeHandler="com.nydia.mybatis.typehandle.MyPasswordTypeHandle"/>
     <association property="parent" javaType="com.nydia.mybatis.entity.User" select="com.nydia.mybatis.mapper.UserMapper.selectById" column="id" fetchType="lazy"/>
+    <association property="parentMap" javaType="java.util.Map" select="com.nydia.mybatis.mapper.UserMapper.selectByIdForMap" column="id" fetchType="lazy"/>
+    <association property="parentList" javaType="java.util.List" select="com.nydia.mybatis.mapper.UserMapper.selectById" column="id" fetchType="lazy"/>
+    <association property="parentArrayList" javaType="java.util.ArrayList" select="com.nydia.mybatis.mapper.UserMapper.selectById" column="id" fetchType="lazy"/>
+    <association property="parentSet" javaType="java.util.Set" select="com.nydia.mybatis.mapper.UserMapper.selectById" column="id" fetchType="lazy"/>
     <!-- 分类选择 -->
     <discriminator javaType="string" column="username">
-      <!-- 扩充的对象为 boyBean -->
-      <case value="name1" resultType="String">
-        <!-- 继续扩充其他的属性。 -->
-        <result property="desc1" column="desc1"/>
-      </case>
-      <case value="name2" resultType="String">
-        <result property="desc1" column="desc1"/>
-      </case>
+      <case value="name111" resultMap="resultMap1"></case>
+      <case value="name222" resultMap="resultMap2"></case>
     </discriminator>
+  </resultMap>
+  <resultMap id="resultMap1" type="com.nydia.mybatis.entity.User">
+  </resultMap>
+  <resultMap id="resultMap2" type="com.nydia.mybatis.entity.User">
   </resultMap>
 
   <select id="selectById" parameterType="java.lang.Integer" resultType="com.nydia.mybatis.entity.User">
+    select id,username,password
+    from tbl_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByIdForMap" parameterType="java.lang.Integer" resultType="java.util.Map">
     select id,username,password
     from tbl_user
     where id = #{id,jdbcType=INTEGER}

@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,6 +21,10 @@ public class User {
     private String username;
     private String password;
     private User parent;
+    private Map parentMap;
+    private List<User> parentList;
+    private List<User> parentArrayList;
+    private Set<User> parentSet;
     private String desc1;
     private String desc2;
 
@@ -31,9 +39,18 @@ public class User {
         if(this.parent != null){
             parentStr = "User{" +
                     "id='" + id + '\'' +
-                    ", username='" + username + '\'' +
-                    ", password='" + password + '\'' +
-                    ", parent='" + password + '\'' +
+                    ", username='" + parent.getUsername() + '\'' +
+                    ", password='" + parent.getPassword() + '\'' +
+                    ", parent='" + parent + '\'' +
+                    '}';
+        }
+
+        String parentSetStr = "";
+        if(this.parentSet != null){
+            parentSetStr = "User{" +
+                    "id='" + id + '\'' +
+                    ", username='" + parentSet.stream().findFirst().get().getUsername()+ '\'' +
+                    ", password='" + parentSet.stream().findFirst().get().getPassword() + '\'' +
                     '}';
         }
 
@@ -42,6 +59,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", parent='" + parentStr + '\'' +
+                ", parentSetStr='" + parentSetStr + '\'' +
                 '}';
     }
 

@@ -1,10 +1,14 @@
+use test;
+drop table if exists tbl_user;
 create table `tbl_user` (
     `id` int not null auto_increment,
     `username` varchar(64) default null,
     `password` varchar(64) default null,
+    `parent_id` int(8) default null,
     primary key (`id`)
 ) engine=innodb auto_increment=1;
 
+drop table if exists tbl_students;
 create table tbl_students (
   stu_id int not null,
   class_id varchar(10) not null,
