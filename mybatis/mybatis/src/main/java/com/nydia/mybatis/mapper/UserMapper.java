@@ -20,4 +20,6 @@ public interface UserMapper {
 
     User lasyLoadQuery(Integer id);
 
+    User selectByResultSet(Integer id);
+
 }

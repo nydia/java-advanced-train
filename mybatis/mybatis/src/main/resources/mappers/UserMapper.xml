@@ -25,6 +25,11 @@
   <resultMap id="resultMap2" type="com.nydia.mybatis.entity.User">
   </resultMap>
 
+  <resultMap id="resultSetMap" type="com.nydia.mybatis.entity.User">
+    <result property="id" column="id"/>
+    <result property="username" column="username"/>
+  </resultMap>
+
   <select id="selectById" parameterType="java.lang.Integer" resultType="com.nydia.mybatis.entity.User">
     select id,username,password
     from tbl_user
@@ -54,5 +59,12 @@
     from tbl_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByResultSet" parameterType="java.lang.Integer" resultMap="resultSetMap">
+    select id,username,password
+    from tbl_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
 
 </mapper>
