@@ -15,7 +15,7 @@ import java.io.InputStream;
 /**
  * @Auther: nydia_lhq@hotmail.com
  * @Date: 2023/8/20 23:33
- * @Description: SimpleExecutorTest
+ * @Description: ResultSet 子包的测试
  */
 public class ResultSetPackageTest {
 
