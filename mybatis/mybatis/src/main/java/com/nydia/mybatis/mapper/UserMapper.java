@@ -4,6 +4,7 @@ import com.nydia.mybatis.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -18,8 +19,12 @@ public interface UserMapper {
 
     int insert2(User user);
 
+    int insert3(User user);
+
     User lasyLoadQuery(Integer id);
 
-    User selectByResultSet(Integer id);
+    User selectByIdForResultSet(Integer id);
+
+    List<User> selectByNameForResultSet(String username);
 
 }

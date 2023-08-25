@@ -11,13 +11,14 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
- * @Auther: nydia_lhq@hotmail.com
- * @Date: 2023/8/20 23:33
- * @Description: ResultSet 子包的测试
+ * @Description BaseStatementHandlerTest
+ * @Date 2023/8/25 9:51
+ * @Created by nydia
  */
-public class ResultSetPackageTest {
+public class BaseStatementHandlerTest {
 
     public SqlSessionFactory getSqlSessionFactory() throws IOException {
         //注意此处路径不要写错
@@ -47,12 +48,11 @@ public class ResultSetPackageTest {
         try {
             // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
             UserMapper mapper = openSession.getMapper(UserMapper.class);
-            User user = mapper.selectByIdForResultSet(306);
+            List<User> user = mapper.selectByNameForResultSet("name3");
             System.out.println(user);
         } finally {
             //4、使用完毕后关闭会话
             openSession.close();
         }
     }
-
 }

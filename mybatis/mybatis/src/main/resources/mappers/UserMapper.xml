@@ -54,16 +54,26 @@
     insert into tbl_user(id,username,password) values (#{id}, #{username},#{password})
   </insert>
 
+  <insert id="insert3" parameterType="com.nydia.mybatis.entity.User">
+    insert into tbl_user(username,password,parent_id) values (#{username},#{password},#{parent.id})
+  </insert>
+
   <select id="lasyLoadQuery" parameterType="java.lang.Integer" resultMap="associationUserMap">
     select id,username,password,parent_id
     from tbl_user
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectByResultSet" parameterType="java.lang.Integer" resultMap="resultSetMap">
+  <select id="selectByIdForResultSet" parameterType="java.lang.Integer" resultMap="resultSetMap">
     select id,username,password
     from tbl_user
     where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByNameForResultSet" parameterType="java.lang.String" resultMap="resultSetMap">
+    select id,username,password
+    from tbl_user
+    where username = #{username}
   </select>
 
 

@@ -14,3 +14,8 @@
     <artifactId>spring-cloud-starter-bootstrap</artifactId>
 </dependency>
 ```
+
+
+## 测试
+curl http://127.0.0.1:8081/getdata
+curl http://127.0.0.1:8090/getdata
