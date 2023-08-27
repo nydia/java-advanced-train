@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nydia.mybatis.mapper.UserMapper">
 
+  <resultMap id="resultMap" type="com.nydia.mybatis.entity.User">
+    <result property="id" column="id"/>
+    <result property="username" column="username"/>
+    <result property="password" column="password"/>
+  </resultMap>
+
   <resultMap id="associationUserMap" type="com.nydia.mybatis.entity.User">
     <constructor>
       <idArg column="id" javaType="int"/>
@@ -26,6 +32,11 @@
   </resultMap>
 
   <resultMap id="resultSetMap" type="com.nydia.mybatis.entity.User">
+    <result property="id" column="id"/>
+    <result property="username" column="username"/>
+  </resultMap>
+
+  <resultMap id="resultMapForAlias" type="userAlias">
     <result property="id" column="id"/>
     <result property="username" column="username"/>
   </resultMap>
@@ -76,5 +87,22 @@
     where username = #{username}
   </select>
 
+  <select id="selectByIdForAlias" parameterType="java.lang.Integer" resultMap="resultMapForAlias">
+    select id,username,password
+    from tbl_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByNameForCursor" parameterType="java.lang.String" resultMap="resultSetMap">
+    select id,username,password
+    from tbl_user
+    where username = #{username}
+  </select>
+
+  <select id="selectByNameForMap" parameterType="java.lang.String" resultMap="resultMap">
+    select id,username,password
+    from tbl_user
+    where username = #{username}
+  </select>
 
 </mapper>

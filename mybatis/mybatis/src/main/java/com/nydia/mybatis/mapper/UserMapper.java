@@ -1,7 +1,9 @@
 package com.nydia.mybatis.mapper;
 
 import com.nydia.mybatis.entity.User;
+import com.nydia.mybatis.entity.UserAlias;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.cursor.Cursor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,5 +28,11 @@ public interface UserMapper {
     User selectByIdForResultSet(Integer id);
 
     List<User> selectByNameForResultSet(String username);
+
+    UserAlias selectByIdForAlias(Integer id);
+
+    Cursor<User> selectByNameForCursor(String username);
+
+    List<User> selectByNameForMap(String username);
 
 }

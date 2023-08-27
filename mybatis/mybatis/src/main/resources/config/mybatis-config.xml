@@ -3,6 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!-- configuration下面的标签是有序的,必须按照这个顺序: properties?, settings?, typeAliases?, typeHandlers?, objectFactory?, objectWrapperFactory?, reflectorFactory?, plugins?, environments?, databaseIdProvider?, mappers?-->
+
     <!--添加properties配置文件路径(外部配置、动态替换)-->
     <properties resource="config/jdbc.properties" />
 
@@ -12,7 +14,13 @@
         <setting name="lazyLoadingEnabled" value="true"/>
         <!-- 激进懒加载设置false,即懒加载时候，每个属性按需要加载-->
         <setting name="aggressiveLazyLoading" value="false"/>
+        <!--开启时，任一方法的调用都会加载该对象的所有延迟加载属性。 否则，每个延迟加载属性会按需加载 -->
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
     </settings>
+
+    <typeAliases>
+        <package name="com.nydia.mybatis.entity"/>
+    </typeAliases>
 
     <environments default="mysql">
         <environment id="mysql">
@@ -33,5 +41,9 @@
     <mappers>
         <!--映射文件路径-->
         <mapper resource="mappers/UserMapper.xml"/>
+        <mapper resource="mappers/UserBookMapper.xml"/>
     </mappers>
+    
+
+
 </configuration>

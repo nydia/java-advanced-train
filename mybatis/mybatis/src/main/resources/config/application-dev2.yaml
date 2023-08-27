@@ -35,3 +35,5 @@ mybatis:
   #Locations of Mapper xml config file.
   mapper-locations:
     - classpath*:/mappers/*.xml
+  # alias
+  type-aliases-package: com.nydia.mybatis.entity
