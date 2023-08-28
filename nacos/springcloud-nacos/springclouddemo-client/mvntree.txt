@@ -1,0 +1,227 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.nydia:springclouddemo-client:jar:0.0.1-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springframework.cloud:spring-cloud-starter-openfeign:jar -> duplicate declaration of version (?) @ line 88, column 15
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/codehaus/mojo/build-helper-maven-plugin/3.2.0/build-helper-maven-plugin-3.2.0.pom
+Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/codehaus/mojo/build-helper-maven-plugin/3.2.0/build-helper-maven-plugin-3.2.0.pom (0 B at 0 B/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/codehaus/mojo/build-helper-maven-plugin/3.2.0/build-helper-maven-plugin-3.2.0.jar
+Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/codehaus/mojo/build-helper-maven-plugin/3.2.0/build-helper-maven-plugin-3.2.0.jar (0 B at 0 B/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/flywaydb/flyway-maven-plugin/7.7.3/flyway-maven-plugin-7.7.3.pom
+Progress (1): 4.1/4.5 kBProgress (1): 4.5 kB                        Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/flywaydb/flyway-maven-plugin/7.7.3/flyway-maven-plugin-7.7.3.pom (4.5 kB at 29 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/flywaydb/flyway-parent/7.7.3/flyway-parent-7.7.3.pom
+Progress (1): 4.1/31 kBProgress (1): 8.2/31 kBProgress (1): 12/31 kB Progress (1): 16/31 kBProgress (1): 20/31 kBProgress (1): 25/31 kBProgress (1): 29/31 kBProgress (1): 31 kB                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/flywaydb/flyway-parent/7.7.3/flyway-parent-7.7.3.pom (31 kB at 752 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/flywaydb/flyway-maven-plugin/7.7.3/flyway-maven-plugin-7.7.3.jar
+Progress (1): 4.1/119 kBProgress (1): 8.2/119 kBProgress (1): 12/119 kB Progress (1): 16/119 kBProgress (1): 20/119 kBProgress (1): 25/119 kBProgress (1): 29/119 kBProgress (1): 33/119 kBProgress (1): 37/119 kBProgress (1): 41/119 kBProgress (1): 45/119 kBProgress (1): 49/119 kBProgress (1): 53/119 kBProgress (1): 57/119 kBProgress (1): 61/119 kBProgress (1): 66/119 kBProgress (1): 70/119 kBProgress (1): 74/119 kBProgress (1): 78/119 kBProgress (1): 82/119 kBProgress (1): 86/119 kBProgress (1): 90/119 kBProgress (1): 94/119 kBProgress (1): 98/119 kBProgress (1): 102/119 kBProgress (1): 106/119 kBProgress (1): 111/119 kBProgress (1): 115/119 kBProgress (1): 119/119 kBProgress (1): 119 kB                        Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/flywaydb/flyway-maven-plugin/7.7.3/flyway-maven-plugin-7.7.3.jar (119 kB at 1.7 MB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/pl/project13/maven/git-commit-id-plugin/4.0.5/git-commit-id-plugin-4.0.5.pom
+Progress (1): 4.1/11 kBProgress (1): 7.9/11 kBProgress (1): 11 kB                       Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/pl/project13/maven/git-commit-id-plugin/4.0.5/git-commit-id-plugin-4.0.5.pom (11 kB at 214 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/pl/project13/maven/git-commit-id-plugin-parent/4.0.5/git-commit-id-plugin-parent-4.0.5.pom
+Progress (1): 4.1/12 kBProgress (1): 8.2/12 kBProgress (1): 12/12 kB Progress (1): 12 kB                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/pl/project13/maven/git-commit-id-plugin-parent/4.0.5/git-commit-id-plugin-parent-4.0.5.pom (12 kB at 300 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/pl/project13/maven/git-commit-id-plugin/4.0.5/git-commit-id-plugin-4.0.5.jar
+Progress (1): 2.6/40 kBProgress (1): 6.7/40 kBProgress (1): 11/40 kB Progress (1): 15/40 kBProgress (1): 19/40 kBProgress (1): 23/40 kBProgress (1): 27/40 kBProgress (1): 31/40 kBProgress (1): 35/40 kBProgress (1): 39/40 kBProgress (1): 40 kB                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/pl/project13/maven/git-commit-id-plugin/4.0.5/git-commit-id-plugin-4.0.5.jar (40 kB at 1.6 MB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/johnzon/johnzon-maven-plugin/1.2.14/johnzon-maven-plugin-1.2.14.pom
+Progress (1): 4.0 kB                    Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/johnzon/johnzon-maven-plugin/1.2.14/johnzon-maven-plugin-1.2.14.pom (4.0 kB at 83 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/johnzon/johnzon/1.2.14/johnzon-1.2.14.pom
+Progress (1): 4.1/27 kBProgress (1): 8.2/27 kBProgress (1): 12/27 kB Progress (1): 16/27 kBProgress (1): 20/27 kBProgress (1): 25/27 kBProgress (1): 27 kB                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/johnzon/johnzon/1.2.14/johnzon-1.2.14.pom (27 kB at 1.1 MB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/johnzon/johnzon-maven-plugin/1.2.14/johnzon-maven-plugin-1.2.14.jar
+Progress (1): 2.6/31 kBProgress (1): 6.7/31 kBProgress (1): 11/31 kB Progress (1): 15/31 kBProgress (1): 19/31 kBProgress (1): 23/31 kBProgress (1): 27/31 kBProgress (1): 31 kB                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/johnzon/johnzon-maven-plugin/1.2.14/johnzon-maven-plugin-1.2.14.jar (31 kB at 995 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jooq/jooq-codegen-maven/3.14.15/jooq-codegen-maven-3.14.15.pom
+Progress (1): 4.1/4.1 kBProgress (1): 4.1 kB                        Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jooq/jooq-codegen-maven/3.14.15/jooq-codegen-maven-3.14.15.pom (4.1 kB at 79 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jooq/jooq-parent/3.14.15/jooq-parent-3.14.15.pom
+Progress (1): 4.1/28 kBProgress (1): 8.2/28 kBProgress (1): 12/28 kB Progress (1): 16/28 kBProgress (1): 20/28 kBProgress (1): 25/28 kBProgress (1): 28 kB                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jooq/jooq-parent/3.14.15/jooq-parent-3.14.15.pom (28 kB at 541 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jooq/jooq-codegen-maven/3.14.15/jooq-codegen-maven-3.14.15.jar
+Progress (1): 4.1/17 kBProgress (1): 8.2/17 kBProgress (1): 12/17 kB Progress (1): 16/17 kBProgress (1): 17 kB                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jooq/jooq-codegen-maven/3.14.15/jooq-codegen-maven-3.14.15.jar (17 kB at 1.1 MB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jetbrains/kotlin/kotlin-maven-plugin/1.5.31/kotlin-maven-plugin-1.5.31.pom
+Progress (1): 4.1/5.9 kBProgress (1): 5.9 kB                        Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jetbrains/kotlin/kotlin-maven-plugin/1.5.31/kotlin-maven-plugin-1.5.31.pom (5.9 kB at 225 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jetbrains/kotlin/kotlin-project/1.5.31/kotlin-project-1.5.31.pom
+Progress (1): 4.1/10 kBProgress (1): 8.2/10 kBProgress (1): 10 kB                       Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jetbrains/kotlin/kotlin-project/1.5.31/kotlin-project-1.5.31.pom (10 kB at 180 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jetbrains/kotlin/kotlin-maven-plugin/1.5.31/kotlin-maven-plugin-1.5.31.jar
+Progress (1): 4.1/80 kBProgress (1): 8.2/80 kBProgress (1): 12/80 kB Progress (1): 16/80 kBProgress (1): 20/80 kBProgress (1): 25/80 kBProgress (1): 29/80 kBProgress (1): 33/80 kBProgress (1): 37/80 kBProgress (1): 41/80 kBProgress (1): 45/80 kBProgress (1): 49/80 kBProgress (1): 53/80 kBProgress (1): 57/80 kBProgress (1): 61/80 kBProgress (1): 66/80 kBProgress (1): 70/80 kBProgress (1): 74/80 kBProgress (1): 78/80 kBProgress (1): 80 kB                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/jetbrains/kotlin/kotlin-maven-plugin/1.5.31/kotlin-maven-plugin-1.5.31.jar (80 kB at 1.4 MB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/liquibase/liquibase-maven-plugin/4.3.5/liquibase-maven-plugin-4.3.5.pom
+Progress (1): 2.8 kB                    Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/liquibase/liquibase-maven-plugin/4.3.5/liquibase-maven-plugin-4.3.5.pom (2.8 kB at 201 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/liquibase/liquibase-maven-plugin/4.3.5/liquibase-maven-plugin-4.3.5.jar
+Progress (1): 4.1/103 kBProgress (1): 8.2/103 kBProgress (1): 12/103 kB Progress (1): 16/103 kBProgress (1): 20/103 kBProgress (1): 25/103 kBProgress (1): 29/103 kBProgress (1): 33/103 kBProgress (1): 37/103 kBProgress (1): 41/103 kBProgress (1): 45/103 kBProgress (1): 49/103 kBProgress (1): 53/103 kBProgress (1): 57/103 kBProgress (1): 61/103 kBProgress (1): 66/103 kBProgress (1): 70/103 kBProgress (1): 74/103 kBProgress (1): 78/103 kBProgress (1): 82/103 kBProgress (1): 86/103 kBProgress (1): 90/103 kBProgress (1): 94/103 kBProgress (1): 98/103 kBProgress (1): 102/103 kBProgress (1): 103 kB                        Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/liquibase/liquibase-maven-plugin/4.3.5/liquibase-maven-plugin-4.3.5.jar (103 kB at 1.0 MB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/plugins/maven-assembly-plugin/3.3.0/maven-assembly-plugin-3.3.0.pom
+Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/plugins/maven-assembly-plugin/3.3.0/maven-assembly-plugin-3.3.0.pom (0 B at 0 B/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/plugins/maven-assembly-plugin/3.3.0/maven-assembly-plugin-3.3.0.jar
+Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/plugins/maven-assembly-plugin/3.3.0/maven-assembly-plugin-3.3.0.jar (0 B at 0 B/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/plugins/maven-dependency-plugin/3.1.2/maven-dependency-plugin-3.1.2.pom
+Progress (1): 4.1/16 kBProgress (1): 8.2/16 kBProgress (1): 12/16 kB Progress (1): 16 kB                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/plugins/maven-dependency-plugin/3.1.2/maven-dependency-plugin-3.1.2.pom (16 kB at 578 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/plugins/maven-dependency-plugin/3.1.2/maven-dependency-plugin-3.1.2.jar
+Progress (1): 4.1/172 kBProgress (1): 8.2/172 kBProgress (1): 12/172 kB Progress (1): 16/172 kBProgress (1): 20/172 kBProgress (1): 25/172 kBProgress (1): 29/172 kBProgress (1): 33/172 kBProgress (1): 37/172 kBProgress (1): 41/172 kBProgress (1): 45/172 kBProgress (1): 49/172 kBProgress (1): 53/172 kBProgress (1): 57/172 kBProgress (1): 61/172 kBProgress (1): 66/172 kBProgress (1): 70/172 kBProgress (1): 74/172 kBProgress (1): 78/172 kBProgress (1): 82/172 kBProgress (1): 86/172 kBProgress (1): 90/172 kBProgress (1): 94/172 kBProgress (1): 98/172 kBProgress (1): 102/172 kBProgress (1): 106/172 kBProgress (1): 111/172 kBProgress (1): 115/172 kBProgress (1): 119/172 kBProgress (1): 123/172 kBProgress (1): 127/172 kBProgress (1): 131/172 kBProgress (1): 135/172 kBProgress (1): 139/172 kBProgress (1): 143/172 kBProgress (1): 147/172 kBProgress (1): 152/172 kBProgress (1): 156/172 kBProgress (1): 160/172 kBProgress (1): 164/172 kBProgress (1): 168/172 kBProgress (1): 172/172 kBProgress (1): 172 kB                        Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/plugins/maven-dependency-plugin/3.1.2/maven-dependency-plugin-3.1.2.jar (172 kB at 9.1 MB/s)
+[INFO] 
+[INFO] ------------------< com.nydia:springclouddemo-client >------------------
+[INFO] Building springclouddemo-client 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:3.1.2:tree (default-cli) @ springclouddemo-client ---
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-site-renderer/1.9/doxia-site-renderer-1.9.pom
+Progress (1): 4.1/6.7 kBProgress (1): 6.7 kB                        Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-site-renderer/1.9/doxia-site-renderer-1.9.pom (6.7 kB at 187 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-sitetools/1.9/doxia-sitetools-1.9.pom
+Progress (1): 4.1/16 kBProgress (1): 8.2/16 kBProgress (1): 12/16 kB Progress (1): 16 kB                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-sitetools/1.9/doxia-sitetools-1.9.pom (16 kB at 623 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-decoration-model/1.9/doxia-decoration-model-1.9.pom
+Progress (1): 3.4 kB                    Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-decoration-model/1.9/doxia-decoration-model-1.9.pom (3.4 kB at 227 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-skin-model/1.9/doxia-skin-model-1.9.pom
+Progress (1): 3.0 kB                    Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-skin-model/1.9/doxia-skin-model-1.9.pom (3.0 kB at 217 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/shared/maven-dependency-analyzer/1.11.1/maven-dependency-analyzer-1.11.1.pom
+Progress (1): 4.1/6.7 kBProgress (1): 6.7 kB                        Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/shared/maven-dependency-analyzer/1.11.1/maven-dependency-analyzer-1.11.1.pom (6.7 kB at 139 kB/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/shared/maven-artifact-transfer/0.11.0/maven-artifact-transfer-0.11.0.pom
+Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/shared/maven-artifact-transfer/0.11.0/maven-artifact-transfer-0.11.0.pom (0 B at 0 B/s)
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-site-renderer/1.9/doxia-site-renderer-1.9.jar
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/shared/maven-dependency-analyzer/1.11.1/maven-dependency-analyzer-1.11.1.jar
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-skin-model/1.9/doxia-skin-model-1.9.jar
+Downloading from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/shared/maven-artifact-transfer/0.11.0/maven-artifact-transfer-0.11.0.jar
+Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/shared/maven-artifact-transfer/0.11.0/maven-artifact-transfer-0.11.0.jar (0 B at 0 B/s)
+Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar (0 B at 0 B/s)
+Progress (1): 4.1/17 kBProgress (1): 8.2/17 kBProgress (2): 8.2/17 kB | 4.1/35 kBProgress (3): 8.2/17 kB | 4.1/35 kB | 4.1/66 kBProgress (3): 12/17 kB | 4.1/35 kB | 4.1/66 kB Progress (3): 16/17 kB | 4.1/35 kB | 4.1/66 kBProgress (3): 17 kB | 4.1/35 kB | 4.1/66 kB   Progress (3): 17 kB | 7.9/35 kB | 4.1/66 kBProgress (3): 17 kB | 7.9/35 kB | 7.9/66 kBProgress (3): 17 kB | 12/35 kB | 7.9/66 kB Progress (3): 17 kB | 16/35 kB | 7.9/66 kBProgress (3): 17 kB | 20/35 kB | 7.9/66 kBProgress (3): 17 kB | 24/35 kB | 7.9/66 kBProgress (3): 17 kB | 28/35 kB | 7.9/66 kBProgress (3): 17 kB | 32/35 kB | 7.9/66 kBProgress (3): 17 kB | 35 kB | 7.9/66 kB   Progress (3): 17 kB | 35 kB | 12/66 kB Progress (3): 17 kB | 35 kB | 16/66 kBProgress (3): 17 kB | 35 kB | 20/66 kBProgress (3): 17 kB | 35 kB | 24/66 kBProgress (3): 17 kB | 35 kB | 28/66 kBProgress (3): 17 kB | 35 kB | 32/66 kBProgress (3): 17 kB | 35 kB | 37/66 kBProgress (3): 17 kB | 35 kB | 41/66 kBProgress (3): 17 kB | 35 kB | 45/66 kBProgress (3): 17 kB | 35 kB | 49/66 kBProgress (3): 17 kB | 35 kB | 53/66 kBProgress (3): 17 kB | 35 kB | 57/66 kBProgress (3): 17 kB | 35 kB | 61/66 kBProgress (3): 17 kB | 35 kB | 65/66 kBProgress (3): 17 kB | 35 kB | 66 kB                                      Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/shared/maven-dependency-analyzer/1.11.1/maven-dependency-analyzer-1.11.1.jar (35 kB at 722 kB/s)
+Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-skin-model/1.9/doxia-skin-model-1.9.jar (17 kB at 332 kB/s)
+Downloaded from public: http://10.200.200.54:2081/nexus/content/groups/public/org/apache/maven/doxia/doxia-site-renderer/1.9/doxia-site-renderer-1.9.jar (66 kB at 1.2 MB/s)
+[INFO] com.nydia:springclouddemo-client:jar:0.0.1-SNAPSHOT
+[INFO] +- org.springframework.boot:spring-boot-starter-data-jpa:jar:2.5.5:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-aop:jar:2.5.5:compile
+[INFO] |  |  +- org.springframework:spring-aop:jar:5.3.10:compile
+[INFO] |  |  \- org.aspectj:aspectjweaver:jar:1.9.7:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-jdbc:jar:2.5.5:compile
+[INFO] |  |  +- com.zaxxer:HikariCP:jar:4.0.3:compile
+[INFO] |  |  \- org.springframework:spring-jdbc:jar:5.3.10:compile
+[INFO] |  +- jakarta.transaction:jakarta.transaction-api:jar:1.3.3:compile
+[INFO] |  +- jakarta.persistence:jakarta.persistence-api:jar:2.2.3:compile
+[INFO] |  +- org.hibernate:hibernate-core:jar:5.4.32.Final:compile
+[INFO] |  |  +- org.jboss.logging:jboss-logging:jar:3.4.2.Final:compile
+[INFO] |  |  +- org.javassist:javassist:jar:3.27.0-GA:compile
+[INFO] |  |  +- net.bytebuddy:byte-buddy:jar:1.10.22:compile
+[INFO] |  |  +- antlr:antlr:jar:2.7.7:compile
+[INFO] |  |  +- org.jboss:jandex:jar:2.2.3.Final:compile
+[INFO] |  |  +- com.fasterxml:classmate:jar:1.5.1:compile
+[INFO] |  |  +- org.dom4j:dom4j:jar:2.1.3:compile
+[INFO] |  |  +- org.hibernate.common:hibernate-commons-annotations:jar:5.1.2.Final:compile
+[INFO] |  |  \- org.glassfish.jaxb:jaxb-runtime:jar:2.3.5:compile
+[INFO] |  |     +- org.glassfish.jaxb:txw2:jar:2.3.5:compile
+[INFO] |  |     +- com.sun.istack:istack-commons-runtime:jar:3.0.12:compile
+[INFO] |  |     \- com.sun.activation:jakarta.activation:jar:1.2.2:runtime
+[INFO] |  +- org.springframework.data:spring-data-jpa:jar:2.5.5:compile
+[INFO] |  |  +- org.springframework.data:spring-data-commons:jar:2.5.5:compile
+[INFO] |  |  +- org.springframework:spring-orm:jar:5.3.10:compile
+[INFO] |  |  +- org.springframework:spring-context:jar:5.3.10:compile
+[INFO] |  |  +- org.springframework:spring-tx:jar:5.3.10:compile
+[INFO] |  |  \- org.springframework:spring-beans:jar:5.3.10:compile
+[INFO] |  \- org.springframework:spring-aspects:jar:5.3.10:compile
+[INFO] +- org.springframework.boot:spring-boot-starter-web:jar:2.5.5:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter:jar:2.5.5:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-starter-logging:jar:2.5.5:compile
+[INFO] |  |  |  +- ch.qos.logback:logback-classic:jar:1.2.6:compile
+[INFO] |  |  |  |  \- ch.qos.logback:logback-core:jar:1.2.6:compile
+[INFO] |  |  |  +- org.apache.logging.log4j:log4j-to-slf4j:jar:2.14.1:compile
+[INFO] |  |  |  |  \- org.apache.logging.log4j:log4j-api:jar:2.14.1:compile
+[INFO] |  |  |  \- org.slf4j:jul-to-slf4j:jar:1.7.32:compile
+[INFO] |  |  +- jakarta.annotation:jakarta.annotation-api:jar:1.3.5:compile
+[INFO] |  |  \- org.yaml:snakeyaml:jar:1.28:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-json:jar:2.5.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.core:jackson-databind:jar:2.12.5:compile
+[INFO] |  |  |  \- com.fasterxml.jackson.core:jackson-annotations:jar:2.12.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.12.5:compile
+[INFO] |  |  +- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.12.5:compile
+[INFO] |  |  \- com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.12.5:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-tomcat:jar:2.5.5:compile
+[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-core:jar:9.0.53:compile
+[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-el:jar:9.0.53:compile
+[INFO] |  |  \- org.apache.tomcat.embed:tomcat-embed-websocket:jar:9.0.53:compile
+[INFO] |  +- org.springframework:spring-web:jar:5.3.10:compile
+[INFO] |  \- org.springframework:spring-webmvc:jar:5.3.10:compile
+[INFO] |     \- org.springframework:spring-expression:jar:5.3.10:compile
+[INFO] +- org.springframework.cloud:spring-cloud-starter-openfeign:jar:3.0.4:compile
+[INFO] |  +- org.springframework.cloud:spring-cloud-starter:jar:3.0.4:compile
+[INFO] |  |  \- org.springframework.security:spring-security-rsa:jar:1.0.10.RELEASE:compile
+[INFO] |  |     \- org.bouncycastle:bcpkix-jdk15on:jar:1.68:compile
+[INFO] |  |        \- org.bouncycastle:bcprov-jdk15on:jar:1.68:compile
+[INFO] |  +- org.springframework.cloud:spring-cloud-openfeign-core:jar:3.0.4:compile
+[INFO] |  +- org.springframework.cloud:spring-cloud-commons:jar:3.0.4:compile
+[INFO] |  |  \- org.springframework.security:spring-security-crypto:jar:5.5.2:compile
+[INFO] |  +- io.github.openfeign:feign-core:jar:10.12:compile
+[INFO] |  \- io.github.openfeign:feign-slf4j:jar:10.12:compile
+[INFO] +- io.github.openfeign.form:feign-form-spring:jar:3.8.0:compile
+[INFO] |  +- io.github.openfeign.form:feign-form:jar:3.8.0:compile
+[INFO] |  +- commons-fileupload:commons-fileupload:jar:1.4:compile
+[INFO] |  |  \- commons-io:commons-io:jar:2.2:compile
+[INFO] |  \- org.slf4j:slf4j-api:jar:1.7.32:compile
+[INFO] +- org.springframework.boot:spring-boot-devtools:jar:2.5.5:runtime (optional) 
+[INFO] |  +- org.springframework.boot:spring-boot:jar:2.5.5:compile
+[INFO] |  \- org.springframework.boot:spring-boot-autoconfigure:jar:2.5.5:compile
+[INFO] +- com.h2database:h2:jar:1.4.200:runtime
+[INFO] +- mysql:mysql-connector-java:jar:8.0.26:runtime
+[INFO] +- org.projectlombok:lombok:jar:1.18.20:compile (optional) 
+[INFO] +- org.springframework.boot:spring-boot-starter-test:jar:2.5.5:test
+[INFO] |  +- org.springframework.boot:spring-boot-test:jar:2.5.5:test
+[INFO] |  +- org.springframework.boot:spring-boot-test-autoconfigure:jar:2.5.5:test
+[INFO] |  +- com.jayway.jsonpath:json-path:jar:2.5.0:test
+[INFO] |  |  \- net.minidev:json-smart:jar:2.4.7:test
+[INFO] |  |     \- net.minidev:accessors-smart:jar:2.4.7:test
+[INFO] |  |        \- org.ow2.asm:asm:jar:9.1:test
+[INFO] |  +- jakarta.xml.bind:jakarta.xml.bind-api:jar:2.3.3:compile
+[INFO] |  |  \- jakarta.activation:jakarta.activation-api:jar:1.2.2:compile
+[INFO] |  +- org.assertj:assertj-core:jar:3.19.0:test
+[INFO] |  +- org.hamcrest:hamcrest:jar:2.2:test
+[INFO] |  +- org.junit.jupiter:junit-jupiter:jar:5.7.2:test
+[INFO] |  |  +- org.junit.jupiter:junit-jupiter-api:jar:5.7.2:test
+[INFO] |  |  |  +- org.apiguardian:apiguardian-api:jar:1.1.0:test
+[INFO] |  |  |  +- org.opentest4j:opentest4j:jar:1.2.0:test
+[INFO] |  |  |  \- org.junit.platform:junit-platform-commons:jar:1.7.2:test
+[INFO] |  |  +- org.junit.jupiter:junit-jupiter-params:jar:5.7.2:test
+[INFO] |  |  \- org.junit.jupiter:junit-jupiter-engine:jar:5.7.2:test
+[INFO] |  |     \- org.junit.platform:junit-platform-engine:jar:1.7.2:test
+[INFO] |  +- org.mockito:mockito-core:jar:3.9.0:test
+[INFO] |  |  +- net.bytebuddy:byte-buddy-agent:jar:1.10.22:test
+[INFO] |  |  \- org.objenesis:objenesis:jar:3.2:test
+[INFO] |  +- org.mockito:mockito-junit-jupiter:jar:3.9.0:test
+[INFO] |  +- org.skyscreamer:jsonassert:jar:1.5.0:test
+[INFO] |  |  \- com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1:test
+[INFO] |  +- org.springframework:spring-core:jar:5.3.10:compile
+[INFO] |  |  \- org.springframework:spring-jcl:jar:5.3.10:compile
+[INFO] |  +- org.springframework:spring-test:jar:5.3.10:test
+[INFO] |  \- org.xmlunit:xmlunit-core:jar:2.8.2:test
+[INFO] +- com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:jar:2021.1:compile
+[INFO] |  +- com.alibaba.cloud:spring-cloud-alibaba-commons:jar:2021.1:compile
+[INFO] |  +- com.alibaba.nacos:nacos-client:jar:1.4.1:compile
+[INFO] |  |  +- com.alibaba.nacos:nacos-common:jar:1.4.1:compile
+[INFO] |  |  |  \- org.apache.httpcomponents:httpasyncclient:jar:4.1.4:compile
+[INFO] |  |  |     +- org.apache.httpcomponents:httpcore:jar:4.4.14:compile
+[INFO] |  |  |     +- org.apache.httpcomponents:httpcore-nio:jar:4.4.14:compile
+[INFO] |  |  |     \- org.apache.httpcomponents:httpclient:jar:4.5.13:compile
+[INFO] |  |  +- com.alibaba.nacos:nacos-api:jar:1.4.1:compile
+[INFO] |  |  +- com.google.guava:guava:jar:24.1.1-jre:compile
+[INFO] |  |  |  +- com.google.code.findbugs:jsr305:jar:1.3.9:compile
+[INFO] |  |  |  +- org.checkerframework:checker-compat-qual:jar:2.0.0:compile
+[INFO] |  |  |  +- com.google.errorprone:error_prone_annotations:jar:2.1.3:compile
+[INFO] |  |  |  +- com.google.j2objc:j2objc-annotations:jar:1.1:compile
+[INFO] |  |  |  \- org.codehaus.mojo:animal-sniffer-annotations:jar:1.14:compile
+[INFO] |  |  +- commons-codec:commons-codec:jar:1.15:compile
+[INFO] |  |  +- com.fasterxml.jackson.core:jackson-core:jar:2.12.5:compile
+[INFO] |  |  \- io.prometheus:simpleclient:jar:0.10.0:compile
+[INFO] |  +- com.alibaba.spring:spring-context-support:jar:1.0.10:compile
+[INFO] |  \- org.springframework.cloud:spring-cloud-context:jar:3.0.4:compile
+[INFO] +- com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:jar:2021.1:compile
+[INFO] +- org.springframework.cloud:spring-cloud-starter-bootstrap:jar:3.0.4:compile
+[INFO] +- junit:junit:jar:4.13.2:test
+[INFO] |  \- org.hamcrest:hamcrest-core:jar:2.2:test
+[INFO] +- org.springframework.cloud:spring-cloud-starter-loadbalancer:jar:3.0.4:compile
+[INFO] |  +- org.springframework.cloud:spring-cloud-loadbalancer:jar:3.0.4:compile
+[INFO] |  |  +- io.projectreactor:reactor-core:jar:3.4.10:compile
+[INFO] |  |  |  \- org.reactivestreams:reactive-streams:jar:1.0.3:compile
+[INFO] |  |  \- io.projectreactor.addons:reactor-extra:jar:3.4.5:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-cache:jar:2.5.5:compile
+[INFO] |  |  \- org.springframework:spring-context-support:jar:5.3.10:compile
+[INFO] |  \- com.stoyanr:evictor:jar:1.0.0:compile
+[INFO] \- io.github.openfeign:feign-okhttp:jar:10.12:compile
+[INFO]    \- com.squareup.okhttp3:okhttp:jar:3.14.9:compile
+[INFO]       \- com.squareup.okio:okio:jar:1.17.2:compile
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:38 min
+[INFO] Finished at: 2023-08-28T17:57:53+08:00
+[INFO] ------------------------------------------------------------------------
