@@ -1,4 +1,4 @@
-package com.nydia.springclouddemo.feign;
+package com.nydia.springclouddemo.demos.nacosdiscoveryprovider;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -18,7 +18,7 @@ import java.util.Map;
 @RequestMapping
 public class FeignController {
 
-    @Value("${test.val:}")
+    @Value("${test.val:3}")
     private String val;
 
     @RequestMapping(value = "getdata", method = {RequestMethod.POST, RequestMethod.GET})

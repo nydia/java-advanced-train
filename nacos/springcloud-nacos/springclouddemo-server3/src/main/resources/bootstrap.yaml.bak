@@ -16,17 +16,18 @@ spring:
         username: nacos
         password: nacos
         #enabled: true # 不注册到注册中心，默认true
-        metadata:
-          gray: true
       config:
         server-addr: 127.0.0.1:8848
         namespace: 7032d7ad-1ac9-419e-bda5-d1fc1fd9d812
         username: nacos
         password: nacos
         contextPath: /nacos
-        file-extension: yaml
+        #file-extension: yaml
         #prefix: ${spring.application.name}
-        prefix: springcloud-server
+        #prefix: springcloud-server3
+  config:
+    import:
+      - optional:nacos:springcloud-server3.yaml?refresh=true
 
 ---
 spring:
@@ -41,7 +42,6 @@ spring:
       config:
         server-addr: 192.168.43.81:8848,192.168.43.82:8848,192.168.43.83:8848
         namespace: e50b6023-4b5b-4958-bb30-5fdc3ae80737
-        #file-extension: yaml
-        file-extension: properties
+        file-extension: yaml
         #prefix: ${spring.application.name}
-        prefix: springcloud-server
+        prefix: springcloud-server3

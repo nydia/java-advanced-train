@@ -2,3 +2,6 @@ server:
   port: 8091
 test:
   val: 2
+user:
+  name: name1
+  age: 10

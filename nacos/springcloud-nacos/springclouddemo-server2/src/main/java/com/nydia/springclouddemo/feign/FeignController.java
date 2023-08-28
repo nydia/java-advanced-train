@@ -1,6 +1,7 @@
 package com.nydia.springclouddemo.feign;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import java.util.Map;
  * @Date 2021/10/15 13:46
  * @Created by <a href="mailto:nydia_lhq@hotmail.com">lvhuaqiang</a>
  */
+@RefreshScope
 @RestController
 @RequestMapping
 public class FeignController {

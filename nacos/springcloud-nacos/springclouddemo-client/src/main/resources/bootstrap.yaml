@@ -2,26 +2,28 @@ spring:
   application:
     name: springcloud-client
   profiles:
-    active: dev
+    active: local
 
 ---
 spring:
   profiles: local
   cloud:
+    # nacos server 2.2.3
     nacos:
       discovery:
-        server-addr: 192.168.41.82:8848,192.168.41.83:8848,192.168.41.84:8848
-        namespace: local
-        enabled: true # 不注册到注册中心，默认true
+        server-addr: 127.0.0.1:8848
+        namespace: 7032d7ad-1ac9-419e-bda5-d1fc1fd9d812
+        username: nacos
+        password: nacos
+        #enabled: true # 不注册到注册中心，默认true
       config:
-        server-addr: 192.168.41.82:8848,192.168.41.83:8848,192.168.41.84:8848
+        server-addr: 127.0.0.1:8848
+        namespace: 7032d7ad-1ac9-419e-bda5-d1fc1fd9d812
+        username: nacos
+        password: nacos
+        contextPath: /nacos
         file-extension: yaml
-        namespace: local
         prefix: ${spring.application.name}
-        #group: nhqk
-  inetutils:
-    preferred-networks:
-      - 192.168
 
 ---
 spring:
