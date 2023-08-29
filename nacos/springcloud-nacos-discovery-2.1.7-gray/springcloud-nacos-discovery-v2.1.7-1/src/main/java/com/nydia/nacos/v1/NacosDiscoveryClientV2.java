@@ -38,6 +38,7 @@ public class NacosDiscoveryClientV2 extends NacosDiscoveryClient {
      * @return list of instances
      * @throws NacosException nacosException
      */
+    @Override
     public List<ServiceInstance> getInstances(String serviceId) {
         try {
             List<Instance> instances = discoveryProperties.namingServiceInstance()
