@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @Auther: nydia_lhq@hotmail.com
@@ -43,12 +44,12 @@ public class BatchExecutorTest {
         //1、获取SqlSessionFactory实例
         SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
         //2、打开一个会话
-        SqlSession openSession = sqlSessionFactory.openSession();
+        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
         try {
             // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
             UserMapper mapper = openSession.getMapper(UserMapper.class);
-            User user = mapper.selectById(1);
-            System.out.println(user);
+            List<User> users = mapper.selectByName("name3");
+            System.out.println(users);
         } finally {
             //4、使用完毕后关闭会话
             openSession.close();

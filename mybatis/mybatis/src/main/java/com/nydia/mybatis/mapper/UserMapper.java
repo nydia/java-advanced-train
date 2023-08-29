@@ -13,15 +13,17 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
 
-    User selectById(Integer id);
-
-    Map selectByIdForMap(Integer id);
-
     int insert(User user);
 
     int insert2(User user);
 
     int insert3(User user);
+
+    User selectById(Integer id);
+
+    List<User> selectByName(String username);
+
+    Map selectByIdForMap(Integer id);
 
     User lasyLoadQuery(Integer id);
 

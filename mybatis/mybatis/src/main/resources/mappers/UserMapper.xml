@@ -47,6 +47,12 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByName" parameterType="java.lang.String" resultType="com.nydia.mybatis.entity.User">
+    select id,username,password
+    from tbl_user
+    where username = #{username}
+  </select>
+
   <select id="selectByIdForMap" parameterType="java.lang.Integer" resultType="java.util.Map">
     select id,username,password
     from tbl_user
