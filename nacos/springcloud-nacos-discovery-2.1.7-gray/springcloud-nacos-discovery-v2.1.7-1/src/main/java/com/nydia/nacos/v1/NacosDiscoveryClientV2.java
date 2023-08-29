@@ -96,8 +96,7 @@ public class NacosDiscoveryClientV2 extends NacosDiscoveryClient {
         }
     }
 
-    public static List<ServiceInstance> hostToServiceInstanceList(
-            List<Instance> instances, String serviceId) {
+    public static List<ServiceInstance> hostToServiceInstanceList(List<Instance> instances, String serviceId) {
         List<ServiceInstance> result = new ArrayList<>(instances.size());
         for (Instance instance : instances) {
             ServiceInstance serviceInstance = hostToServiceInstance(instance, serviceId);
@@ -108,8 +107,7 @@ public class NacosDiscoveryClientV2 extends NacosDiscoveryClient {
         return result;
     }
 
-    public static ServiceInstance hostToServiceInstance(Instance instance,
-                                                        String serviceId) {
+    public static ServiceInstance hostToServiceInstance(Instance instance, String serviceId) {
         if (instance == null || !instance.isEnabled() || !instance.isHealthy()) {
             return null;
         }

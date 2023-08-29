@@ -29,13 +29,9 @@ import org.springframework.cloud.client.discovery.simple.SimpleDiscoveryClientAu
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author xiaojing
- */
 @Configuration
 @ConditionalOnNacosDiscoveryEnabled
-@AutoConfigureBefore({ SimpleDiscoveryClientAutoConfiguration.class,
-		CommonsClientAutoConfiguration.class })
+@AutoConfigureBefore({ SimpleDiscoveryClientAutoConfiguration.class,CommonsClientAutoConfiguration.class })
 public class NacosDiscoveryClientAutoConfiguration {
 
 	@Bean
@@ -46,8 +42,7 @@ public class NacosDiscoveryClientAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public DiscoveryClient nacosDiscoveryClient(
-			NacosDiscoveryProperties discoveryProperties) {
+	public DiscoveryClient nacosDiscoveryClient(NacosDiscoveryProperties discoveryProperties) {
 		return new NacosDiscoveryClient(discoveryProperties);
 	}
 
@@ -57,4 +52,5 @@ public class NacosDiscoveryClientAutoConfiguration {
 	public NacosWatch nacosWatch(NacosDiscoveryProperties nacosDiscoveryProperties) {
 		return new NacosWatch(nacosDiscoveryProperties);
 	}
+
 }

@@ -26,9 +26,8 @@ public class NacosDiscoveryAutoConfigurationV2 {
 
     @Bean
     @ConditionalOnMissingBean
-    public DiscoveryClient nacosDiscoveryClient(
-            NacosDiscoveryPropertiesV2 discoveryPropertiesV2, NacosShareProperties nacosShareProperties
-    ) {
+    public DiscoveryClient nacosDiscoveryClient(NacosDiscoveryPropertiesV2 discoveryPropertiesV2, NacosShareProperties nacosShareProperties) {
         return new NacosDiscoveryClientV2(discoveryPropertiesV2, nacosShareProperties);
     }
+
 }
