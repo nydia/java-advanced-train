@@ -1,4 +1,4 @@
-package com.nydia.mybatis.test;
+package com.nydia.mybatis.test.executor;
 
 import java.io.Externalizable;
 import java.io.IOException;

@@ -16,6 +16,8 @@
         <setting name="aggressiveLazyLoading" value="false"/>
         <!--开启时，任一方法的调用都会加载该对象的所有延迟加载属性。 否则，每个延迟加载属性会按需加载 -->
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+        <!-- 是否自动映射： NONE 表示关闭自动映射；PARTIAL 只会自动映射没有定义嵌套结果映射的字段。 FULL 会自动映射任何复杂的结果集（无论是否嵌套）。默认值：PARTIAL -->
+        <setting name="autoMappingBehavior" value="NONE"/>
     </settings>
 
     <typeAliases>

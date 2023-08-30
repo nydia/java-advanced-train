@@ -1,8 +1,8 @@
-package com.nydia.mybatis.test;
+package com.nydia.mybatis.test.executor;
 
 import com.nydia.mybatis.entity.User;
-import com.nydia.mybatis.entity.UserAlias;
 import com.nydia.mybatis.mapper.UserMapper;
+import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -12,13 +12,16 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @Auther: nydia_lhq@hotmail.com
- * @Date: 2023/8/20 23:33
- * @Description: AliasTest
+ * @Date: 2023/7/28 00:16
+ * @Description: CursorExecutorTest
  */
-public class AliasTest {
+public class CursorExecutorTest {
 
     public SqlSessionFactory getSqlSessionFactory() throws IOException {
         //注意此处路径不要写错
@@ -48,12 +51,21 @@ public class AliasTest {
         try {
             // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
             UserMapper mapper = openSession.getMapper(UserMapper.class);
-            UserAlias user = mapper.selectByIdForAlias(306);
-            System.out.println(user);
+            try(Cursor<User> users = mapper.selectByNameForCursor("name3")){
+                Iterator<User> iterator = users.iterator();
+
+                List<User> userList = new ArrayList<>();
+                while (iterator.hasNext()){
+                    userList.add(iterator.next());
+                }
+                System.out.println(userList);
+            }
+
         } finally {
             //4、使用完毕后关闭会话
             openSession.close();
         }
     }
+
 
 }

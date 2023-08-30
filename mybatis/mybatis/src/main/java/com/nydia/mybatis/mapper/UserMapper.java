@@ -19,6 +19,8 @@ public interface UserMapper {
 
     int insert3(User user);
 
+    int update(User user);
+
     User selectById(Integer id);
 
     List<User> selectByName(String username);
@@ -36,5 +38,7 @@ public interface UserMapper {
     Cursor<User> selectByNameForCursor(String username);
 
     List<User> selectByNameForMap(String username);
+
+    User selectByIdForAutoMapping(Integer id);
 
 }

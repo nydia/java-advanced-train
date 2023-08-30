@@ -1,22 +1,24 @@
-package com.nydia.mybatis.test;
+package com.nydia.mybatis.test.type;
 
 import com.nydia.mybatis.entity.User;
+import com.nydia.mybatis.entity.UserAlias;
 import com.nydia.mybatis.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.*;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Auther: nydia_lhq@hotmail.com
- * @Date: 2023/7/28 00:16
- * @Description: SqlSessionTest
+ * @Date: 2023/8/20 23:33
+ * @Description: AliasTest
  */
-public class SqlSessionTest {
+public class AliasTest {
 
     public SqlSessionFactory getSqlSessionFactory() throws IOException {
         //注意此处路径不要写错
@@ -38,25 +40,16 @@ public class SqlSessionTest {
      * @throws IOException
      */
     @Test
-    public void selectMap() throws IOException {
+    public void query() throws IOException {
         //1、获取SqlSessionFactory实例
         SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
         //2、打开一个会话
         SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
         try {
-            //第一种方式: 获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
+            // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
             UserMapper mapper = openSession.getMapper(UserMapper.class);
-            User user = mapper.selectById(306);
+            UserAlias user = mapper.selectByIdForAlias(306);
             System.out.println(user);
-
-            //第二种方式,直接查询
-            //分页
-            RowBounds rowBounds = new RowBounds(0,10);
-            //statement必须要待全路径,不然相同的statement会报非唯一性错误
-            //Map<String, User> map = openSession.selectMap("selectByNameForMap","name3","username", rowBounds);
-            Map<String, User> map = openSession.selectMap("com.nydia.mybatis.mapper.UserMapper.selectByNameForMap","name3","username", rowBounds);
-            System.out.println(map);
-
         } finally {
             //4、使用完毕后关闭会话
             openSession.close();

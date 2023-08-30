@@ -1,4 +1,4 @@
-package com.nydia.mybatis.test;
+package com.nydia.mybatis.test.executor;
 
 import com.nydia.mybatis.entity.User;
 import com.nydia.mybatis.mapper.UserMapper;
@@ -14,11 +14,11 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * @Auther: nydia_lhq@hotmail.com
- * @Date: 2023/7/28 00:16
- * @Description: BatchExecutorTest
+ * @Description BaseStatementHandlerTest
+ * @Date 2023/8/25 9:51
+ * @Created by nydia
  */
-public class BatchExecutorTest {
+public class BaseStatementHandlerTest {
 
     public SqlSessionFactory getSqlSessionFactory() throws IOException {
         //注意此处路径不要写错
@@ -44,39 +44,15 @@ public class BatchExecutorTest {
         //1、获取SqlSessionFactory实例
         SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
         //2、打开一个会话
-        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
         try {
             // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
             UserMapper mapper = openSession.getMapper(UserMapper.class);
-            List<User> users = mapper.selectByName("name3");
-            System.out.println(users);
+            List<User> user = mapper.selectByNameForResultSet("name3");
+            System.out.println(user);
         } finally {
             //4、使用完毕后关闭会话
             openSession.close();
         }
     }
-
-    @Test
-    public void batchInsert() throws IOException {
-        //1、获取SqlSessionFactory实例
-        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-        //2、打开一个会话
-        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
-        try {
-            // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
-            UserMapper mapper = openSession.getMapper(UserMapper.class);
-            int result = mapper.insert(User.builder()
-                    .username("name-test").password("123456test")
-                    .build());
-            openSession.commit();//这里不添加commit，会默认自动回滚
-            System.out.println(result);
-        } catch (Exception e){
-            e.printStackTrace();
-        } finally {
-            //4、使用完毕后关闭会话
-            openSession.close();
-        }
-    }
-
-
 }

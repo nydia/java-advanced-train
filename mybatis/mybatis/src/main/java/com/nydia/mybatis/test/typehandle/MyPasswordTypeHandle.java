@@ -1,4 +1,4 @@
-package com.nydia.mybatis.typehandle;
+package com.nydia.mybatis.test.typehandle;
 
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;

@@ -14,7 +14,7 @@
     </constructor>
     <result property="id" column="id"/>
     <result property="username" column="username"/>
-    <result property="password" column="password"  javaType="java.lang.String" jdbcType="VARCHAR" typeHandler="com.nydia.mybatis.typehandle.MyPasswordTypeHandle"/>
+    <result property="password" column="password"  javaType="java.lang.String" jdbcType="VARCHAR" typeHandler="com.nydia.mybatis.test.typehandle.MyPasswordTypeHandle"/>
     <association property="parent" javaType="com.nydia.mybatis.entity.User" select="com.nydia.mybatis.mapper.UserMapper.selectById" column="id" fetchType="lazy"/>
     <association property="parentMap" javaType="java.util.Map" select="com.nydia.mybatis.mapper.UserMapper.selectByIdForMap" column="id" fetchType="lazy"/>
     <association property="parentList" javaType="java.util.List" select="com.nydia.mybatis.mapper.UserMapper.selectById" column="id" fetchType="lazy"/>
@@ -75,6 +75,10 @@
     insert into tbl_user(username,password,parent_id) values (#{username},#{password},#{parent.id})
   </insert>
 
+  <update id="update" parameterType="com.nydia.mybatis.entity.User">
+    update tbl_user set desc1 = #{desc1} where id = #{id}
+  </update>
+
   <select id="lasyLoadQuery" parameterType="java.lang.Integer" resultMap="associationUserMap">
     select id,username,password,parent_id
     from tbl_user
@@ -109,6 +113,12 @@
     select id,username,password
     from tbl_user
     where username = #{username}
+  </select>
+
+  <select id="selectByIdForAutoMapping" parameterType="java.lang.Integer" resultMap="resultSetMap">
+    select id,username,password
+    from tbl_user
+    where id = #{id}
   </select>
 
 </mapper>

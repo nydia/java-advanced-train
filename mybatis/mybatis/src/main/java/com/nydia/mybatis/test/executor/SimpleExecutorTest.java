@@ -1,4 +1,4 @@
-package com.nydia.mybatis.test;
+package com.nydia.mybatis.test.executor;
 
 import com.nydia.mybatis.entity.User;
 import com.nydia.mybatis.mapper.UserMapper;
@@ -11,14 +11,13 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 /**
- * @Description BaseStatementHandlerTest
- * @Date 2023/8/25 9:51
- * @Created by nydia
+ * @Auther: nydia_lhq@hotmail.com
+ * @Date: 2023/8/20 23:33
+ * @Description: SimpleExecutorTest
  */
-public class BaseStatementHandlerTest {
+public class SimpleExecutorTest {
 
     public SqlSessionFactory getSqlSessionFactory() throws IOException {
         //注意此处路径不要写错
@@ -48,11 +47,38 @@ public class BaseStatementHandlerTest {
         try {
             // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
             UserMapper mapper = openSession.getMapper(UserMapper.class);
-            List<User> user = mapper.selectByNameForResultSet("name3");
+            User user = mapper.selectById(306);
             System.out.println(user);
         } finally {
             //4、使用完毕后关闭会话
             openSession.close();
         }
     }
+
+    @Test
+    public void update() throws IOException {
+        //1、获取SqlSessionFactory实例
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+        //2、打开一个会话
+        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
+        try {
+            // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
+            UserMapper mapper = openSession.getMapper(UserMapper.class);
+            for (int i = 0; i < 3; i++) {
+                int result = mapper.update(User.builder().id(307).desc1("desc").build());
+                //注意点：
+                // 1. 这里不添加commit，会默认自动回滚
+                //openSession.commit();
+                System.out.println(result);
+            }
+            openSession.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            //4、使用完毕后关闭会话
+            openSession.close();
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.nydia.mybatis.test;
+package com.nydia.mybatis.test.executor;
 
 import com.nydia.mybatis.entity.User;
 import com.nydia.mybatis.mapper.UserMapper;
@@ -11,13 +11,14 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
- * @Auther: nydia_lhq@hotmail.com
- * @Date: 2023/7/28 00:16
- * @Description: BatchExecutorTest
+ * @Description PreparedStatementHandlerTest
+ * @Date 2023/8/25 9:51
+ * @Created by nydia
  */
-public class KeyGeneratorTest {
+public class PreparedStatementHandlerTest {
 
     public SqlSessionFactory getSqlSessionFactory() throws IOException {
         //注意此处路径不要写错
@@ -26,7 +27,35 @@ public class KeyGeneratorTest {
         return new SqlSessionFactoryBuilder().build(inputStream);
     }
 
-    //Jdbc3KeyGenerator
+    /**
+     * 1、根据xml配置文件（全局配置文件）创建一个SqlSessionFactory对象
+     * 2、sql映射文件；配置了每一个sql，以及sql的封装规则等。
+     * 3、将sql映射文件注册在全局配置文件中
+     * 4、写代码：
+     * 1）、根据全局配置文件得到SqlSessionFactory；
+     * 2）、使用sqlSession工厂，获取到sqlSession对象使用他来执行增删改查
+     * 一个sqlSession就是代表和数据库的一次会话，用完关闭
+     * 3）、使用sql的唯一标志来告诉MyBatis执行哪个sql。sql都是保存在sql映射文件中的。
+     *
+     * @throws IOException
+     */
+    @Test
+    public void query() throws IOException {
+        //1、获取SqlSessionFactory实例
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+        //2、打开一个会话
+        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
+        try {
+            // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
+            UserMapper mapper = openSession.getMapper(UserMapper.class);
+            List<User> user = mapper.selectByNameForResultSet("name3");
+            System.out.println(user);
+        } finally {
+            //4、使用完毕后关闭会话
+            openSession.close();
+        }
+    }
+
     @Test
     public void insert() throws IOException {
         //1、获取SqlSessionFactory实例
@@ -36,41 +65,16 @@ public class KeyGeneratorTest {
         try {
             // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
             UserMapper mapper = openSession.getMapper(UserMapper.class);
-            int result = mapper.insert(User.builder()
-                    .username("name").password("123456")
+            Integer reslut = mapper.insert3(User.builder()
+                            .username("name5")
+                            .password("123456")
+                            .parent(User.builder().id(306).build())
                     .build());
             openSession.commit();//这里不添加commit，会默认自动回滚
-            System.out.println(result);
-        } catch (Exception e){
-            e.printStackTrace();
+            System.out.println(reslut);
         } finally {
             //4、使用完毕后关闭会话
             openSession.close();
         }
     }
-
-    //SelectKeyGenerator
-    @Test
-    public void insert2() throws IOException {
-        //1、获取SqlSessionFactory实例
-        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-        //2、打开一个会话
-        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
-        try {
-            // 3、获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
-            UserMapper mapper = openSession.getMapper(UserMapper.class);
-            int result = mapper.insert2(User.builder()
-                    .username("name").password("123456")
-                    .build());
-            openSession.commit();//这里不添加commit，会默认自动回滚
-            System.out.println(result);
-        } catch (Exception e){
-            e.printStackTrace();
-        } finally {
-            //4、使用完毕后关闭会话
-            openSession.close();
-        }
-    }
-
-
 }
