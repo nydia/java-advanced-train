@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Date: 2023/3/22 23:18
  * @Description: FeignClient
  */
-@org.springframework.cloud.openfeign.FeignClient(name = "example3", path = "/")
-public interface FeignClientEcho {
+@org.springframework.cloud.openfeign.FeignClient(name = "example2", path = "/")
+public interface FeignClientService {
 
     @RequestMapping("/echo")
-    public String test();
+    public String echo();
 
 }

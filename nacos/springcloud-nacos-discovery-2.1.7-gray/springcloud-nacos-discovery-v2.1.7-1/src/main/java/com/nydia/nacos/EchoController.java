@@ -8,21 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping
 public class EchoController {
-    @Autowired
-    private FeignClientEcho feignClientEcho;
 
     @Autowired
-    private FeignClientEchoShare feignClientEchoShare;
+    private FeignClientService feignClientService;
 
-    //同一个namespace
     @RequestMapping(value = "/echo", method = RequestMethod.GET)
     public String echo() {
-        return feignClientEcho.test();
+        return feignClientService.echo();
     }
 
-    //跨一个namespace
-    @RequestMapping(value = "/echo2", method = RequestMethod.GET)
-    public String echo2() {
-        return feignClientEchoShare.test();
-    }
 }
