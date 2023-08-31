@@ -9,8 +9,8 @@ springcloud-nacos-discovery-v2.1.7-3 Provider-2
 
 ## 请求
 
-#### 无请求头
+#### 正常请求
 curl http://localhost:8081/echo
-
-#### 添加请求头 
+curl -H "gray:false" http://localhost:8081/echo
+#### 灰度请求
 curl -H "gray:true" http://localhost:8081/echo

@@ -11,15 +11,17 @@ import java.util.Enumeration;
 
 /**
  * @Description 继承RequestInterceptor，把header设置到请求中,注意header的key若是大写时，请求中会被转为小写
+ *              （主要用于灰度发布中对客户端的灰度标志进行转发）
  */
 @Configuration
-public class FeignHeaderGrayInterceptor implements RequestInterceptor {
+public class GrayHeaderFeignInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate requestTemplate) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         //当主线程的请求执行完毕后，Servlet容器会被销毁当前的Servlet，因此在这里需要做判空
         if (attributes != null) {
+            //取客户端请求的header参数
             HttpServletRequest request = attributes.getRequest();
             Enumeration<String> headerNames = request.getHeaderNames();
 

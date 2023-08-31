@@ -4,8 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * <pre>
- *  @description: nacos discovery properties
+ * @description: Nacos Discovery Properties
  */
 @Configuration
 @ConfigurationProperties(prefix = "spring.cloud.nacos.discovery")

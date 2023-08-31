@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * @description: 共享nacos命名空间规则
+ * @description: 灰度发布 负载均衡规则
  */
 public class NacosGrayRule extends AbstractLoadBalancerRule {
 
@@ -43,8 +43,6 @@ public class NacosGrayRule extends AbstractLoadBalancerRule {
     private static final String CONSUMER_GRAY_ATTR_VAL = "true";
     private static final String SERVER_GRAY_ATTR = "gray";
     private static final String SERVER_GRAY_ATTR_VAL = "true";
-
-
 
     /**
      * 重写choose方法
@@ -72,7 +70,7 @@ public class NacosGrayRule extends AbstractLoadBalancerRule {
                 if (!CollectionUtils.isEmpty(sameClusterInstances)) {
 
                     //灰度处理
-                    sameClusterInstances = grapHandle(sameClusterInstances);
+                    sameClusterInstances = grayHandle(sameClusterInstances);
 
                     instancesToChoose = sameClusterInstances;
                 } else {
@@ -101,7 +99,7 @@ public class NacosGrayRule extends AbstractLoadBalancerRule {
      * @param instances
      * @return
      */
-    private List<Instance> grapHandle(List<Instance> instances) {
+    private List<Instance> grayHandle(List<Instance> instances) {
 
         //客户端是否灰度
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -116,11 +114,11 @@ public class NacosGrayRule extends AbstractLoadBalancerRule {
             return instances;
         }
 
-        //服务端是否灰度
+        //服务端是否灰度: 只取灰度服务
         List<Instance> insts = new ArrayList<>();
         for(Instance inst : instances){
             Map<String, String> metadata = inst.getMetadata();
-            if(metadata.get(SERVER_GRAY_ATTR) == null || !SERVER_GRAY_ATTR_VAL.equalsIgnoreCase(metadata.get(SERVER_GRAY_ATTR))){
+            if(metadata.get(SERVER_GRAY_ATTR) != null && SERVER_GRAY_ATTR_VAL.equalsIgnoreCase(metadata.get(SERVER_GRAY_ATTR))){
                 insts.add(inst);
             }
         }

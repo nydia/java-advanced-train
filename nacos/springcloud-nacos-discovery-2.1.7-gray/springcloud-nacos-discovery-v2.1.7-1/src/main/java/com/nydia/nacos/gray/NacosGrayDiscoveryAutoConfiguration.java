@@ -6,11 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /**
- * @description: nacos负载均衡规则重写
+ * @description: Nacos 负载均衡规则 重写
  */
-@Component
 @Configuration
-public class NacosDiscoveryAutoConfigurationGray {
+public class NacosGrayDiscoveryAutoConfiguration {
 
     @Bean
     public IRule ribbonRule() {
