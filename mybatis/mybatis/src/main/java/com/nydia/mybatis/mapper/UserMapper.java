@@ -5,6 +5,7 @@ import com.nydia.mybatis.entity.UserAlias;
 import org.apache.ibatis.annotations.Flush;
 import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
@@ -48,7 +49,8 @@ public interface UserMapper {
     @Flush
     List<BatchResult> flush();
 
-    @Lang(XMLLanguageDriver.class)
+   // @Lang(XMLLanguageDriver.class)
+    @Select("<script>select id,username,password from tbl_user where id = #{id}</script>")
     User selectByIdForLang(Integer id);
 
 }
