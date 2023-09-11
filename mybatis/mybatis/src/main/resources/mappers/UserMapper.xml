@@ -121,4 +121,10 @@
     where id = #{id}
   </select>
 
+  <select id="selectByIdForLang" parameterType="java.lang.Integer" resultMap="resultSetMap">
+    select id,username,password
+    from tbl_user
+    where id = #{id}
+  </select>
+
 </mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nydia.mybatis.test.annatations.cacheNamespace.CacheNamespaceUseMixedUserMapper">
+
+  <cache eviction="FIFO" flushInterval="60000" readOnly="false" size="1024"></cache>
+  <cache-ref namespace="com.nydia.mybatis.test.annatations.cacheNamespace.CacheNamespaceUseAnnatationUserMapper"/>
+
+  <select id="selectById"
+          parameterType="java.lang.Integer"
+          resultType="com.nydia.mybatis.entity.User">
+    select id,username,password
+    from tbl_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+</mapper>

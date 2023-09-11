@@ -1,0 +1,1 @@
+package com.nydia.mybatis.test.annatations;

@@ -2,8 +2,12 @@ package com.nydia.mybatis.mapper;
 
 import com.nydia.mybatis.entity.User;
 import com.nydia.mybatis.entity.UserAlias;
+import org.apache.ibatis.annotations.Flush;
+import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.cursor.Cursor;
+import org.apache.ibatis.executor.BatchResult;
+import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -40,5 +44,11 @@ public interface UserMapper {
     List<User> selectByNameForMap(String username);
 
     User selectByIdForAutoMapping(Integer id);
+
+    @Flush
+    List<BatchResult> flush();
+
+    @Lang(XMLLanguageDriver.class)
+    User selectByIdForLang(Integer id);
 
 }
