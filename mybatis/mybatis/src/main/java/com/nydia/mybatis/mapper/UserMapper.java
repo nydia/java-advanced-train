@@ -2,10 +2,8 @@ package com.nydia.mybatis.mapper;
 
 import com.nydia.mybatis.entity.User;
 import com.nydia.mybatis.entity.UserAlias;
-import org.apache.ibatis.annotations.Flush;
-import org.apache.ibatis.annotations.Lang;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import com.nydia.mybatis.test.scripting.SimpleLanguageDriver;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
@@ -28,6 +26,8 @@ public interface UserMapper {
 
     User selectById(Integer id);
 
+    List<User> selectByParentId(Integer parentId);
+
     List<User> selectByName(String username);
 
     Map selectByIdForMap(Integer id);
@@ -49,8 +49,22 @@ public interface UserMapper {
     @Flush
     List<BatchResult> flush();
 
-   // @Lang(XMLLanguageDriver.class)
+    @Lang(XMLLanguageDriver.class)
     @Select("<script>select id,username,password from tbl_user where id = #{id}</script>")
     User selectByIdForLang(Integer id);
+
+    @Select({"select id,username,password,parent_id from tbl_user where id = #{id}"})
+    @Results({
+            @Result(id = true, column = "id", property = "id"),
+            @Result(property = "parent", column = "parent_id",
+                    one = @One(select = "com.nydia.mybatis.mapper.UserMapper.selectById")),
+            @Result(property = "sonList", column = "id",
+                    many = @Many(select = "com.nydia.mybatis.mapper.UserMapper.selectByParentId"))
+    })
+    User selectByIdForManyAndOne(Integer id);
+
+    @Update("update tbl_user (#{user}) WHERE id = #{id}")
+    @Lang(SimpleLanguageDriver.class)
+    int updateForScripting(User user);
 
 }

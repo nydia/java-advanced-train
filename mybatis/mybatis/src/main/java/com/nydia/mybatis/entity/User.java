@@ -26,6 +26,7 @@ public class User implements Serializable {
     private User parent;
     private Map parentMap;
     private List<User> parentList;
+    private List<User> sonList;
     private List<User> parentArrayList;
     private Set<User> parentSet;
     private String desc1;
