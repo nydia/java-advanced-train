@@ -33,6 +33,7 @@ public class PluginTest {
 
         //2、添加插件
         sqlSessionFactory.getConfiguration().addInterceptor(new ExamplePlugin());
+
         //3、打开一个会话
         SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
         try {
