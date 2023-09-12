@@ -5,6 +5,8 @@ create table `tbl_user` (
     `username` varchar(64) default null,
     `password` varchar(64) default null,
     `parent_id` int(8) default null,
+    `desc1` varchar(100) DEFAULT NULL,
+    `desc2` varchar(100) DEFAULT NULL,
     primary key (`id`)
 ) engine=innodb auto_increment=1;
 
