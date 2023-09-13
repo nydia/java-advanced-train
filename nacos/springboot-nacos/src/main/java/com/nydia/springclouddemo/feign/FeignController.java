@@ -21,12 +21,6 @@ import java.util.Map;
 @Configuration
 public class FeignController {
 
-    @Value("${ticai.wccclose.chptime:}")
-    private String chptime;
-
-    @Value("${ticai.wccclose.fnltime:}")
-    private String fnltime;
-
     @Autowired
     private FeignService feignService;
 
