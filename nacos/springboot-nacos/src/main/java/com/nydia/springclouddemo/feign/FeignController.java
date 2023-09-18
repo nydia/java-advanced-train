@@ -1,13 +1,11 @@
 package com.nydia.springclouddemo.feign;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +23,7 @@ public class FeignController {
     private FeignService feignService;
 
     @RequestMapping(value = "getdata", method = {RequestMethod.POST, RequestMethod.GET})
-    public String data(HttpServletRequest request){
+    public String data(){
         Map map = new HashMap();
         return feignService.requestStr(map);
     }
