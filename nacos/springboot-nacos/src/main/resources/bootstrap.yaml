@@ -51,6 +51,11 @@ spring:
           preserved.heart.beat.timeout: 15000
           # ip删除时间（单位: 毫秒,默认30000ms）
           preserved.ip.delete.timeout: 30000
+        nacos:
+          remote:
+            client:
+              grpc:
+                timeout: 100
       config:
         server-addr:  192.168.43.81:8848,192.168.43.82:8848,192.168.43.83:8848
         namespace: pit
