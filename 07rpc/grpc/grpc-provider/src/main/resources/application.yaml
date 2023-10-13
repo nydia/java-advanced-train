@@ -1,0 +1,8 @@
+dubbo:
+  application:
+    name: grpc-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://nacos:nacos@${nacos.address:127.0.0.1}:8848
