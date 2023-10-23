@@ -1,0 +1,15 @@
+server:
+  port: 8091
+
+dubbo:
+  application:
+    name: grpc-consumer
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    #address: nacos://nacos:nacos@${nacos.address:127.0.0.1}:8848
+    address: nacos://nacos:nacos@${nacos.address:192.168.43.81}:8848
+  cloud:
+    # The subscribed services in consumer side
+    subscribed-services: grpc-provider
