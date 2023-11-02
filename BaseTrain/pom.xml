@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nydia.train</groupId>
-	<artifactId>JavaAdvancedTrain</artifactId>
+	<artifactId>BaseTrain</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>JavaAdvancedTrain</name>
-	<description>Java Advanced Train</description>
+	<name>BaseTrain</name>
+	<description>Java Base Train</description>
 
 	<properties>
 		<java.version>1.8</java.version>
