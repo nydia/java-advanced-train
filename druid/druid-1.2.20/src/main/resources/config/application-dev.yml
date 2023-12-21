@@ -11,11 +11,11 @@ spring:
 master-db:
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
-      url: jdbc:mysql://localhost:3316/db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://localhost:3307/geek?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
       username: root
       password:
       initial-size: 2
-      max-active: 50
+      max-active: 5
       min-idle: 5
       max-wait: 60000 # 60s
       pool-prepared-statements: true
@@ -41,7 +41,7 @@ master-db:
 slave1-db:
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
-      url: jdbc:mysql://localhost:3326/db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://localhost:3307/geek?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
       username: root
       password:
       initial-size: 2
