@@ -41,6 +41,7 @@
 		</dependency>
 
 
+		<!-- drools start-->
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
@@ -71,6 +72,15 @@
 			<artifactId>kie-api</artifactId>
 			<version>${drools.version}</version>
 		</dependency>
+		<!-- drools end-->
+
+		<!-- https://mvnrepository.com/artifact/com.googlecode.aviator/aviator -->
+		<dependency>
+			<groupId>com.googlecode.aviator</groupId>
+			<artifactId>aviator</artifactId>
+			<version>5.4.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

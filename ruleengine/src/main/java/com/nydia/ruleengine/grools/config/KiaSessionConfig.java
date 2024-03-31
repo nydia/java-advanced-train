@@ -1,4 +1,4 @@
-package com.nydia.ruleengine.grools;
+package com.nydia.ruleengine.grools.config;
 
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
