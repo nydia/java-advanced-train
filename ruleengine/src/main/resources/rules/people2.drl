@@ -1,0 +1,10 @@
+package com.nydia.ruleengine.grools.entity
+import com.nydia.ruleengine.grools.entity.People
+dialect  "java"
+
+rule "girl"
+    when
+        $p : People(sex == 0 && drlType == "people")
+    then
+        System.out.println($p.getName() + "是女孩");
+end
