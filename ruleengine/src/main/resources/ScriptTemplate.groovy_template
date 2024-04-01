@@ -1,0 +1,6 @@
+import com.groovyexample.groovy.*
+class %s implements EngineGroovyModuleRule {
+    boolean run(Object context){
+        %s //业务执行逻辑：可配置化
+    }
+}
