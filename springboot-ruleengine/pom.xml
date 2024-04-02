@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nydia</groupId>
-	<artifactId>ruleengine</artifactId>
+	<artifactId>springboot-ruleengine</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ruleengine</name>
+	<name>springboot-ruleengine</name>
 	<description>规则引擎</description>
 	<properties>
 		<java.version>17</java.version>

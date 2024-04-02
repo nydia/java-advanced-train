@@ -1,4 +1,4 @@
-import com.groovyexample.groovy.*
+import com.nydia.ruleengine.groovy.*
 class %s implements EngineGroovyModuleRule {
     boolean run(Object context){
         %s //业务执行逻辑：可配置化

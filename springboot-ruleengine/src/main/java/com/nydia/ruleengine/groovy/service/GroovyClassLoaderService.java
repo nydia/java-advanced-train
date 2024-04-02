@@ -3,6 +3,7 @@ package com.nydia.ruleengine.groovy.service;
 import com.nydia.ruleengine.groovy.EngineGroovyModuleRule;
 import com.nydia.ruleengine.groovy.entity.Context;
 import groovy.lang.GroovyClassLoader;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,11 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @Auther: nydia_lhq@hotmail.com
  * @Date: 2024/4/2 00:21
- * @Description: GroovyService
+ * @Description: 使用 GroovyClassLoader 它会动态地加载一个脚本并执行它。GroovyClassLoader是一个Groovy定制的类装载器，负责解析加载Java类中用到的Groovy类。
  */
 @Service
-public class GroovyService {
+@Slf4j
+public class GroovyClassLoaderService {
 
     public void run() {
         try {
@@ -41,11 +43,12 @@ public class GroovyService {
                             }
                             concurrentHashMap.put(fileName, template.toString());
                         } catch (Exception e) {
-                            //log.error("resolve file failed", e);
+                            log.error("resolve file failed", e);
                         }
                     });
+
             String scriptBuilder = concurrentHashMap.get("ScriptTemplate.groovy_template");
-            String scriptClassName = "testGroovy";
+            String scriptClassName = "TestGroovy";
             //这一部分String的获取逻辑进行可配置化
             String StrategyLogicUnit = "if(context.amount>=20000){\n" +
                     "            context.nextScenario='A'\n" +
@@ -61,13 +64,13 @@ public class GroovyService {
             context.setAmount(30000);
             try {
                 EngineGroovyModuleRule engineGroovyModuleRule = aClass.newInstance();
-                System.out.println("Groovy Script returns:{} " + engineGroovyModuleRule.run(context));
-                System.out.println("Next Scenario is {}" + context.getNextScenario());
+                System.out.println("Groovy Script returns: " + engineGroovyModuleRule.run(context));
+                System.out.println("Next Scenario is: "  + context.getNextScenario());
             } catch (Exception e) {
                 System.out.println("error...");
             }
         } catch (Exception e) {
-
+            System.err.println(e.getMessage());;
         }
     }
 

@@ -33,6 +33,7 @@
 - springcloud-shenyu ： shenyu网关的各种用法
 - design-pattern-java：设计模式java实现
 - task 定时任务
+- springboot-ruleengine 规则引擎
 
 
 ## jvm 二进制文件
