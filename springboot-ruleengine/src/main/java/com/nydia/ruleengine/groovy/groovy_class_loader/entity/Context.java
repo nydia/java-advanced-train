@@ -1,4 +1,4 @@
-package com.nydia.ruleengine.groovy.entity;
+package com.nydia.ruleengine.groovy.groovy_class_loader.entity;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
-package com.nydia.ruleengine.groovy.service;
+package com.nydia.ruleengine.groovy.groovy_class_loader.service;
 
-import com.nydia.ruleengine.groovy.EngineGroovyModuleRule;
-import com.nydia.ruleengine.groovy.entity.Context;
+import com.nydia.ruleengine.groovy.groovy_class_loader.EngineGroovyModuleRule;
+import com.nydia.ruleengine.groovy.groovy_class_loader.entity.Context;
 import groovy.lang.GroovyClassLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;

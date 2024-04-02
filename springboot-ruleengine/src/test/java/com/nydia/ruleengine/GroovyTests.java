@@ -1,6 +1,6 @@
 package com.nydia.ruleengine;
 
-import com.nydia.ruleengine.groovy.service.GroovyClassLoaderService;
+import com.nydia.ruleengine.groovy.groovy_class_loader.service.GroovyClassLoaderService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
