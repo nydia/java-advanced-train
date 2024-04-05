@@ -34,8 +34,11 @@
 - design-pattern-java：设计模式java实现
 - task 定时任务
 - springboot-ruleengine 规则引擎
-
-
+- mybatis
+	- mybatis mybatis示例
+	- mybatis-masterAndSlaveDB mybatis主从数据库
+	- springboot-mybatisplus mybatis-plus插件示例
+	
 ## jvm 二进制文件
 
 1. 在Idea里面查看class的二级制字节码文件
