@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 public interface UserMapper extends BaseMapper<User> {
 
-    @ResultMap("mybatis-plus_User11")
+    @ResultMap("mybatis-plus_User") // 这个名词格式固定的： mybatis-plus_实体名称
     @Select(" select * from `user` where id = #{id} ")
     User selectOneById(@Param("id") Long id);
 

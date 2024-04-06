@@ -1,15 +1,13 @@
 package com.nydia.mybatisplus.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.nydia.mybatisplus.typehandle.ListTypeHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Accessors(chain = true)
@@ -25,7 +23,7 @@ import java.util.List;
 public class User {
     @TableId(type= IdType.ASSIGN_ID)
     private Long id;
-    @TableField("name")
+    @TableField(value = "name", condition = SqlCondition.LIKE)
     private String name;
     @TableField("age")
     private Integer age;
@@ -33,6 +31,8 @@ public class User {
     private String email;
     @TableField(value = "org_ids", typeHandler = ListTypeHandler.class)
     private List<String> orgIds;
+    @TableField(value = "update_time", update = "CURRENT_TIMESTAMP()")
+    private LocalDateTime updateTime;
 
     // *********************************
     // 数据库表中不存在以下字段(表join时会用到)
