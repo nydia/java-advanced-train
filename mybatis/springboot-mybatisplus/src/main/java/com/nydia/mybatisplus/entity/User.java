@@ -26,8 +26,8 @@ public class User {
     @TableField(value = "name", condition = SqlCondition.LIKE)
     private String name;
     @TableField("age")
-    private Integer age;
-    @TableField("email")
+    private Integer age; // 这个字段已经被 excludeProperty 排除了
+    @TableField(value = "email", insertStrategy = FieldStrategy.DEFAULT, updateStrategy = FieldStrategy.NOT_NULL)
     private String email;
     @TableField(value = "org_ids", typeHandler = ListTypeHandler.class)
     private List<String> orgIds;

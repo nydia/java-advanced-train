@@ -98,4 +98,19 @@ public class SampleTest {
         userList.forEach(System.out::println);
     }
 
+    @Test
+    public void test_TableField_FieldStrategy() {
+        System.out.println(("----- FieldStrategy method test ------"));
+        User user = new User();
+        user.setAge(1);
+        user.setName("2024test");
+        //user.setEmail("nydia_lhq@hotmail.com");
+        user.setOrgIds(Arrays.asList("11,12"));
+        int result = userMapper.insert(user);
+        Assert.isTrue(1 == result, "插入错误");
+        System.out.println(result);
+        System.out.println("插入结果====>" + user);
+
+    }
+
 }
