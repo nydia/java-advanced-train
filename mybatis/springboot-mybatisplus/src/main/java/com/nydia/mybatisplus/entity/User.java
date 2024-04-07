@@ -25,14 +25,21 @@ public class User {
     private Long id;
     @TableField(value = "name", condition = SqlCondition.LIKE)
     private String name;
+    // age这个字段已经被 excludeProperty 排除了
     @TableField("age")
-    private Integer age; // 这个字段已经被 excludeProperty 排除了
+    private Integer age;
+    //FieldStrategy.NOT_NULL不允许插入空值
     @TableField(value = "email", insertStrategy = FieldStrategy.DEFAULT, updateStrategy = FieldStrategy.NOT_NULL)
     private String email;
     @TableField(value = "org_ids", typeHandler = ListTypeHandler.class)
     private List<String> orgIds;
     @TableField(value = "update_time", update = "CURRENT_TIMESTAMP()")
     private LocalDateTime updateTime;
+    //fill配合MetaObjectHandler使用
+    @TableField(value = "create_by", fill = FieldFill.INSERT)
+    private String createBy;
+    @TableField(value = "version", fill = FieldFill.INSERT)
+    private Integer version;
 
     // *********************************
     // 数据库表中不存在以下字段(表join时会用到)

@@ -79,6 +79,7 @@ public class SampleTest {
         userList.forEach(System.out::println);
     }
 
+    //更新数据： @TableField注解添加update属性会自动添加跟新时间
     @Test
     public void test_TableField_update() {
         System.out.println(("----- update method test ------"));
@@ -104,12 +105,34 @@ public class SampleTest {
         User user = new User();
         user.setAge(1);
         user.setName("2024test");
-        //user.setEmail("nydia_lhq@hotmail.com");
+        //user.setEmail("nydia_lhq@hotmail.com");//设置成控制，sql语句没有了email
         user.setOrgIds(Arrays.asList("11,12"));
         int result = userMapper.insert(user);
         Assert.isTrue(1 == result, "插入错误");
         System.out.println(result);
         System.out.println("插入结果====>" + user);
+
+    }
+
+    @Test
+    public void test_TableField_fill() {
+        System.out.println(("----- fill method test ------"));
+        User user = new User();
+        user.setAge(1);
+        user.setName("2024test");
+        user.setEmail("nydia_lhq@hotmail.com");
+        user.setOrgIds(Arrays.asList("11,12"));
+        int result = userMapper.insert(user);
+        Assert.isTrue(1 == result, "插入错误");
+        System.out.println(result);
+        System.out.println("插入结果====>" + user);
+
+        //查询插入结果
+        User userQuery = new User();
+        userQuery.setName("2024test");
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>(userQuery);
+        List<User> userList = userMapper.selectList(queryWrapper);
+        userList.forEach(System.out::println);
 
     }
 
