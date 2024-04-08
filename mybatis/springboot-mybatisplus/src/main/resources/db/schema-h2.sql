@@ -10,5 +10,6 @@ CREATE TABLE `user`
     update_time TIMESTAMP NULL DEFAULT NULL COMMENT '更新时间',
     create_by VARCHAR(50) NULL DEFAULT NULL COMMENT '创建人',
     version INT NULL DEFAULT 0 COMMENT '版本',
+    amount DOUBLE NULL DEFAULT 0.00 COMMENT '存款',
     PRIMARY KEY (id)
 );

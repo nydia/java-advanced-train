@@ -42,6 +42,8 @@ public class User {
     private String createBy;
     @TableField(value = "version", fill = FieldFill.INSERT)
     private Integer version;
+    @TableField(value = "amount", numericScale = "2")
+    private Double amount;
 
     // *********************************
     // 数据库表中不存在以下字段(表join时会用到)

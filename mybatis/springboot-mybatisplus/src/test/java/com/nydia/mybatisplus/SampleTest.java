@@ -122,6 +122,7 @@ public class SampleTest {
         user.setName("2024test");
         user.setEmail("nydia_lhq@hotmail.com");
         user.setOrgIds(Arrays.asList("11,12"));
+        user.setAmount(1.2222d);
         int result = userMapper.insert(user);
         Assert.isTrue(1 == result, "插入错误");
         System.out.println(result);
