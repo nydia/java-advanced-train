@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.apache.ibatis.type.JdbcType;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,11 +32,12 @@ public class User {
     //FieldStrategy.NOT_NULL不允许插入空值
     @TableField(value = "email", insertStrategy = FieldStrategy.DEFAULT, updateStrategy = FieldStrategy.NOT_NULL)
     private String email;
-    @TableField(value = "org_ids", typeHandler = ListTypeHandler.class)
+    @TableField(value = "org_ids", typeHandler = ListTypeHandler.class, jdbcType = JdbcType.VARCHAR)
     private List<String> orgIds;
-    @TableField(value = "update_time", update = "CURRENT_TIMESTAMP()")
+    //update更新的默认值，select：是否查询此字段
+    @TableField(value = "update_time", update = "CURRENT_TIMESTAMP()", select = true, keepGlobalFormat = false)
     private LocalDateTime updateTime;
-    //fill配合MetaObjectHandler使用
+    //fill配合MetaObjectHandler使用，插入或者删除填充字段
     @TableField(value = "create_by", fill = FieldFill.INSERT)
     private String createBy;
     @TableField(value = "version", fill = FieldFill.INSERT)
