@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.apache.ibatis.type.JdbcType;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
         autoResultMap = true // autoResultMap配合typeHandler使用才有意义
 )
 public class User {
-    @TableId(type= IdType.ASSIGN_ID)
+    @TableId(value = "user_id", type= IdType.ASSIGN_ID)
     private Long id;
     @TableField(value = "name", condition = SqlCondition.LIKE)
     private String name;
@@ -35,15 +36,21 @@ public class User {
     @TableField(value = "org_ids", typeHandler = ListTypeHandler.class, jdbcType = JdbcType.VARCHAR)
     private List<String> orgIds;
     //update更新的默认值，select：是否查询此字段
-    @TableField(value = "update_time", update = "CURRENT_TIMESTAMP()", select = true, keepGlobalFormat = false)
+    @TableField(value = "update_time", update = "CURRENT_TIMESTAMP()", select = true)
     private LocalDateTime updateTime;
     //fill配合MetaObjectHandler使用，插入或者删除填充字段
     @TableField(value = "create_by", fill = FieldFill.INSERT)
     private String createBy;
+    @Version
     @TableField(value = "version", fill = FieldFill.INSERT)
     private Integer version;
+    //numericScale这个属性不能用，mybatis底层不支持，但是官方的文档里面为什么不删除，不知道为什么？
     @TableField(value = "amount", numericScale = "2")
-    private Double amount;
+    private BigDecimal amount;
+    // 主要是解决对数据库中的关键字标志进行替换
+    //源码： column = String.format(columnFormat, column);
+    @TableField(value = "interval", keepGlobalFormat = true)
+    private String interval;
 
     // *********************************
     // 数据库表中不存在以下字段(表join时会用到)

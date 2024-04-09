@@ -15,3 +15,9 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # mysql的关键字标志 `
+      #column-format: "`%s`"
+      # h2关键字标志
+      column-format: "'%s'"
