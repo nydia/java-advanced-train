@@ -23,30 +23,42 @@ import java.util.List;
         autoResultMap = true // autoResultMap配合typeHandler使用才有意义
 )
 public class User {
-    @TableId(value = "user_id", type= IdType.ASSIGN_ID)
+    @TableId(value = "id", type= IdType.ASSIGN_ID)
     private Long id;
+
     @TableField(value = "name", condition = SqlCondition.LIKE)
     private String name;
+
     // age这个字段已经被 excludeProperty 排除了
     @TableField("age")
     private Integer age;
+
     //FieldStrategy.NOT_NULL不允许插入空值
     @TableField(value = "email", insertStrategy = FieldStrategy.DEFAULT, updateStrategy = FieldStrategy.NOT_NULL)
     private String email;
+
     @TableField(value = "org_ids", typeHandler = ListTypeHandler.class, jdbcType = JdbcType.VARCHAR)
     private List<String> orgIds;
+
     //update更新的默认值，select：是否查询此字段
     @TableField(value = "update_time", update = "CURRENT_TIMESTAMP()", select = true)
     private LocalDateTime updateTime;
+
     //fill配合MetaObjectHandler使用，插入或者删除填充字段
     @TableField(value = "create_by", fill = FieldFill.INSERT)
     private String createBy;
+
+    //更新sql示例： UPDATE `user` SET name=?, email=?, org_ids=?, update_time=CURRENT_TIMESTAMP(), create_by=?, version=?, amount=? WHERE id=? AND version=?
+    //更新完成之后 version会增加1
     @Version
-    @TableField(value = "version", fill = FieldFill.INSERT)
+    @TableField(value = "version")
+    //@TableField(value = "version", fill = FieldFill.INSERT)
     private Integer version;
+
     //numericScale这个属性不能用，mybatis底层不支持，但是官方的文档里面为什么不删除，不知道为什么？
     @TableField(value = "amount", numericScale = "2")
     private BigDecimal amount;
+
     // 主要是解决对数据库中的关键字标志进行替换
     //源码： column = String.format(columnFormat, column);
     @TableField(value = "interval", keepGlobalFormat = true)

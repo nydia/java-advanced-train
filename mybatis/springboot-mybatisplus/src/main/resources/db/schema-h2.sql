@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user`
 (
-    user_id BIGINT NOT NULL COMMENT '主键ID',
+    id BIGINT NOT NULL COMMENT '主键ID',
     name VARCHAR(30) NULL DEFAULT NULL COMMENT '姓名',
     age INT NULL DEFAULT NULL COMMENT '年龄',
     email VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
@@ -12,5 +12,5 @@ CREATE TABLE `user`
     version INT NULL DEFAULT 0 COMMENT '版本',
     amount DOUBLE NULL DEFAULT 0.00 COMMENT '存款',
     -- 'interval' VARCHAR(50) NULL DEFAULT NULL COMMENT '临时字段，测试keepGlobalFormat	',
-    PRIMARY KEY (user_id)
+    PRIMARY KEY (id)
 );

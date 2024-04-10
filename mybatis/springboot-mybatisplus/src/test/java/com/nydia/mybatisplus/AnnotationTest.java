@@ -1,6 +1,7 @@
 package com.nydia.mybatisplus;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.nydia.mybatisplus.entity.User;
 import com.nydia.mybatisplus.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
@@ -13,13 +14,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
-public class SampleTest {
+public class AnnotationTest {
 
     @Autowired
     private UserMapper userMapper;
 
     @Test
-    public void testSelect() {
+    public void test_select() {
         System.out.println(("----- selectAll method test ------"));
         List<User> userList = userMapper.selectList(null);
         Assert.isTrue(5 == userList.size(), "");
@@ -27,7 +28,7 @@ public class SampleTest {
     }
 
     @Test
-    public void tesetInsert() {
+    public void teset_insert() {
         System.out.println(("----- insert method test ------"));
         User user = new User();
         //user.setId(1L); // 默认的id生成策略是雪花算法
@@ -163,13 +164,22 @@ public class SampleTest {
     @Test
     public void test_version() {
         System.out.println(("----- @Version test ------"));
-        User userQuery = new User();
-        userQuery.setId(1L);
-        userQuery.setName("2024test");
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>(userQuery);
-        int result = userMapper.update(queryWrapper);
+
+//        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+//        updateWrapper.eq("id", 1).set("name", "2024test");
+//        int result = userMapper.update(updateWrapper);
+//        System.out.println("更新结果====>" + result);
+
+        //查询插入结果
+        User updateUser = userMapper.selectOneById(1L);
+        System.out.println(updateUser);
+        updateUser.setName("test11111");
+        int result = userMapper.updateById(updateUser);
         System.out.println("更新结果====>" + result);
 
+        //查询插入结果
+        updateUser = userMapper.selectOneById(1L);
+        System.out.println(updateUser);
     }
 
 }
