@@ -1,6 +1,7 @@
 package com.nydia.mybatisplus.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.nydia.mybatisplus.enums.SexEnum;
 import com.nydia.mybatisplus.typehandle.ListTypeHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +23,12 @@ import java.util.List;
         excludeProperty= {"age"},//需要排除的属性名 @since 3.3.1
         autoResultMap = true // autoResultMap配合typeHandler使用才有意义
 )
+//@KeySequence(value = "SEQ_SYS_USER_ID", dbType = com.baomidou.mybatisplus.annotation.DbType.ORACLE) // 仅支持oracle
 public class User {
+    //@OrderBy(asc = false, sort = 2)
+    @OrderBy(asc = true, sort = 2)
     @TableId(value = "id", type= IdType.ASSIGN_ID)
+    //@TableId(value = "id", type = IdType.INPUT)
     private Long id;
 
     @TableField(value = "name", condition = SqlCondition.LIKE)
@@ -63,6 +68,13 @@ public class User {
     //源码： column = String.format(columnFormat, column);
     @TableField(value = "interval", keepGlobalFormat = true)
     private String interval;
+
+    @TableField(value = "sex")
+    private SexEnum sex;
+
+    @TableLogic(value="0",delval="1")
+    @TableField(value = "del_f")
+    private String delF;
 
     // *********************************
     // 数据库表中不存在以下字段(表join时会用到)

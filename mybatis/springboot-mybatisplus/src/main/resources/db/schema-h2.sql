@@ -12,5 +12,7 @@ CREATE TABLE `user`
     version INT NULL DEFAULT 0 COMMENT '版本',
     amount DOUBLE NULL DEFAULT 0.00 COMMENT '存款',
     -- 'interval' VARCHAR(50) NULL DEFAULT NULL COMMENT '临时字段，测试keepGlobalFormat	',
+    sex VARCHAR(10) NULL DEFAULT NULL COMMENT '性别 1-男，2-女',
+    del_f VARCHAR(10) NULL DEFAULT NULL COMMENT '删除标志 1-删除 0-正常',
     PRIMARY KEY (id)
 );

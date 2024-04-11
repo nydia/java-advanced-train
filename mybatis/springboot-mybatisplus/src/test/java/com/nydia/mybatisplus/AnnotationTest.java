@@ -1,8 +1,10 @@
 package com.nydia.mybatisplus;
 
+import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.nydia.mybatisplus.entity.User;
+import com.nydia.mybatisplus.enums.SexEnum;
 import com.nydia.mybatisplus.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,7 @@ public class AnnotationTest {
         user.setName("2024test");
         user.setEmail("nydia_lhq@hotmail.com");
         user.setOrgIds(Arrays.asList("11,12"));
+        user.setDelF("0");
         int result = userMapper.insert(user);
         Assert.isTrue(1 == result, "插入错误");
         System.out.println(result);
@@ -109,6 +112,7 @@ public class AnnotationTest {
         user.setName("2024test");
         //user.setEmail("nydia_lhq@hotmail.com");//设置成控制，sql语句没有了email
         user.setOrgIds(Arrays.asList("11,12"));
+        user.setDelF("0");
         int result = userMapper.insert(user);
         Assert.isTrue(1 == result, "插入错误");
         System.out.println(result);
@@ -124,6 +128,7 @@ public class AnnotationTest {
         user.setName("2024test");
         user.setEmail("nydia_lhq@hotmail.com");
         user.setOrgIds(Arrays.asList("11,12"));
+        user.setDelF("0");
         int result = userMapper.insert(user);
         Assert.isTrue(1 == result, "插入错误");
         System.out.println(result);
@@ -145,6 +150,7 @@ public class AnnotationTest {
         user.setAge(1);
         user.setName("2024test");
         user.setEmail("nydia_lhq@hotmail.com");
+        user.setDelF("0");
         user.setOrgIds(Arrays.asList("11,12"));
         user.setAmount(new BigDecimal(1.2222));
         int result = userMapper.insert(user);
@@ -165,6 +171,7 @@ public class AnnotationTest {
     public void test_version() {
         System.out.println(("----- @Version test ------"));
 
+        //下面这个方式不支持，支持updateById
 //        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
 //        updateWrapper.eq("id", 1).set("name", "2024test");
 //        int result = userMapper.update(updateWrapper);
@@ -180,6 +187,76 @@ public class AnnotationTest {
         //查询插入结果
         updateUser = userMapper.selectOneById(1L);
         System.out.println(updateUser);
+    }
+
+    @Test
+    public void test_EnumValue() {
+        System.out.println(("----- @EnumValue test ------"));
+
+        User user = new User();
+        user.setAge(1);
+        user.setName("2024test");
+        user.setEmail("nydia_lhq@hotmail.com");
+        user.setOrgIds(Arrays.asList("11,12"));
+        user.setAmount(new BigDecimal(1.2222));
+        user.setSex(SexEnum.WOMEN);
+        user.setDelF("0");
+        int result = userMapper.insert(user);
+        Assert.isTrue(1 == result, "插入错误");
+        System.out.println(result);
+        System.out.println("插入结果====>" + user);
+
+        //查询插入结果
+        List<User> userList = new LambdaQueryChainWrapper<User>(userMapper)
+                .eq(User::getName, "2024test").list();
+        userList.forEach(System.out::println);
+
+    }
+
+    @Test
+    public void test_TableLogic() {
+        System.out.println(("----- @TableLogic test ------"));
+
+        //没有  @TableLogic(value="0",delval="1") sql为 DELETE FROM `user` WHERE id=?
+        //有  @TableLogic(value="0",delval="1") sql为 UPDATE `user` SET del_f='1' WHERE id=? AND del_f='0'
+        int result1 = userMapper.deleteById(1);
+        System.out.println("删除结果result1 : " + result1);
+
+        int result2 = userMapper.delete(new QueryWrapper<User>().eq("id", 2));
+        System.out.println("删除结果result2 : " + result2);
+
+    }
+
+    @Test
+    public void test_KeySequence() {
+        System.out.println(("----- @KeySequence test ------"));
+
+        User user = new User();
+        //user.setId(10L);
+        user.setAge(1);
+        user.setName("2024test");
+        user.setEmail("nydia_lhq@hotmail.com");
+        user.setOrgIds(Arrays.asList("11,12"));
+        user.setAmount(new BigDecimal(1.2222));
+        user.setSex(SexEnum.WOMEN);
+        user.setDelF("0");
+        int result = userMapper.insert(user);
+        Assert.isTrue(1 == result, "插入错误");
+        System.out.println(result);
+        System.out.println("插入结果====>" + user);
+
+        //查询插入结果
+        List<User> userList = new LambdaQueryChainWrapper<User>(userMapper)
+                .eq(User::getName, "2024test").list();
+        userList.forEach(System.out::println);
+
+    }
+
+    @Test
+    public void test_OrderBy() {
+        System.out.println(("----- @OrderBy method test ------"));
+        List<User> userList = userMapper.selectList(null);
+        userList.forEach(System.out::println);
     }
 
 }
