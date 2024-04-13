@@ -1,7 +1,11 @@
 package com.nydia.mybatisplus;
 
+import cn.hutool.core.stream.StreamUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.nydia.mybatisplus.entity.User;
 import com.nydia.mybatisplus.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
@@ -9,21 +13,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
-public class AbstractWrapperTest {
+public class WrapperTest {
 
     @Autowired
     private UserMapper userMapper;
 
     @Test
-    public void test_select() {
-        System.out.println(("----- selectAll method test ------"));
-        List<User> userList = userMapper.selectList(null);
-        Assert.isTrue(5 == userList.size(), "");
+    public void test_QueryWrapper() {
+        System.out.println(("----- QueryWrapper method test ------"));
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper();
+        queryWrapper.eq(StrUtil.isNotBlank("0"), "delF", "0");
+
+//        LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
+//        queryWrapper.eq(User::getDelF, "0");
+
+//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("delF", "0");
+
+        List<User> userList = userMapper.selectList(queryWrapper);
+        Assert.isTrue(5 == userList.size(), "行数不等于5");
         userList.forEach(System.out::println);
     }
 
