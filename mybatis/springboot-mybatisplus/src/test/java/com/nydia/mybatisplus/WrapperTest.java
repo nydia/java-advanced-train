@@ -4,6 +4,7 @@ import cn.hutool.core.stream.StreamUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.nydia.mybatisplus.entity.User;
@@ -15,6 +16,8 @@ import org.springframework.util.Assert;
 
 import java.util.Arrays;
 import java.util.List;
+
+//mybatis plus 查询包装器
 
 @SpringBootTest
 public class WrapperTest {
@@ -41,35 +44,25 @@ public class WrapperTest {
     }
 
     @Test
-    public void teset_insert() {
-        System.out.println(("----- insert method test ------"));
+    public void teset_UpdateWrapper() {
+        System.out.println(("----- UpdateWrapper method test ------"));
+
+//        UpdateWrapper<User> updateWrapper = new UpdateWrapper();
+//        updateWrapper.eq("id", "1").set("age", 30);
+//        int result = userMapper.update(updateWrapper);
+//        System.out.println("更新结果====>" + result);
+
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper();
+        updateWrapper.eq("id", "1");
         User user = new User();
-        //user.setId(1L); // 默认的id生成策略是雪花算法
-        user.setAge(1);
-        user.setName("2024test");
-        user.setEmail("nydia_lhq@hotmail.com");
-        user.setOrgIds(Arrays.asList("11,12"));
-        int result = userMapper.insert(user);
-        Assert.isTrue(1 == result, "插入错误");
-        System.out.println(result);
-        System.out.println("插入结果====>" + user);
-
-        //查询插入结果
-        User userQuery = new User();
-        userQuery.setName("2024test");
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>(userQuery);
-        List<User> userList = userMapper.selectList(queryWrapper);
-        userList.forEach(System.out::println);
-    }
-
-    @Test
-    public void test_version() {
-        System.out.println(("----- @Version test ------"));
-        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("id", 1).set("name", "2024test");
-        int result = userMapper.update(updateWrapper);
+        user.setName("test2024");
+        int result = userMapper.update(user, updateWrapper);
         System.out.println("更新结果====>" + result);
 
+//        //UPDATE `user` SET name=? WHERE del_f='0' AND (id = ?)
+//        LambdaUpdateWrapper<User> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+//        lambdaUpdateWrapper.eq(User::getId, 1).set(User::getName, "test2024");
+//        int result = userMapper.update(lambdaUpdateWrapper);
 
     }
 

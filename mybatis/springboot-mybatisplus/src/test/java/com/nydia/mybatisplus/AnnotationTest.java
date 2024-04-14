@@ -15,6 +15,8 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+//mybatis plus 的注解测试
+
 @SpringBootTest
 public class AnnotationTest {
 

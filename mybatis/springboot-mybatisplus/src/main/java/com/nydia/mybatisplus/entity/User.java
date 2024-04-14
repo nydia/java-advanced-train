@@ -27,6 +27,8 @@ import java.util.List;
 public class User {
     //@OrderBy(asc = false, sort = 2)
     @OrderBy(asc = true, sort = 2)
+    //指定主键生成策略使用雪花算法（默认策略）
+    //我们自定义了主键策略： CustomIdGenerator，如果不用这个则默认使用雪花算法
     @TableId(value = "id", type= IdType.ASSIGN_ID)
     //@TableId(value = "id", type = IdType.INPUT)
     private Long id;
@@ -72,6 +74,7 @@ public class User {
     @TableField(value = "sex")
     private SexEnum sex;
 
+    //查询更新的时候，这个条件都会带上，慎用
     @TableLogic(value="0",delval="1")
     @TableField(value = "del_f")
     private String delF;

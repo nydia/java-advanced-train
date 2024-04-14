@@ -14,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Types;
 import java.util.Collections;
 
+//快速生成代码
+
 @SpringBootTest
 public class GeneratorTest {
 
