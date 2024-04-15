@@ -61,7 +61,6 @@
 			<artifactId>mybatis-plus-spring-boot3-starter</artifactId>
 			<version>3.5.5</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-generator</artifactId>
@@ -70,6 +69,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+		<!-- 执行SQL分析打印 -->
+		<dependency>
+			<groupId>com.github.gavlyukovskiy</groupId>
+			<artifactId>p6spy-spring-boot-starter</artifactId>
+			<version>1.9.0</version>
 		</dependency>
 
 	</dependencies>
