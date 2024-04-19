@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: springboot-mybatisplus
+    # DataSource Config
+  datasource:
+    # 原始的h2驱动
+    #driver-class-name: org.h2.Driver
+    # 执行sql分析的驱动
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    username: root
+    #username: mpw:kXmod3zz/zSRMxoPOud/Tw==
+    password: test
+    #password: mpw:K7LPD/lMcAqESt6syCU/tw==
+    # 简单url
+    #url: jdbc:h2:mem:test
+    #添加一些属性
+    # url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    # 执行sql分析
+    url: jdbc:p6spy:h2:mem:test;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    # 上面的加密url -- DataSecurity
+    #url: mpw:xfi1VzPxH0Hq8eRSVw0GwRsZCx4XeozShY6Wn1qXt/9UMmfiPV2nKOXnmBVK07vgRcAFPwbh+ydDgMePfTEwYR+zAZWKx0Suv5nw1CpuU7U=
+    p6spy:    # 该插件有性能损耗，不建议生产环境使用。
+      # 全部可用参数参照该类：com.p6spy.engine.spy.appender.CustomLineFormat
+      log-format: "\ntime:%(executionTime) || sql:%(sql)\n"
+      # 自定义日志类的作用仅仅是改变了打印的颜色，如果不需要可以不加
+      logging: custom
+      custom-appender-class: com.nydia.mybatisplus.config.StdoutLogger
+  sql:
+    init:
+      schema-locations: classpath:db/schema-h2.sql
+      data-locations: classpath:db/data-h2.sql
+  h2:
+    console:
+      # http://localhost:8080/h2-console
+      enabled: true
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # mysql的关键字标志 `
+      #column-format: "`%s`"
+      # h2关键字标志
+      column-format: "'%s'"
+      # 逻辑删除，也可以在实体上实现
+      #logic-delete-field: delF #默认deleted
+      #logic-delete-value: 1
+      #logic-not-delete-value: 0

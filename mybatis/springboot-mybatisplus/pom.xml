@@ -104,6 +104,7 @@
 						</goals>
 					</execution>
 				</executions>
+				<!-- http://192.168.99.1:8090/ -->
 				<configuration>
 					<mainClass>org.h2.tools.Server</mainClass>
 					<arguments>

@@ -28,17 +28,18 @@ public class MyConfig {
         return new CustomIdGenerator();
     }
 
-    @Autowired
-    private MyDataPermissionHandler myDataPermissionHandler;
+    //@Autowired
+    //private MyDataPermissionHandler myDataPermissionHandler;
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
 
         // 添加数据权限插件
-        DataPermissionInterceptor dataPermissionInterceptor = new DataPermissionInterceptor();
+        //DataPermissionInterceptor dataPermissionInterceptor = new DataPermissionInterceptor();
         // 添加自定义的数据权限处理器
-        dataPermissionInterceptor.setDataPermissionHandler(myDataPermissionHandler);
-        interceptor.addInnerInterceptor(dataPermissionInterceptor);
+        //dataPermissionInterceptor.setDataPermissionHandler(myDataPermissionHandler);
+        //interceptor.addInnerInterceptor(dataPermissionInterceptor);
+
         // 分页插件
         //interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.SQL_SERVER));
         return interceptor;

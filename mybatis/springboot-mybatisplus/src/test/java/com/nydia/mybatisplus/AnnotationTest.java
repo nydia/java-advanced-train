@@ -25,6 +25,8 @@ public class AnnotationTest {
 
     @Test
     public void test_select() {
+        System.setProperty("mpw.key", "d1104d7c3b616f0b");
+        
         System.out.println(("----- selectAll method test ------"));
         List<User> userList = userMapper.selectList(null);
         Assert.isTrue(5 == userList.size(), "");
