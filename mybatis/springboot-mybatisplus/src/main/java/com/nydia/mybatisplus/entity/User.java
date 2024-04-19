@@ -19,17 +19,23 @@ import java.util.List;
 @AllArgsConstructor
 @TableName(value = "`user`",
         //schema = "dev", //数据库的当前用户，比如oracle的用户
-        keepGlobalPrefix=false,
-        excludeProperty= {"age"},//需要排除的属性名 @since 3.3.1
+        keepGlobalPrefix = false,
+        excludeProperty = {"age"},//需要排除的属性名 @since 3.3.1
         autoResultMap = true // autoResultMap配合typeHandler使用才有意义
 )
 //@KeySequence(value = "SEQ_SYS_USER_ID", dbType = com.baomidou.mybatisplus.annotation.DbType.ORACLE) // 仅支持oracle
 public class User {
+
+    public User(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     //@OrderBy(asc = false, sort = 2)
     @OrderBy(asc = true, sort = 2)
     //指定主键生成策略使用雪花算法（默认策略）
     //我们自定义了主键策略： CustomIdGenerator，如果不用这个则默认使用雪花算法
-    @TableId(value = "id", type= IdType.ASSIGN_ID)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     //@TableId(value = "id", type = IdType.INPUT)
     private Long id;
 
