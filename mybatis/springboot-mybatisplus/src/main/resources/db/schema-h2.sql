@@ -14,5 +14,6 @@ CREATE TABLE `user`
     -- 'interval' VARCHAR(50) NULL DEFAULT NULL COMMENT '临时字段，测试keepGlobalFormat	',
     sex VARCHAR(10) NULL DEFAULT NULL COMMENT '性别 1-男，2-女',
     del_f VARCHAR(10) NULL DEFAULT NULL COMMENT '删除标志 1-删除 0-正常',
+    tenant_id INT NULL DEFAULT NULL COMMENT '租户id',
     PRIMARY KEY (id)
 );

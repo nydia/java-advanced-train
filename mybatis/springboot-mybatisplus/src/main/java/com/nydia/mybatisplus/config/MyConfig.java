@@ -3,9 +3,7 @@ package com.nydia.mybatisplus.config;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
-import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.*;
 import com.nydia.mybatisplus.handler.MyDataPermissionHandler;
 import com.nydia.mybatisplus.identifier.CustomIdGenerator;
 import net.sf.jsqlparser.expression.Expression;
@@ -18,6 +16,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @EnableTransactionManagement
 @MapperScan("com.nydia.mybatisplus.mapper")
@@ -50,7 +50,7 @@ public class MyConfig {
         // 分页插件
         //interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.SQL_SERVER));
 
-        //多租户插件
+        //多租户插件(插件BlockAttackInnerInterceptor 和 TenantLineInnerInterceptor 插件冲突，因为多租户会默认加一个租户的条件，无法做到全表删除更新)
         interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(new TenantLineHandler() {
             @Override
             public Expression getTenantId() {
@@ -61,7 +61,8 @@ public class MyConfig {
             // 这是 default 方法,默认返回 false 表示所有表都需要拼多租户条件
             @Override
             public boolean ignoreTable(String tableName) {
-                return !"user".equalsIgnoreCase(tableName);
+                //return !"user".equalsIgnoreCase(tableName);
+                return false;
             }
 
             @Override
@@ -74,9 +75,33 @@ public class MyConfig {
             public boolean ignoreInsert(List<Column> columns, String tenantIdColumn) {
                 return TenantLineHandler.super.ignoreInsert(columns, tenantIdColumn);
             }
-
         }));
+
+        //防止全表更新--要测试的话需要把上面的多租户插件注释 (插件BlockAttackInnerInterceptor 和 TenantLineInnerInterceptor 插件冲突，因为多租户会默认加一个租户的条件，无法做到全表删除更新)
+        interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
+
+        //动态表名插件
+        interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor());
+
         return interceptor;
     }
+
+    private DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor() {
+        DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor = new DynamicTableNameInnerInterceptor();
+        dynamicTableNameInnerInterceptor.setTableNameHandler((sql, tableName) -> {
+            // 获取参数方法
+            Map<String, Object> paramMap = RequestDataHelper.getRequestData();
+            paramMap.forEach((k, v) -> System.err.println(k + "----" + v));
+
+            String year = "_2018";
+            int random = new Random().nextInt(10);
+            if (random % 2 == 1) {
+                year = "_2019";
+            }
+            return tableName + year;
+        });
+        return dynamicTableNameInnerInterceptor;
+    }
+
 
 }

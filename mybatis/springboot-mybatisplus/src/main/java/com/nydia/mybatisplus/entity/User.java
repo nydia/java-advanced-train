@@ -85,6 +85,7 @@ public class User {
     @TableField(value = "del_f")
     private String delF;
 
+    //多租户的标志
     @TableField(value = "tenant_id")
     private String tenantId;
 
