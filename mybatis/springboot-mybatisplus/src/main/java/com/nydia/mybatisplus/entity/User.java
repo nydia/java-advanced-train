@@ -81,9 +81,12 @@ public class User {
     private SexEnum sex;
 
     //查询更新的时候，这个条件都会带上，慎用
-    @TableLogic(value="0",delval="1")
+    @TableLogic(value = "0", delval = "1")
     @TableField(value = "del_f")
     private String delF;
+
+    @TableField(value = "tenant_id")
+    private String tenantId;
 
     // *********************************
     // 数据库表中不存在以下字段(表join时会用到)

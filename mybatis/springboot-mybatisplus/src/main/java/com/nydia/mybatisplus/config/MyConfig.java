@@ -10,11 +10,14 @@ import com.nydia.mybatisplus.handler.MyDataPermissionHandler;
 import com.nydia.mybatisplus.identifier.CustomIdGenerator;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
+import net.sf.jsqlparser.schema.Column;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.List;
 
 @EnableTransactionManagement
 @MapperScan("com.nydia.mybatisplus.mapper")
@@ -51,7 +54,8 @@ public class MyConfig {
         interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(new TenantLineHandler() {
             @Override
             public Expression getTenantId() {
-                return new LongValue(1);
+                Long tenantId = 1l;//可以从上下文中取到
+                return new LongValue(tenantId);
             }
 
             // 这是 default 方法,默认返回 false 表示所有表都需要拼多租户条件
@@ -59,6 +63,18 @@ public class MyConfig {
             public boolean ignoreTable(String tableName) {
                 return !"user".equalsIgnoreCase(tableName);
             }
+
+            @Override
+            public String getTenantIdColumn() {
+                //默认 tenant_id
+                return TenantLineHandler.super.getTenantIdColumn();
+            }
+
+            @Override
+            public boolean ignoreInsert(List<Column> columns, String tenantIdColumn) {
+                return TenantLineHandler.super.ignoreInsert(columns, tenantIdColumn);
+            }
+
         }));
         return interceptor;
     }
