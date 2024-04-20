@@ -80,8 +80,11 @@ public class MyConfig {
         //防止全表更新--要测试的话需要把上面的多租户插件注释 (插件BlockAttackInnerInterceptor 和 TenantLineInnerInterceptor 插件冲突，因为多租户会默认加一个租户的条件，无法做到全表删除更新)
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
 
-        //动态表名插件
-        interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor());
+        //动态表名插件，这个测试的时候在开启，不然参数要特的那个设置。使用专用的测试用例：DynamicTableNameInnerInterceptorTest
+        //interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor());
+
+        //数据变动记录日志
+        interceptor.addInnerInterceptor(new DataChangeRecorderInnerInterceptor().openBatchUpdateLimitation());
 
         return interceptor;
     }
