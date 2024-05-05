@@ -13,6 +13,7 @@ public class DemoController {
 
     @RequestMapping(value = "/hello")
     public String test(){
+        System.out.println("enter hello >>>>>>");
         return "ok";
     }
 
