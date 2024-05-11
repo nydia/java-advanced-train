@@ -12,6 +12,7 @@
 	- 07rpc  rpc技术
 	- 08cache 缓存技术
 	- 09mq mq队列
+	- BaseTrain 基础知识
 - mysql： 基础多数据源
 - JavaAdvancedTrain : Java基础，nio，JVM，guava，lombok，java8（Stream），设计模式
 - mysqlInsert ： mysql的插入
