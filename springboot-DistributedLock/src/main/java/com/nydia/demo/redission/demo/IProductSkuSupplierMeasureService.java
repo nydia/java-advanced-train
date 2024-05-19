@@ -1,6 +1,4 @@
-package com.nydia.demo.redission;
-
-import java.util.Map;
+package com.nydia.demo.redission.demo;
 
 // 定义接口
 public interface IProductSkuSupplierMeasureService {

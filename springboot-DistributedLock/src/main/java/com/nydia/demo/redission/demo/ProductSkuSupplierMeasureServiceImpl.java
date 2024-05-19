@@ -1,4 +1,4 @@
-package com.nydia.demo.redission;
+package com.nydia.demo.redission.demo;
 
 import com.nydia.demo.redission.lock.IDistributedLock;
 import com.nydia.demo.redission.lock.ILock;

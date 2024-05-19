@@ -1,11 +1,12 @@
-package com.nydia.demo.redission;
+package com.nydia.demo.redission.demo;
 
+import com.nydia.demo.redission.lockAspect.DistributedLock;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RLock;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther: nydia_lhq@hotmail.com
@@ -15,6 +16,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RestController("demo")
 public class RedissionDemoController {
+
+    @Resource
+    private IProductSkuSupplierMeasureService productSkuSupplierMeasureService;
 
     // @ApiOperation("编辑SKU供应商供货信息")
     @PostMapping("/editSupplierInfo")
