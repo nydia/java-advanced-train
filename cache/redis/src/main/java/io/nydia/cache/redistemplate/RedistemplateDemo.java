@@ -280,7 +280,7 @@ public class RedistemplateDemo {
         return redisTemplate.opsForHash().scan(key, options);
     }
 
-    // 匹配获取键值对，ScanOptions.NONE为获取全部键对
+    // 匹配获取键值对，ScanOptions.NONE为获取全部键对: count-每次迭代的数量
     public Set<Object> keyHashScan(String keyParam, String field){
         Set<Object> resultSet = new HashSet<>();
         try {
