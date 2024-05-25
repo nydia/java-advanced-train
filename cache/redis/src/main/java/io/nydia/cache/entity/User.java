@@ -1,4 +1,4 @@
-package io.kimmking.cache.entity;
+package io.nydia.cache.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

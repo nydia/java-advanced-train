@@ -1,6 +1,6 @@
-package io.kimmking.cache.controller;
+package io.nydia.cache.controller;
 
-import io.kimmking.cache.entity.User;
+import io.nydia.cache.entity.User;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

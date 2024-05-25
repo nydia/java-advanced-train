@@ -4,7 +4,7 @@ server:
 logging:
   level:
     io:
-      kimmking:
+      nydia:
         cache : info
 
 # 作业，在这里使用spring boot配置各项内容，

@@ -1,29 +1,21 @@
-package io.kimmking.cache;
+package io.nydia.cache;
 
-import com.alibaba.fastjson.JSON;
-import io.kimmking.cache.cluster.ClusterJedis;
-import io.kimmking.cache.sentinel.SentinelJedis;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisCluster;
 
-import java.util.List;
-import java.util.Map;
-
-@SpringBootApplication(scanBasePackages = "io.kimmking.cache")
+@SpringBootApplication(scanBasePackages = "io.nydia.cache")
 public class RedisApplication {
 
 	public static void main(String[] args) {
 
 		// C1.最简单demo
-		Jedis jedis = new Jedis("localhost", 6379);
-		System.out.println(jedis.info());
-		jedis.set("uptime", new Long(System.currentTimeMillis()).toString());
-		System.out.println(jedis.get("uptime"));
-		jedis.set("teacher", "Cuijing");
-		System.out.println(jedis.get("teacher"));
-//
+//		Jedis jedis = new Jedis("localhost", 6379);
+//		System.out.println(jedis.info());
+//		jedis.set("uptime", new Long(System.currentTimeMillis()).toString());
+//		System.out.println(jedis.get("uptime"));
+//		jedis.set("teacher", "nydia");
+//		System.out.println(jedis.get("teacher"));
+
 //		// C2.基于sentinel和连接池的demo
 //		Jedis sjedis = SentinelJedis.getJedis();
 //		System.out.println(sjedis.info());

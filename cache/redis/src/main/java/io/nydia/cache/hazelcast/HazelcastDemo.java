@@ -1,4 +1,4 @@
-package io.kimmking.cache.hazelcast;
+package io.nydia.cache.hazelcast;
 
 public class HazelcastDemo {
 

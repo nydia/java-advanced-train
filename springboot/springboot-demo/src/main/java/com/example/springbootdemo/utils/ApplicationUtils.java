@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.springbootdemo;
+package com.example.springbootdemo.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
