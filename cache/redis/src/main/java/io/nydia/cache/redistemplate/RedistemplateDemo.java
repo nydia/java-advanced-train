@@ -3,10 +3,14 @@ package io.nydia.cache.redistemplate;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.*;
 import org.springframework.data.redis.connection.jedis.JedisConnection;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 import java.io.IOException;
@@ -31,38 +35,28 @@ public class RedistemplateDemo {
     private RedisTemplate redisTemplate;
 
     public RedistemplateDemo(){
+        //单机模式
+        RedisStandaloneConfiguration rsc = new RedisStandaloneConfiguration();
+        rsc.setPort(6379);
+        rsc.setPassword(RedisPassword.of("nydia123456"));
+        rsc.setHostName("127.0.0.1");
+
+        //集群模式
+        RedisClusterConfiguration rcc = new RedisClusterConfiguration();
+        rcc.setPassword(RedisPassword.of("nydia123456"));
+        List<RedisNode> nodes = Collections.singletonList(new RedisNode("127.0.0.1", 6379));
+        rcc.setClusterNodes(nodes);
+
         redisTemplate = new RedisTemplate();
-        redisTemplate.setConnectionFactory(new RedisConnectionFactory() {
-            @Override
-            public RedisConnection getConnection() {
-                JedisPoolConfig config = new JedisPoolConfig();
-                config.setMaxTotal(maxTotal);
-                config.setMaxIdle(maxIdle);
-                config.setMaxWaitMillis(maxWaitMillis);
+        //单机模式
+        JedisConnectionFactory fac = new JedisConnectionFactory(rsc);
+        //集群模式
+        //JedisConnectionFactory fac = new JedisConnectionFactory(rcc);
+        fac.afterPropertiesSet();
+        redisTemplate.setConnectionFactory(fac);
+        redisTemplate.setDefaultSerializer(new StringRedisSerializer());
+        redisTemplate.afterPropertiesSet();
 
-                JedisConnection jedisConnection = new JedisConnection(config);
-            }
-
-            @Override
-            public RedisClusterConnection getClusterConnection() {
-                return null;
-            }
-
-            @Override
-            public boolean getConvertPipelineAndTxResults() {
-                return false;
-            }
-
-            @Override
-            public RedisSentinelConnection getSentinelConnection() {
-                return null;
-            }
-
-            @Override
-            public DataAccessException translateExceptionIfPossible(RuntimeException e) {
-                return null;
-            }
-        });
     }
 
     // RedisTemplate 常用 API
@@ -287,15 +281,16 @@ public class RedistemplateDemo {
     }
 
     // 匹配获取键值对，ScanOptions.NONE为获取全部键对
-    public Set<String> keyHashScan(){
-        Set<String> resultSet = new HashSet<>();
+    public Set<Object> keyHashScan(String keyParam, String field){
+        Set<Object> resultSet = new HashSet<>();
         try {
-            Cursor<Map.Entry<Object,Object>> cursor = redisTemplate.opsForHash().scan("field",
-                    ScanOptions.scanOptions().match("*").count(1000).build());
+            Cursor<Map.Entry<Object,Object>> cursor = redisTemplate.opsForHash().scan(keyParam,ScanOptions.scanOptions().match(field).count(1000).build());
+//            Cursor<Map.Entry<Object,Object>> cursor = redisTemplate.opsForHash().scan(keyParam,ScanOptions.NONE);
             while (cursor.hasNext()) {
                 Map.Entry<Object,Object> entry = cursor.next();
                 Object key = entry.getKey();
                 Object valueSet = entry.getValue();
+                resultSet.add(valueSet);
             }
             //关闭cursor
             cursor.close();
