@@ -1,11 +1,15 @@
 package io.nydia.cache.redistemplate;
 
-import org.springframework.data.redis.connection.DataType;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.*;
+import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.ZSetOperations;
+import redis.clients.jedis.JedisPoolConfig;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -16,10 +20,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedistemplateDemo {
 
-    public static void main(String[] args) {
-    }
-
-
     //Redis常用的数据类型：
     //String
     //Hash
@@ -29,6 +29,41 @@ public class RedistemplateDemo {
     //Sorted set
 
     private RedisTemplate redisTemplate;
+
+    public RedistemplateDemo(){
+        redisTemplate = new RedisTemplate();
+        redisTemplate.setConnectionFactory(new RedisConnectionFactory() {
+            @Override
+            public RedisConnection getConnection() {
+                JedisPoolConfig config = new JedisPoolConfig();
+                config.setMaxTotal(maxTotal);
+                config.setMaxIdle(maxIdle);
+                config.setMaxWaitMillis(maxWaitMillis);
+
+                JedisConnection jedisConnection = new JedisConnection(config);
+            }
+
+            @Override
+            public RedisClusterConnection getClusterConnection() {
+                return null;
+            }
+
+            @Override
+            public boolean getConvertPipelineAndTxResults() {
+                return false;
+            }
+
+            @Override
+            public RedisSentinelConnection getSentinelConnection() {
+                return null;
+            }
+
+            @Override
+            public DataAccessException translateExceptionIfPossible(RuntimeException e) {
+                return null;
+            }
+        });
+    }
 
     // RedisTemplate 常用 API
 
@@ -246,9 +281,28 @@ public class RedistemplateDemo {
         return redisTemplate.opsForHash().values(key);
     }
 
-    // 匹配获取键值对，ScanOptions.NONE为获取全部键对；
+    // 匹配获取键值对，ScanOptions.NONE为获取全部键对
     public Cursor<Map.Entry<Object, Object>> hashScan(String key, ScanOptions options) {
         return redisTemplate.opsForHash().scan(key, options);
+    }
+
+    // 匹配获取键值对，ScanOptions.NONE为获取全部键对
+    public Set<String> keyHashScan(){
+        Set<String> resultSet = new HashSet<>();
+        try {
+            Cursor<Map.Entry<Object,Object>> cursor = redisTemplate.opsForHash().scan("field",
+                    ScanOptions.scanOptions().match("*").count(1000).build());
+            while (cursor.hasNext()) {
+                Map.Entry<Object,Object> entry = cursor.next();
+                Object key = entry.getKey();
+                Object valueSet = entry.getValue();
+            }
+            //关闭cursor
+            cursor.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
     }
 
 // 三、 List类型
