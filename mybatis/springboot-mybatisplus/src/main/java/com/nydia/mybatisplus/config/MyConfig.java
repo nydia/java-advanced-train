@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.*;
 import com.nydia.mybatisplus.handler.MyDataPermissionHandler;
 import com.nydia.mybatisplus.identifier.CustomIdGenerator;
+import com.nydia.mybatisplus.interceptor.SqlLoggerInterceptor;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.schema.Column;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 
 @EnableTransactionManagement
@@ -83,10 +86,27 @@ public class MyConfig {
         //动态表名插件，这个测试的时候在开启，不然参数要特的那个设置。使用专用的测试用例：DynamicTableNameInnerInterceptorTest
         //interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor());
 
-        //数据变动记录日志
+        //数据变动记录日志（官方自带）
         interceptor.addInnerInterceptor(new DataChangeRecorderInnerInterceptor().openBatchUpdateLimitation());
 
+        //打印操作日志
+
         return interceptor;
+    }
+
+    //mybatis自己的拦截器
+    @Bean
+    public String myInterceptor(SqlSessionFactory sqlSessionFactory) {
+        //实例化插件
+        SqlLoggerInterceptor sqlInterceptor = new SqlLoggerInterceptor();
+        //创建属性值
+        Properties properties = new Properties();
+        properties.setProperty("prop1", "value1");
+        //将属性值设置到插件中
+        sqlInterceptor.setProperties(properties);
+        //将插件添加到SqlSessionFactory工厂
+        sqlSessionFactory.getConfiguration().addInterceptor(sqlInterceptor);
+        return "interceptor";
     }
 
     private DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor() {

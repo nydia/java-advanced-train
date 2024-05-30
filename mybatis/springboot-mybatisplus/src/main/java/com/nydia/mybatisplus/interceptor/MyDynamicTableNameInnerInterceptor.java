@@ -8,6 +8,5 @@ import com.baomidou.mybatisplus.extension.plugins.inner.DynamicTableNameInnerInt
  * @Description: 动态表名插件
  */
 public class MyDynamicTableNameInnerInterceptor extends DynamicTableNameInnerInterceptor {
-    
 
 }
