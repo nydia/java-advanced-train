@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>democode.order.version0.OrderService</OriginalElement>
+  <nodes>
+    <node x="27.0" y="70.5">democode.order.version0.OrderService</node>
+    <node x="101.5" y="705.0">democode.order.version0.OrderItemDao</node>
+    <node x="902.5" y="255.5">democode.order.version0.OrderItem</node>
+    <node x="118.0" y="-37.0">democode.order.version0.OrderDao</node>
+    <node x="402.5" y="255.5">democode.order.version0.Order</node>
+    <node x="672.5" y="255.5">democode.order.version0.Address</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="democode.order.version0.OrderService" target="democode.order.version0.OrderDao" relationship="TO_ONE">
+      <point x="0.0" y="-49.5" />
+      <point x="183.0" y="42.75" />
+      <point x="182.0" y="42.75" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="democode.order.version0.OrderService" target="democode.order.version0.OrderItemDao" relationship="TO_ONE">
+      <point x="153.0" y="15.0" />
+      <point x="335.0" y="135.0" />
+      <point x="335.0" y="720.0" />
+      <point x="78.5" y="0.0" />
+    </edge>
+    <edge source="democode.order.version0.OrderService" target="democode.order.version0.Order" relationship="CREATE">
+      <point x="153.0" y="5.0" />
+      <point x="527.5" y="125.0" />
+      <point x="0.0" y="-214.5" />
+    </edge>
+    <edge source="democode.order.version0.OrderService" target="democode.order.version0.OrderItem" relationship="DEPENDENCY">
+      <point x="153.0" y="-15.0" />
+      <point x="1007.5" y="105.0" />
+      <point x="0.0" y="-126.5" />
+    </edge>
+    <edge source="democode.order.version0.OrderService" target="democode.order.version0.OrderItemDao" relationship="DEPENDENCY">
+      <point x="0.0" y="49.5" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+    <edge source="democode.order.version0.OrderService" target="democode.order.version0.OrderDao" relationship="DEPENDENCY">
+      <point x="-153.0" y="0.0" />
+      <point x="25.0" y="120.0" />
+      <point x="25.0" y="-22.0" />
+      <point x="-62.0" y="0.0" />
+    </edge>
+    <edge source="democode.order.version0.OrderService" target="democode.order.version0.Address" relationship="DEPENDENCY">
+      <point x="153.0" y="-5.0" />
+      <point x="777.5" y="115.0" />
+      <point x="0.0" y="-126.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="526.0" y="294.0" />
+  <SelectedNodes>
+    <node>democode.order.version0.OrderDao</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

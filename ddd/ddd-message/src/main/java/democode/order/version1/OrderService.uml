@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>democode.order.version1.OrderService</OriginalElement>
+  <nodes>
+    <node x="383.5355594437359" y="643.4121405251939">democode.order.version1.OrderRepository</node>
+    <node x="551.065201388751" y="337.4646018802812">democode.order.version1.OrderService</node>
+    <node x="4.170265377058854" y="0.0">democode.order.version1.Order</node>
+    <node x="576.3257145764921" y="982.3721227868047">democode.order.version1.OrderItemDao</node>
+    <node x="424.2741952032836" y="1017.9829072620324">democode.order.version1.OrderDao</node>
+    <node x="429.1617361891733" y="4.941330424830539">democode.order.version1.Address</node>
+    <node x="0.0" y="450.24167436441263">democode.order.version1.OrderItem</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="democode.order.version1.Order" target="democode.order.version1.Address" relationship="TO_ONE">
+      <point x="0.7782683255755387" y="4.939058454139399" />
+      <point x="0.7782683255755387" y="4.939058454139399" />
+    </edge>
+    <edge source="democode.order.version1.OrderRepository" target="democode.order.version1.OrderItemDao" relationship="DEPENDENCY">
+      <point x="5.79069045539643" y="-0.0" />
+      <point x="5.790690455396373" y="-0.0" />
+    </edge>
+    <edge source="democode.order.version1.OrderRepository" target="democode.order.version1.OrderDao" relationship="DEPENDENCY">
+      <point x="5.005021885417335" y="-0.0" />
+      <point x="5.005021885417335" y="-0.0" />
+    </edge>
+    <edge source="democode.order.version1.Order" target="democode.order.version1.OrderItem" relationship="TO_MANY">
+      <point x="-4.993428985898731" y="-0.2562556590329734" />
+      <point x="-4.993428985898731" y="-0.2562556590329734" />
+    </edge>
+    <edge source="democode.order.version1.OrderService" target="democode.order.version1.Order" relationship="CREATE">
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
+    </edge>
+    <edge source="democode.order.version1.OrderRepository" target="democode.order.version1.Order" relationship="CREATE">
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
+    </edge>
+    <edge source="democode.order.version1.OrderService" target="democode.order.version1.OrderItem" relationship="DEPENDENCY">
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
+    </edge>
+    <edge source="democode.order.version1.Order" target="democode.order.version1.OrderItem" relationship="DEPENDENCY">
+      <point x="5.006579661110493" y="-0.0" />
+      <point x="5.0065796611104645" y="-0.0" />
+    </edge>
+    <edge source="democode.order.version1.Order" target="democode.order.version1.Address" relationship="DEPENDENCY">
+      <point x="0.0" y="-5.061693485131286" />
+      <point x="0.0" y="-5.061693485131343" />
+    </edge>
+    <edge source="democode.order.version1.OrderRepository" target="democode.order.version1.OrderItemDao" relationship="TO_ONE">
+      <point x="-4.317274458471914" y="2.5221303000095077" />
+      <point x="-4.3172744584719" y="2.5221303000095077" />
+    </edge>
+    <edge source="democode.order.version1.OrderRepository" target="democode.order.version1.OrderDao" relationship="TO_ONE">
+      <point x="-4.994983153388432" y="0.22392699115044934" />
+      <point x="-4.994983153388432" y="0.2239269911503925" />
+    </edge>
+    <edge source="democode.order.version1.OrderService" target="democode.order.version1.OrderRepository" relationship="TO_ONE">
+      <point x="6.377488771418257" y="-3.552713678800501E-15" />
+      <point x="6.377488771418214" y="-0.0" />
+    </edge>
+    <edge source="democode.order.version1.OrderService" target="democode.order.version1.Address" relationship="CREATE">
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
+    </edge>
+    <edge source="democode.order.version1.OrderService" target="democode.order.version1.OrderRepository" relationship="DEPENDENCY">
+      <point x="-3.9200382620886103" y="-3.103755793190121" />
+      <point x="-3.9200382620886245" y="-3.103755793190146" />
+    </edge>
+  </edges>
+  <settings layout="Circular" zoom="0.7200374531835206" showDependencies="true" x="429.0" y="524.0" />
+  <SelectedNodes>
+    <node>democode.order.version1.OrderItemDao</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
