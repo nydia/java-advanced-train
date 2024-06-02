@@ -1,7 +1,7 @@
 package democode.movierental.version0;
 
 /**
- * @author zhengyin
+ * @author nydia
  * Created on 2021/4/15
  */
 public class Main {

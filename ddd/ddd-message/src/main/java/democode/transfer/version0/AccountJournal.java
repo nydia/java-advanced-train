@@ -6,7 +6,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 /**
- * @author zhengyin
+ * @author nydia
  * Created on 2021/10/19
  */
 @AllArgsConstructor

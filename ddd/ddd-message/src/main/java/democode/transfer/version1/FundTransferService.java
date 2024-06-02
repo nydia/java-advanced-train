@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  *
  * 模拟一个转账场景
- * @author zhengyin
+ * @author nydia
  * Created on 2021/10/19
  */
 public class FundTransferService {

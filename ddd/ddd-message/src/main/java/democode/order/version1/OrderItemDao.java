@@ -5,7 +5,7 @@ import democode.order.version0.OrderItem;
 import java.util.List;
 
 /**
- * @author zhengyin
+ * @author nydia
  * Created on 2021/10/18
  */
 public interface OrderItemDao {

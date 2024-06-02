@@ -1,6 +1,6 @@
 package democode.order.version0;
 /**
- * @author zhengyin
+ * @author nydia
  * Created on 2021/10/18
  */
 public interface OrderDao {
