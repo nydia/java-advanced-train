@@ -12,8 +12,10 @@
         <setting name="logImpl" value="STDOUT_LOGGING"/>
         <!-- 是否自动映射： NONE 表示关闭自动映射；PARTIAL 只会自动映射没有定义嵌套结果映射的字段。 FULL 会自动映射任何复杂的结果集（无论是否嵌套）。默认值：PARTIAL -->
         <setting name="autoMappingBehavior" value="PARTIAL"/>
-        <!-- 开启二级缓存 -->
-        <setting name="cacheEnabled" value="true"/>
+        <!-- 开启一级缓存(session/statement)-->
+        <setting name="localCacheScope" value="SESSION"/>
+        <!-- 关闭二级缓存 -->
+        <setting name="cacheEnabled" value="false"/>
     </settings>
 
     <typeAliases>
