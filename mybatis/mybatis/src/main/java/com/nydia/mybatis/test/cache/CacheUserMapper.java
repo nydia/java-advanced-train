@@ -7,8 +7,5 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper
 public interface CacheUserMapper {
-
     User selectById(Integer id);
-
-
 }
