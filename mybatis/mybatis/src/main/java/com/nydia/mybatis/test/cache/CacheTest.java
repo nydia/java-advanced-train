@@ -41,10 +41,9 @@ public class CacheTest {
         SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
 
         //2、打开第一个会话
-        //SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
-        SqlSession openSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
         // 获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
-        CacheUserMapper mapper = openSession.getMapper(CacheUserMapper.class);
+        CacheUserMapper mapper = sqlSession.getMapper(CacheUserMapper.class);
         Integer id = 306;
         try {
 
@@ -56,29 +55,33 @@ public class CacheTest {
             //openSession.close();
         }
 
-        //3、使用第一个会话
+        //3、清空一级缓存,这里清空之后就没有一级缓存了
+        //sqlSession.clearCache();
+
+
+        //4、使用第一个会话
         try {
             // 获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
-            //CacheUserMapper mapper = openSession.getMapper(CacheUserMapper.class);
+            //CacheUserMapper mapper = sqlSession.getMapper(CacheUserMapper.class);
             User user = mapper.selectById(id);//使用的是上面的session，所以这个地方会走一级缓存
             System.out.println(user);
 
         } finally {
             //使用完毕后关闭会话
-            openSession.close();
+            sqlSession.close();
         }
 
         //4、打开第二个会话
-        SqlSession openSession2 = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
+        SqlSession sqlSession2 = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
         try {
             // 获取接口的实现类对象，会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
-            CacheUserMapper mapper2 = openSession2.getMapper(CacheUserMapper.class);
+            CacheUserMapper mapper2 = sqlSession2.getMapper(CacheUserMapper.class);
             User user = mapper2.selectById(306);
             System.out.println(user);
 
         } finally {
             //使用完毕后关闭会话
-            openSession.close();
+            sqlSession2.close();
         }
 
     }
