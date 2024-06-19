@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: springboot-redission
+  redis:
+    redisson:
+      file: classpath:redisson.yml
+  data:
+    redis:
+      password: nydia123
