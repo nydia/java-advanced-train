@@ -2,6 +2,7 @@ package com.nydia.redis.delayedQueue;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RDelayedQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,19 +17,19 @@ import java.util.concurrent.TimeUnit;
 @Validated
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/redission")
+@RequestMapping("/redisson")
 @Slf4j
 public class RedissionTestController {
 
 
+
     @Autowired
-    private RedisssionService redisssionService;
-    
+    private RDelayedQueue delayedQueue;
 
     @GetMapping(value = "/offerAsync")
     public void offerAsync() {
     	//20秒后到期，在监听那里可以打印出  1234567890
-        redisssionService.delayedQueue(redisssionService.blockingQueue()).offerAsync("1234567890", 10, TimeUnit.SECONDS);
+        delayedQueue.offerAsync("1234567890", 10, TimeUnit.SECONDS);
     }
 }
 
