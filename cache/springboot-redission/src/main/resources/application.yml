@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: springboot-redission
+  redis:
+    redisson:
+      config: |
+        singleServerConfig:
+          idleConnectionTimeout: 10000
+          connectTimeout: 10000
+          timeout: 3000
+          retryAttempts: 3
+          retryInterval: 1500
+          password: nydia123
+          subscriptionsPerConnection: 5
+          clientName: null
+          address: "redis://127.0.0.1:6379"
+          subscriptionConnectionMinimumIdleSize: 1
+          subscriptionConnectionPoolSize: 50
+          connectionMinimumIdleSize: 24
+          connectionPoolSize: 64
+          database: 0
+          dnsMonitoringInterval: 5000
+        threads: 16
+        nettyThreads: 32
+        codec: !<org.redisson.codec.Kryo5Codec> {}
+        transportMode: "NIO"
+  data:
+    redis:
+      port: 6379
+      password: nydia123
+      host: 127.0.0.1
+      database: 0
+      client-type: lettuce
+      lettuce:
+        pool:
+          max-active: 32
+          max-wait: -1
+          max-idle: 16
+          min-idle: 8
