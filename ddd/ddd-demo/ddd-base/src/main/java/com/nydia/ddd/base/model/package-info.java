@@ -1,0 +1,1 @@
+package com.nydia.ddd.base.model;
