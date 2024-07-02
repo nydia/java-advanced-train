@@ -1,0 +1,27 @@
+{
+    "version": "1.0",
+    "schemas": [
+        {
+            "name": "test",
+            "type": "custom",
+            "factory": "org.apache.calcite.adapter.java.ReflectiveSchema$Factory",
+            "operand": {
+                "class": "calcite.demo.schemas.EMPSchema",
+                "staticMethod": "getInstance"
+            }
+        },
+        {
+            "name": "test2",
+            "type": "custom",
+            "factory": "org.apache.calcite.adapter.file.FileSchemaFactory",
+            "operand": {
+                "tables": [
+                    {
+                        "name": "countries",
+                        "url": "https://restcountries.eu/rest/v2/all"
+                    }
+                ]
+            }
+        }
+    ]
+}
