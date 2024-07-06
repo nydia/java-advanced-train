@@ -41,3 +41,5 @@ activemq-data/
 # eclipse
 .eclipse/
 .eclipse
+
+sample/
