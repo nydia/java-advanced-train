@@ -13,26 +13,11 @@ import java.util.Date;
 public class H2Demo {
 
     /**
-     * 连接
-     *
-     * @return
-     */
-    public static Connection connect() {
-        String url = "jdbc:h2:mem:vhr;DB_CLOSE_DELAY=-1";
-        try {
-            return DriverManager.getConnection(url, "sa", "");
-        } catch (SQLException ex) {
-            log.info(ex.getMessage());
-        }
-        return null;
-    }
-
-    /**
      * 简单计算测试
      */
     public static void temp() {
         try {
-            Connection con = connect();
+            Connection con = H2Connect.connect();
             assert con != null;
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery("SELECT 1+1");
@@ -49,7 +34,7 @@ public class H2Demo {
      */
     public static void funcTest() {
         try {
-            Connection con = connect();
+            Connection con = H2Connect.connect();
             assert con != null;
             Statement stm = con.createStatement();
 
@@ -397,7 +382,7 @@ public class H2Demo {
      */
     public static void createTableAndInsertDataWithJdbc() {
         try {
-            Connection conn = connect();
+            Connection conn = H2Connect.connect();
             assert conn != null;
 
             //创建表
@@ -437,7 +422,7 @@ public class H2Demo {
      */
     public static void performance() {
         try {
-            Connection conn = connect();
+            Connection conn = H2Connect.connect();
             assert conn != null;
 
             //创建表
@@ -482,7 +467,7 @@ public class H2Demo {
      */
     public static void extFun() {
         try {
-            Connection conn = connect();
+            Connection conn = H2Connect.connect();
             assert conn != null;
 
             //创建自定义函数
@@ -506,10 +491,10 @@ public class H2Demo {
 
     public static void main(String[] args) {
         //1. 简单函数测试
-        temp();
+        //temp();
 
         //2. 创建表和插入数据测试
-        //createTableAndInsertDataWithJdbc();
+        createTableAndInsertDataWithJdbc();
 
         //3. 性能测试
         //performance();

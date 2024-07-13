@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 @Slf4j
-public class CalciteTest {
+public class CalciteDemo {
     Properties info;
     Connection connection;
     Statement statement;

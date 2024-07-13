@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    #url: jdbc:h2:mem:nydia;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:tcp://localhost:8084/~/./db/tech
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:h2/schema.sql
+      data-locations: h2/data.sql
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: true
+        #web-allow-others: true
+logging:
+  level:
+    root: debug
