@@ -491,10 +491,10 @@ public class H2Demo {
 
     public static void main(String[] args) {
         //1. 简单函数测试
-        //temp();
+        temp();
 
         //2. 创建表和插入数据测试
-        createTableAndInsertDataWithJdbc();
+        //createTableAndInsertDataWithJdbc();
 
         //3. 性能测试
         //performance();
