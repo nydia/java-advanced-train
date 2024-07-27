@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
@@ -12,14 +11,14 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 //@SpringBootApplication
 @Slf4j
-public class SpringbootDemoApplication implements CommandLineRunner {
+public class DemoApplication implements CommandLineRunner {
 	@Autowired
 	private TransactionTemplate transactionTemplate;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootDemoApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
 
 	//CREATE TABLE FOO (ID INT IDENTITY, BAR VARCHAR(64));

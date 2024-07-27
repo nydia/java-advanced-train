@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.springbootdemo.utils;
+package com.example.springbootdemo.configure;
 
+import com.example.springbootdemo.utils.LogUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -36,11 +38,18 @@ import java.util.function.Consumer;
  *
  * @author <a href="mailto:liaochuntao@live.com">liaochuntao</a>
  */
+@Slf4j
 @SuppressWarnings("all")
 public class ApplicationUtils implements ApplicationContextInitializer<ConfigurableApplicationContext> {
     
     private static ApplicationContext applicationContext;
-    
+
+    @Override
+    public void initialize(ConfigurableApplicationContext context) {
+        LogUtil.info(log, "ApplicationContextInitializer # initialize");
+        applicationContext = context;
+    }
+
     public static String getId() {
         return applicationContext.getId();
     }
@@ -220,8 +229,5 @@ public class ApplicationUtils implements ApplicationContextInitializer<Configura
         ApplicationUtils.applicationContext = context;
     }
     
-    @Override
-    public void initialize(ConfigurableApplicationContext context) {
-        applicationContext = context;
-    }
+
 }
