@@ -1,4 +1,4 @@
-package com.nydia.ddd.account.model;
+package com.nydia.ddd.account.domain.entity;
 
 import com.nydia.ddd.base.model.BaseEntity;
 import lombok.Data;
