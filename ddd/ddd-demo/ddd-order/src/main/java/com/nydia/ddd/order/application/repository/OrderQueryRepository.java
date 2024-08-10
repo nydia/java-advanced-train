@@ -1,4 +1,4 @@
-package com.nydia.ddd.order.domain.repository;
+package com.nydia.ddd.order.application.repository;
 
 import com.nydia.ddd.base.repository.AggregateRepository;
 
@@ -7,5 +7,5 @@ import com.nydia.ddd.base.repository.AggregateRepository;
  * @Date: 2024/8/6 22:59
  * @Description: OrderRepository
  */
-public class OrderRepository implements AggregateRepository {
+public interface OrderQueryRepository extends AggregateRepository {
 }

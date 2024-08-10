@@ -1,6 +1,7 @@
 package com.nydia.ddd.order.domain.valueObject;
 
 import com.nydia.ddd.base.model.BaseEntity;
+import com.nydia.ddd.base.model.BaseValue;
 import lombok.Data;
 
 /**
@@ -9,7 +10,7 @@ import lombok.Data;
  * @Description: 支付方法
  */
 @Data
-public class PaymentMethod extends BaseEntity {
+public class PaymentMethod extends BaseValue {
 
     private String name;
 

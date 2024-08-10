@@ -1,6 +1,7 @@
 package com.nydia.ddd.order.domain.valueObject;
 
 import com.nydia.ddd.base.model.BaseEntity;
+import com.nydia.ddd.base.model.BaseValue;
 import lombok.Data;
 
 /**
@@ -9,7 +10,7 @@ import lombok.Data;
  * @Description: 配送地址
  */
 @Data
-public class ShippingAddress extends BaseEntity {
+public class ShippingAddress extends BaseValue {
 
     private String address;
 
