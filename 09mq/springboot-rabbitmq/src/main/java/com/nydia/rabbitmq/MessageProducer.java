@@ -18,7 +18,8 @@ public class MessageProducer {
         amqpTemplate.convertAndSend("test.queue", message);
     }
 
+    // -> queue: QUEUE_A
     public void sendMessage2(String message) {
-        amqpTemplate.convertAndSend("my-mq-exchange_A", "test.queue", message);
+        amqpTemplate.convertAndSend("my-mq-exchange_A", "spring-boot-routingKey_A", message);
     }
 }

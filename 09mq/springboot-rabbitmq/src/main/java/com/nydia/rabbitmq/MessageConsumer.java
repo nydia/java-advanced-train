@@ -15,7 +15,13 @@ public class MessageConsumer {
     }
 
     @RabbitListener(queues = "test.queue")
-    public void receiveMessage(String message) {
+    public void receiveMessage1(String message) {
         System.out.println("Received message: " + message);
     }
+
+    @RabbitListener(queues = "QUEUE_A")
+    public void receiveMessage2(String message) {
+        System.out.println("Received message: " + message);
+    }
+
 }

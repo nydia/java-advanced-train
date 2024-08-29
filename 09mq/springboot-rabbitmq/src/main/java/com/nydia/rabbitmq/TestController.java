@@ -15,8 +15,14 @@ public class TestController {
     }
 
     @GetMapping("/send1")
-    public String sendMessage() {
-        producer.sendMessage1("Hello, RabbitMQ!");
+    public String sendMessage1() {
+        producer.sendMessage1("Hello, RabbitMQ! 1");
+        return "Message sent!";
+    }
+
+    @GetMapping("/send2")
+    public String sendMessage2() {
+        producer.sendMessage2("Hello, RabbitMQ! 2");
         return "Message sent!";
     }
 }
