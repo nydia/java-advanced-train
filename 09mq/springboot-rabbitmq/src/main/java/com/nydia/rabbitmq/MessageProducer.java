@@ -14,7 +14,11 @@ public class MessageProducer {
         this.amqpTemplate = amqpTemplate;
     }
 
-    public void sendMessage(String message) {
+    public void sendMessage1(String message) {
         amqpTemplate.convertAndSend("test.queue", message);
+    }
+
+    public void sendMessage2(String message) {
+        amqpTemplate.convertAndSend("my-mq-exchange_A", "test.queue", message);
     }
 }
