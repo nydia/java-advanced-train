@@ -11,15 +11,15 @@ public class MessageConsumer {
 
     @Bean
     public Queue testQueue() {
-        return new Queue("test.queue", true);
+        return new Queue(Constant.queue_1, true);
     }
 
-    @RabbitListener(queues = "test.queue")
+    @RabbitListener(queues = Constant.queue_1)
     public void receiveMessage1(String message) {
         System.out.println("Received message: " + message);
     }
 
-    @RabbitListener(queues = "QUEUE_A")
+    @RabbitListener(queues = Constant.queue_2)
     public void receiveMessage2(String message) {
         System.out.println("Received message: " + message);
     }

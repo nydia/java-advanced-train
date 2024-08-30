@@ -14,12 +14,22 @@ public class MessageProducer {
         this.amqpTemplate = amqpTemplate;
     }
 
+    // -> queue
     public void sendMessage1(String message) {
-        amqpTemplate.convertAndSend("test.queue", message);
+        amqpTemplate.convertAndSend(Constant.queue_1, message);
     }
 
-    // -> queue: QUEUE_A
+    // exchange + routingKey -> queue
     public void sendMessage2(String message) {
-        amqpTemplate.convertAndSend("my-mq-exchange_A", "spring-boot-routingKey_A", message);
+        amqpTemplate.convertAndSend(Constant.exchange_1, Constant.routing_key_1, message);
     }
+
+    // 延迟队列
+    public void sendMessage3(String message) {
+        amqpTemplate.convertAndSend(Constant.exchange_1, Constant.routing_key_1, message, m -> {
+            m.getMessageProperties().setDelayLong(10000l); // 延迟时间，单位毫秒
+            return m;
+        });
+    }
+
 }

@@ -10,5 +10,6 @@ curl http://localhost:8080/send1
 
 ab -n 100 -c 10 http://localhost:8080/send1
 ab -n 100 -c 10 http://localhost:8080/send2
+ab -n 100 -c 10 http://localhost:8080/send3
 
 
