@@ -47,12 +47,5 @@ public class MessageProducer {
         });
     }
 
-//    // 延迟队列
-//    public void sendMessage4(String message) {
-//        amqpTemplate.convertAndSend(Constant.exchange_1, Constant.routing_key_1, message, m -> {
-//            m.getMessageProperties().setDelayLong(10000l); // 延迟时间，单位毫秒
-//            return m;
-//        });
-//    }
 
 }
