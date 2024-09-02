@@ -3,6 +3,7 @@ package com.nydia.rabbitmq;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +41,7 @@ public class MessageProducer {
         }
 
         amqpTemplate.convertAndSend(Constant.exchange_delay, Constant.routing_key_delay, msg, m -> {
+            m.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
             m.getMessageProperties().setDelayLong(10000l); // 延迟时间，单位毫秒
             return m;
         });
