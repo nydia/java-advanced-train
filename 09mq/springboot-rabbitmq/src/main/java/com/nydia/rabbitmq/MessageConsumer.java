@@ -23,7 +23,7 @@ public class MessageConsumer {
 
     @RabbitListener(queues = Constant.queue_delay)
     public void receiveMessage3(String message) {
-        System.out.println(new Date() + " Received message: " + message);
+        System.out.println("接受时间（" + new Date() + "） Received message: " + message);
     }
 
 }

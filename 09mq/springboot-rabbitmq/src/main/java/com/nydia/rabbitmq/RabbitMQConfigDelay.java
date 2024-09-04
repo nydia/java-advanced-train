@@ -20,6 +20,12 @@ public class RabbitMQConfigDelay {
 
     @Bean
     public Queue delayQueue() {
+        /*
+         * durable:是否持久化,默认是false
+         * exclusive:默认也是false，只能被当前创建的连接使用，而且当连接关闭后队列即被删除。此参考优先级高于durable
+         * autoDelete:是否自动删除
+         * arguments 附加参数
+         */
         return new Queue(Constant.queue_delay, true, false, false);
     }
 

@@ -20,7 +20,7 @@ public class MessageProducer {
         this.amqpTemplate = amqpTemplate;
     }
 
-    // -> queue
+    // queue
     public void sendMessage1(String message) {
         amqpTemplate.convertAndSend(Constant.queue_1, message);
     }
@@ -34,7 +34,7 @@ public class MessageProducer {
     public void sendMessage3(String message) {
         Message msg;
         try {
-            msg = MessageBuilder.withBody((message + " " + new Date()).getBytes("UTF-8")).setHeader("x-delay", 3000).build();
+            msg = MessageBuilder.withBody((message + " 发送时间（" + new Date() + ")").getBytes("UTF-8")).setHeader("x-delay", 3000).build();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
