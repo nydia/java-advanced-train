@@ -13,14 +13,17 @@ import java.io.IOException;
 @RestController
 public class XxlJobController {
 
+    private String xxlJobAdminUrl  = "http://127.0.0.1:8080/xxl-job-admin";
+    private String xxlJobAdminUser  = "admin";
+    private String xxlJobAdminPass  = "123456";
 
     @RequestMapping(value = "/pageList",method = RequestMethod.GET)
     public Object pageList() throws IOException {
         //int jobGroup, int triggerStatus, String jobDesc, String executorHandler, String author
         JSONObject test=new JSONObject();
         test.put("length",10);
-        XxlJobUtil.login("http://127.0.0.1:8961/xxl-job-admin","admin","123456");
-        JSONObject response = XxlJobUtil.pageList("http://127.0.0.1:8961/xxl-job-admin", test);
+        XxlJobUtil.login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
+        JSONObject response = XxlJobUtil.pageList(xxlJobAdminUrl, test);
         return  response.get("data");
     }
 
@@ -33,7 +36,7 @@ public class XxlJobController {
         xxlJobInfo.setAddTime(new Date());
         xxlJobInfo.setUpdateTime(new Date());
         xxlJobInfo.setAuthor("nydia");
-        xxlJobInfo.setAlarmEmail("864477182@com");
+        xxlJobInfo.setAlarmEmail("nydia_lvhq@sina.cn");
         xxlJobInfo.setScheduleType("CRON");
         xxlJobInfo.setScheduleConf("0/5 * * * * ?");
         xxlJobInfo.setMisfireStrategy("DO_NOTHING");
@@ -48,22 +51,21 @@ public class XxlJobController {
         xxlJobInfo.setGlueRemark("GLUE代码初始化");
         xxlJobInfo.setGlueUpdatetime(new Date());
         JSONObject test = (JSONObject) JSONObject.toJSON(xxlJobInfo);
-        XxlJobUtil.login("http://127.0.0.1:8961/xxl-job-admin","admin","123456");
-        JSONObject response = XxlJobUtil.addJob("http://127.0.0.1:8961/xxl-job-admin", test);
+        XxlJobUtil.login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
+        JSONObject response = XxlJobUtil.addJob(xxlJobAdminUrl, test);
         if (response.containsKey("code") && 200 == (Integer) response.get("code")) {
             System.out.println("新增成功");
         } else {
             System.out.println("新增失败");
         }
 
-
     }
 
     @RequestMapping(value = "/stop/{jobId}",method = RequestMethod.GET)
     public void stop(@PathVariable("jobId") Integer jobId) throws IOException {
 
-        XxlJobUtil.login("http://127.0.0.1:8961/xxl-job-admin","admin","123456");
-        JSONObject response = XxlJobUtil.stopJob("http://127.0.0.1:8961/xxl-job-admin", jobId);
+        XxlJobUtil.login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
+        JSONObject response = XxlJobUtil.stopJob(xxlJobAdminUrl, jobId);
         if (response.containsKey("code") && 200 == (Integer) response.get("code")) {
             System.out.println("任务停止成功");
         } else {
@@ -74,8 +76,8 @@ public class XxlJobController {
     @RequestMapping(value = "/delete/{jobId}",method = RequestMethod.GET)
     public void delete(@PathVariable("jobId") Integer jobId) throws IOException {
 
-        XxlJobUtil.login("http://127.0.0.1:8961/xxl-job-admin","admin","123456");
-        JSONObject response = XxlJobUtil.deleteJob("http://127.0.0.1:8961/xxl-job-admin", jobId);
+        XxlJobUtil.login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
+        JSONObject response = XxlJobUtil.deleteJob(xxlJobAdminUrl, jobId);
         if (response.containsKey("code") && 200 == (Integer) response.get("code")) {
             System.out.println("任务移除成功");
         } else {
@@ -87,8 +89,8 @@ public class XxlJobController {
     @RequestMapping(value = "/start/{jobId}",method = RequestMethod.GET)
     public void start(@PathVariable("jobId") Integer jobId) throws IOException {
 
-        XxlJobUtil.login("http://127.0.0.1:8961/xxl-job-admin","admin","123456");
-        JSONObject response = XxlJobUtil.startJob("http://127.0.0.1:8961/xxl-job-admin", jobId);
+        XxlJobUtil.login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
+        JSONObject response = XxlJobUtil.startJob(xxlJobAdminUrl, jobId);
         if (response.containsKey("code") && 200 == (Integer) response.get("code")) {
             System.out.println("任务启动成功");
         } else {
