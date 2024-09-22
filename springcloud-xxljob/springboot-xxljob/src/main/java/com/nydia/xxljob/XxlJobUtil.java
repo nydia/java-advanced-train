@@ -1,7 +1,9 @@
 package com.nydia.xxljob;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.httpclient.*;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
@@ -11,6 +13,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: nydia
@@ -30,18 +39,20 @@ public class XxlJobUtil {
      * @throws IOException
      */
     public static JSONObject pageList(String url,JSONObject requestInfo) throws HttpException, IOException {
-        String path = "/api/jobinfo/pageList";
-        String targetUrl = url + path;
-        HttpClient httpClient = new HttpClient();
-        PostMethod post = new PostMethod(targetUrl);
-        post.setRequestHeader("cookie", cookie);
-        RequestEntity requestEntity = new StringRequestEntity(requestInfo.toString(), "application/json", "utf-8");
-        post.setRequestEntity(requestEntity);
-        httpClient.executeMethod(post);
-        JSONObject result = new JSONObject();
-        result = getJsonObject(post, result);
-        System.out.println(result.toJSONString());
-        return result;
+//        String path = "/api/jobinfo/pageList";
+//        String targetUrl = url + path;
+//        HttpClient httpClient = new HttpClient();
+//        PostMethod post = new PostMethod(targetUrl);
+//        post.setRequestHeader("cookie", cookie);
+//        RequestEntity requestEntity = new StringRequestEntity(requestInfo.toString(), "application/json", "utf-8");
+//        post.setRequestEntity(requestEntity);
+//        httpClient.executeMethod(post);
+//        JSONObject result = new JSONObject();
+//        result = getJsonObject(post, result);
+//        System.out.println(result.toJSONString());
+//        return result;
+
+        return null;
     }
 
 
@@ -109,14 +120,16 @@ public class XxlJobUtil {
     }
 
     public static JSONObject doGet(String url,String path) throws HttpException, IOException {
-        String targetUrl = url + path;
-        HttpClient httpClient = new HttpClient();
-        HttpMethod get = new GetMethod(targetUrl);
-        get.setRequestHeader("cookie", cookie);
-        httpClient.executeMethod(get);
-        JSONObject result = new JSONObject();
-        result = getJsonObject(get, result);
-        return result;
+//        String targetUrl = url + path;
+//        HttpClient httpClient = new HttpClient();
+//        HttpMethod get = new GetMethod(targetUrl);
+//        get.setRequestHeader("cookie", cookie);
+//        httpClient.executeMethod(get);
+//        JSONObject result = new JSONObject();
+//        result = getJsonObject(get, result);
+//        return result;
+
+        return null;
     }
 
     private static JSONObject getJsonObject(HttpMethod postMethod, JSONObject result) throws IOException {
@@ -150,11 +163,21 @@ public class XxlJobUtil {
      */
 
     public static String login(String url, String userName, String password) throws HttpException, IOException {
-        String path = "/api/jobinfo/login?userName="+userName+"&password="+password;
+        String path = "/login";
         String targetUrl = url + path;
-        HttpClient httpClient = new HttpClient();
-        HttpMethod get = new GetMethod((targetUrl));
-        httpClient.executeMethod(get);
+
+        Map<String, String> formData = new HashMap<>();
+        formData.put("userName", userName);
+        formData.put("password", password);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(targetUrl))
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .POST(HttpRequest.BodyPublishers.ofString(getFormDataAsString(formData)))
+                .build();
+
+        HttpMethod post = new PostMethod((targetUrl));
+        post.for.executeMethod(get);
         if (get.getStatusCode() == 200) {
             Cookie[] cookies = httpClient.getState().getCookies();
             StringBuffer tmpcookies = new StringBuffer();
@@ -170,5 +193,18 @@ public class XxlJobUtil {
             }
         }
         return cookie;
+    }
+
+    private static String getFormDataAsString(Map<String, String> formData) {
+        StringBuilder formBodyBuilder = new StringBuilder();
+        for (Map.Entry<String, String> singleEntry : formData.entrySet()) {
+            if (formBodyBuilder.length() > 0) {
+                formBodyBuilder.append("&");
+            }
+            formBodyBuilder.append(URLEncoder.encode(singleEntry.getKey(), StandardCharsets.UTF_8));
+            formBodyBuilder.append("=");
+            formBodyBuilder.append(URLEncoder.encode(singleEntry.getValue(), StandardCharsets.UTF_8));
+        }
+        return formBodyBuilder.toString();
     }
 }
