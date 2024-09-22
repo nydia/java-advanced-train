@@ -2,9 +2,7 @@ package com.nydia.xxljob;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
@@ -15,11 +13,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * @Author: nydia
@@ -65,7 +67,7 @@ public class XxlJobUtil {
      * @throws HttpException
      * @throws IOException
      */
-    public static JSONObject addJob(String url,JSONObject requestInfo) throws HttpException, IOException {
+    public static JSONObject addJob(String url,JSONObject requestInfo){
         String path = "/api/jobinfo/save";
         String targetUrl = url + path;
         HttpClient httpClient = new HttpClient();
@@ -132,26 +134,6 @@ public class XxlJobUtil {
         return null;
     }
 
-    private static JSONObject getJsonObject(HttpMethod postMethod, JSONObject result) throws IOException {
-        if (postMethod.getStatusCode() == HttpStatus.SC_OK) {
-            InputStream inputStream = postMethod.getResponseBodyAsStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuffer stringBuffer = new StringBuffer();
-            String str;
-            while((str = br.readLine()) != null){
-                stringBuffer.append(str);
-            }
-            String response = new String(stringBuffer);
-            br.close();
-
-            return (JSONObject) JSONObject.parse(response);
-        } else {
-            return null;
-        }
-
-
-    }
-
     /**
      * 登录
      * @param url
@@ -162,7 +144,7 @@ public class XxlJobUtil {
      * @throws IOException
      */
 
-    public static String login(String url, String userName, String password) throws HttpException, IOException {
+    public static String login(String url, String userName, String password) {
         String path = "/login";
         String targetUrl = url + path;
 
@@ -176,23 +158,37 @@ public class XxlJobUtil {
                 .POST(HttpRequest.BodyPublishers.ofString(getFormDataAsString(formData)))
                 .build();
 
-        HttpMethod post = new PostMethod((targetUrl));
-        post.for.executeMethod(get);
-        if (get.getStatusCode() == 200) {
-            Cookie[] cookies = httpClient.getState().getCookies();
-            StringBuffer tmpcookies = new StringBuffer();
-            for (Cookie c : cookies) {
-                tmpcookies.append(c.toString() + ";");
-            }
-            cookie = tmpcookies.toString();
-        } else {
-            try {
-                cookie = "";
-            } catch (Exception e) {
-                cookie="";
-            }
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        }catch (Exception e){
+            throw new RuntimeException("xxl-job login error!");
         }
-        return cookie;
+
+        String loginIdentity = "";
+        Map<String, List<String>> headers = response.headers().map();
+        // 检查是否存在 Set-Cookie 头
+        if (headers.containsKey("Set-Cookie")) {
+            // 获取 Set-Cookie 的值列表
+            List<String> setCookieHeaders = headers.get("Set-Cookie");
+
+            // 解析 Set-Cookie 值
+            List<String> cookies = setCookieHeaders.stream()
+                    .flatMap(setCookieHeader -> parseCookies(setCookieHeader).stream())
+                    .collect(Collectors.toList());
+            for (String cookie : cookies){
+                if(cookie.startsWith("XXL_JOB_LOGIN_IDENTITY=")){
+                    String[] cookieArr = cookie.split("=");
+                    loginIdentity = cookieArr[1];
+                    break;
+                }
+            }
+        } else {
+            throw new RuntimeException("get xxl-job cookie error!");
+        }
+
+        return loginIdentity;
     }
 
     private static String getFormDataAsString(Map<String, String> formData) {
@@ -206,5 +202,14 @@ public class XxlJobUtil {
             formBodyBuilder.append(URLEncoder.encode(singleEntry.getValue(), StandardCharsets.UTF_8));
         }
         return formBodyBuilder.toString();
+    }
+
+    // 解析 Set-Cookie 头部中的 Cookie
+    private static List<String> parseCookies(String setCookieHeader) {
+        Pattern pattern = Pattern.compile("(.*?)(?=;|$)");
+        return pattern.matcher(setCookieHeader)
+                .results()
+                .map(matchResult -> matchResult.group(1))
+                .collect(Collectors.toList());
     }
 }

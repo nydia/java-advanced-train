@@ -97,5 +97,12 @@ public class XxlJobController {
             System.out.println("任务启动失败");
         }
     }
+
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String login() throws IOException {
+
+        return XxlJobUtil.login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
+
+    }
     
 }
