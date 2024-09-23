@@ -1,16 +1,11 @@
 package com.nydia.xxljob;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.springframework.http.MediaType;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -29,7 +24,11 @@ import java.util.stream.Collectors;
  * @Description:
  */
 public class XxlJobUtil {
-    private static String cookie="";
+    private static String xxlJobAdminUrl  = "http://127.0.0.1:8080/xxl-job-admin";
+    private static String xxlJobAdminUser  = "admin";
+    private static String xxlJobAdminPass  = "123456";
+
+    private final static Map<String,String> loginCookie = new HashMap<>();
 
 
     /**
@@ -67,19 +66,40 @@ public class XxlJobUtil {
      * @throws HttpException
      * @throws IOException
      */
-    public static JSONObject addJob(String url,JSONObject requestInfo){
-        String path = "/api/jobinfo/save";
+    public static JSONObject addJob(String url, JSONObject requestInfo){
+        String path = "/jobinfo/add";
         String targetUrl = url + path;
-        HttpClient httpClient = new HttpClient();
-        PostMethod post = new PostMethod(targetUrl);
-        post.setRequestHeader("cookie", cookie);
-        RequestEntity requestEntity = new StringRequestEntity(requestInfo.toString(), "application/json", "utf-8");
-        post.setRequestEntity(requestEntity);
-        httpClient.executeMethod(post);
-        JSONObject result = new JSONObject();
-        result = getJsonObject(post, result);
-        System.out.println(result.toJSONString());
-        return result;
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(targetUrl))
+                .POST(HttpRequest.BodyPublishers.ofString(JSONObject.toJSONString(requestInfo)))
+                .build();
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        }catch (Exception e){
+            throw new RuntimeException("xxl-job add job error!");
+        }
+        System.out.println(response.body());
+//        JSONObject json = JSONObject.parse(response.body());
+//        Object code = json.getByPath("code");
+//        if (code.equals(200)){
+//            return Convert.toInt(json.getByPath("content"));
+//        }
+
+//        HttpClient httpClient = new HttpClient();
+//        PostMethod post = new PostMethod(targetUrl);
+//        post.setRequestHeader("cookie", cookie);
+//        RequestEntity requestEntity = new StringRequestEntity(requestInfo.toString(), "application/json", "utf-8");
+//        post.setRequestEntity(requestEntity);
+//        httpClient.executeMethod(post);
+//        JSONObject result = new JSONObject();
+//        result = getJsonObject(post, result);
+//        System.out.println(result.toJSONString());
+//        return result;
+
+        return null;
     }
 
     /**
@@ -154,7 +174,7 @@ public class XxlJobUtil {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(targetUrl))
-                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .POST(HttpRequest.BodyPublishers.ofString(getFormDataAsString(formData)))
                 .build();
 
@@ -187,7 +207,7 @@ public class XxlJobUtil {
         } else {
             throw new RuntimeException("get xxl-job cookie error!");
         }
-
+        loginCookie.put("XXL_JOB_LOGIN_IDENTITY", loginIdentity);
         return loginIdentity;
     }
 
@@ -212,4 +232,16 @@ public class XxlJobUtil {
                 .map(matchResult -> matchResult.group(1))
                 .collect(Collectors.toList());
     }
+
+    private static String getCookie() {
+        for (int i = 0; i < 3; i++) {
+            String cookieStr = loginCookie.get("XXL_JOB_LOGIN_IDENTITY");
+            if (cookieStr !=null) {
+                return "XXL_JOB_LOGIN_IDENTITY="+cookieStr;
+            }
+            login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
+        }
+        throw new RuntimeException("get xxl-job cookie error!");
+    }
+
 }

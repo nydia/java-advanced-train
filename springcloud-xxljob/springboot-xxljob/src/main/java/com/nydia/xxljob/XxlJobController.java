@@ -50,9 +50,9 @@ public class XxlJobController {
         xxlJobInfo.setGlueSource("");
         xxlJobInfo.setGlueRemark("GLUE代码初始化");
         xxlJobInfo.setGlueUpdatetime(new Date());
-        JSONObject test = (JSONObject) JSONObject.toJSON(xxlJobInfo);
+        JSONObject json = (JSONObject) JSONObject.toJSON(xxlJobInfo);
         XxlJobUtil.login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
-        JSONObject response = XxlJobUtil.addJob(xxlJobAdminUrl, test);
+        JSONObject response = XxlJobUtil.addJob(xxlJobAdminUrl, json);
         if (response.containsKey("code") && 200 == (Integer) response.get("code")) {
             System.out.println("新增成功");
         } else {
