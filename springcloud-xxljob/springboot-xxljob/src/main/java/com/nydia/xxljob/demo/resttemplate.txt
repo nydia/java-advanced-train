@@ -1,0 +1,41 @@
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.*;
+
+// 登录获取Token
+String loginUrl = "http://xxl-job-admin-address/login";
+HashMap<String, String> loginParams = new HashMap<>();
+loginParams.put("userName", "admin");
+loginParams.put("password", "123456");
+RestTemplate restTemplate = new RestTemplate();
+HttpEntity<HashMap<String, String>> loginEntity = new HttpEntity<>(loginParams, new HttpHeaders());
+String loginResponse = restTemplate.postForObject(loginUrl, loginEntity, String.class);
+JSONObject loginResult = JSON.parseObject(loginResponse);
+String token = loginResult.getString("content");
+
+// 获取执行器ID
+String groupIdUrl = "http://xxl-job-admin-address/jobgroup/getGroupId";
+HashMap<String, String> groupIdParams = new HashMap<>();
+groupIdParams.put("appname", "yourExecutorAppName");
+HttpEntity<HashMap<String, String>> groupIdEntity = new HttpEntity<>(groupIdParams, new HttpHeaders());
+String groupIdResponse = restTemplate.postForObject(groupIdUrl, groupIdEntity, String.class);
+int groupId = JSON.parseObject(groupIdResponse).getIntValue("content");
+
+// 添加任务
+String addJobUrl = "http://xxl-job-admin-address/jobinfo/add";
+JSONObject jobInfo = new JSONObject();
+jobInfo.put("jobGroup", groupId);
+jobInfo.put("jobDesc", "Your Job Description");
+jobInfo.put("cronExpression", "0/1 * * * * ?");
+jobInfo.put("glueType", "BEAN");
+jobInfo.put("executorHandler", "yourJobHandler");
+HttpHeaders headers = new HttpHeaders();
+headers.set("Cookie", "XXL_JOB_LOGIN_IDENTITY=" + token); // 设置Token
+HttpEntity<String> jobEntity = new HttpEntity<>(jobInfo.toJSONString(), headers);
+String addJobResponse = restTemplate.postForObject(addJobUrl, jobEntity, String.class);
+
+// 启动任务
+String startJobUrl = "http://xxl-job-admin-address/jobinfo/start";
+JSONObject startParams = new JSONObject();
+startParams.put("id", JSON.parseObject(addJobResponse).getIntValue("content"));
+HttpEntity<String> startEntity = new HttpEntity<>(startParams.toJSONString(), headers);
+String startJobResponse = restTemplate.postForObject(startJobUrl, startEntity, String.class);

@@ -1,7 +1,7 @@
 package com.nydia.xxljob;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import io.netty.handler.codec.http.HttpUtil;
 import org.apache.commons.httpclient.HttpException;
 import org.springframework.http.MediaType;
 
@@ -69,35 +69,21 @@ public class XxlJobUtil {
     public static JSONObject addJob(String url, JSONObject requestInfo){
         String path = "/jobinfo/add";
         String targetUrl = url + path;
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(targetUrl))
-                .POST(HttpRequest.BodyPublishers.ofString(JSONObject.toJSONString(requestInfo)))
-                .build();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set("Cookie", "XXL_JOB_LOGIN_IDENTITY=" + getCookie()); // 设置Token
+//        HttpEntity<String> jobEntity = new HttpEntity<>(requestInfo.toJSONString(), headers);
+//        String addJobResponse = restTemplate.postForObject(targetUrl, jobEntity, String.class);
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> response = null;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        }catch (Exception e){
-            throw new RuntimeException("xxl-job add job error!");
-        }
-        System.out.println(response.body());
-//        JSONObject json = JSONObject.parse(response.body());
-//        Object code = json.getByPath("code");
-//        if (code.equals(200)){
-//            return Convert.toInt(json.getByPath("content"));
-//        }
-
-//        HttpClient httpClient = new HttpClient();
-//        PostMethod post = new PostMethod(targetUrl);
-//        post.setRequestHeader("cookie", cookie);
-//        RequestEntity requestEntity = new StringRequestEntity(requestInfo.toString(), "application/json", "utf-8");
-//        post.setRequestEntity(requestEntity);
-//        httpClient.executeMethod(post);
-//        JSONObject result = new JSONObject();
-//        result = getJsonObject(post, result);
-//        System.out.println(result.toJSONString());
-//        return result;
+        // JSON格式的参数
+        String jsonParams = "{\"param1\":\"value1\", \"param2\":\"value2\"}";
+        // 创建请求对象
+        HttpRequest request = HttpRequest.post(url);
+        // 设置请求体为JSON格式
+        request.body(jsonParams);
+        // 设置内容类型为JSON
+        request.header("Content-Type", "application/json");
+        // 发起POST请求
+        String result = HttpUtil.execute(request);
 
         return null;
     }
@@ -237,7 +223,7 @@ public class XxlJobUtil {
         for (int i = 0; i < 3; i++) {
             String cookieStr = loginCookie.get("XXL_JOB_LOGIN_IDENTITY");
             if (cookieStr !=null) {
-                return "XXL_JOB_LOGIN_IDENTITY="+cookieStr;
+                return cookieStr;
             }
             login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
         }
