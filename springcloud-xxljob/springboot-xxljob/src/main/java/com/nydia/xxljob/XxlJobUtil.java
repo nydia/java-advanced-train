@@ -143,19 +143,6 @@ public class XxlJobUtil {
         return doGet(url,path);
     }
 
-    public static JSONObject doGet(String url,String path) throws HttpException, IOException {
-//        String targetUrl = url + path;
-//        HttpClient httpClient = new HttpClient();
-//        HttpMethod get = new GetMethod(targetUrl);
-//        get.setRequestHeader("cookie", cookie);
-//        httpClient.executeMethod(get);
-//        JSONObject result = new JSONObject();
-//        result = getJsonObject(get, result);
-//        return result;
-
-        return null;
-    }
-
     /**
      * 登录
      * @param url
@@ -211,6 +198,25 @@ public class XxlJobUtil {
         }
         loginCookie.put("XXL_JOB_LOGIN_IDENTITY", loginIdentity);
         return loginIdentity;
+    }
+
+    public static JSONObject doGet(String url,String path, Map<String, Object> params) throws HttpException, IOException {
+        String targetUrl = url + path;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Cookie", "XXL_JOB_LOGIN_IDENTITY=" + getCookie()); // 设置Token
+
+        MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();
+        Set<String> keySet = requestInfo.keySet();
+        for(String key : keySet){
+            postParameters.add(key, requestInfo.get(key));
+        }
+        HttpEntity<MultiValueMap<String, Object>> jobEntity = new HttpEntity<>(postParameters, headers);
+        RestTemplate restTemplate = SpringContextUtil.getBean(RestTemplate.class);
+        ResponseEntity<String> addJobResponse = restTemplate.getForEntity(url,String.class);
+
+        return JSONObject.parseObject(addJobResponse.getBody());
     }
 
     private static String getFormDataAsString(Map<String, String> formData) {
