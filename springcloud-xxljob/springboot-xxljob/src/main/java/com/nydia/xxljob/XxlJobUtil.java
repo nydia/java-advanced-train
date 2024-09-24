@@ -1,9 +1,16 @@
 package com.nydia.xxljob;
 
 import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.httpclient.HttpException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URI;
@@ -15,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -69,23 +77,31 @@ public class XxlJobUtil {
     public static JSONObject addJob(String url, JSONObject requestInfo){
         String path = "/jobinfo/add";
         String targetUrl = url + path;
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.set("Cookie", "XXL_JOB_LOGIN_IDENTITY=" + getCookie()); // 设置Token
-//        HttpEntity<String> jobEntity = new HttpEntity<>(requestInfo.toJSONString(), headers);
-//        String addJobResponse = restTemplate.postForObject(targetUrl, jobEntity, String.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Cookie", "XXL_JOB_LOGIN_IDENTITY=" + getCookie()); // 设置Token
 
-        // JSON格式的参数
-        String jsonParams = requestInfo.toJSONString();
-        // 创建请求对象
-        cn.hutool.http.HttpRequest request = cn.hutool.http.HttpRequest.post(url);
-        // 设置请求体为JSON格式
-        request.body(jsonParams);
-        // 设置内容类型为JSON
-        request.header("Content-Type", "application/json");
-        // 发起POST请求
-        String result = HttpUtil.post()
+        MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();
+        Set<String> keySet = requestInfo.keySet();
+        for(String key : keySet){
+            postParameters.add(key, requestInfo.get(key));
+        }
+        HttpEntity<MultiValueMap<String, Object>> jobEntity = new HttpEntity<>(postParameters, headers);
+        RestTemplate restTemplate = SpringContextUtil.getBean(RestTemplate.class);
+        ResponseEntity<String> addJobResponse = restTemplate.postForEntity(targetUrl, jobEntity, String.class);
 
-        return null;
+//        // JSON格式的参数
+//        String jsonParams = requestInfo.toJSONString();
+//        // 创建请求对象
+//        cn.hutool.http.HttpRequest request = cn.hutool.http.HttpRequest.post(url);
+//        // 设置请求体为JSON格式
+//        request.body(jsonParams);
+//        // 设置内容类型为JSON
+//        request.header("Content-Type", "application/json");
+//        // 发起POST请求
+//        String result = HttpUtil.post()
+
+        return JSONObject.parseObject(addJobResponse.getBody());
     }
 
     /**
