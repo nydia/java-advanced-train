@@ -101,6 +101,34 @@ public class XxlJobUtil {
         return JSONObject.parseObject(addJobResponse.getBody());
     }
 
+
+    /**
+     * 新增/编辑任务
+     * @param url
+     * @param requestInfo
+     * @return
+     * @throws HttpException
+     * @throws IOException
+     */
+    public static JSONObject updateJob(String url, JSONObject requestInfo){
+        String path = "/jobinfo/update";
+        String targetUrl = url + path;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Cookie", "XXL_JOB_LOGIN_IDENTITY=" + getCookie()); // 设置Token
+
+        MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();
+        Set<String> keySet = requestInfo.keySet();
+        for(String key : keySet){
+            postParameters.add(key, requestInfo.get(key));
+        }
+        HttpEntity<MultiValueMap<String, Object>> jobEntity = new HttpEntity<>(postParameters, headers);
+        RestTemplate restTemplate = SpringContextUtil.getBean(RestTemplate.class);
+        ResponseEntity<String> addJobResponse = restTemplate.postForEntity(targetUrl, jobEntity, String.class);
+
+        return JSONObject.parseObject(addJobResponse.getBody());
+    }
+
     /**
      * 删除任务
      * @param url
