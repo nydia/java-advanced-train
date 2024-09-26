@@ -4,10 +4,7 @@ import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.httpclient.HttpException;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -113,8 +110,9 @@ public class XxlJobUtil {
      * @throws IOException
      */
     public static JSONObject deleteJob(String url,int id) throws HttpException, IOException {
-        String path = "/api/jobinfo/delete?id="+id;
-        return doGet(url,path);
+        String path = "/jobinfo/remove?id="+id;
+        String targetUrl = url + path;
+        return doGet(targetUrl,new HashMap<>());
     }
 
     /**
@@ -126,8 +124,9 @@ public class XxlJobUtil {
      * @throws IOException
      */
     public static JSONObject startJob(String url,int id) throws HttpException, IOException {
-        String path = "/api/jobinfo/start?id="+id;
-        return doGet(url,path);
+        String path = "/jobinfo/start?id="+id;
+        String targetUrl = url + path;
+        return doGet(targetUrl,new HashMap<>());
     }
 
     /**
@@ -139,9 +138,25 @@ public class XxlJobUtil {
      * @throws IOException
      */
     public static JSONObject stopJob(String url,int id) throws HttpException, IOException {
-        String path = "/api/jobinfo/stop?id="+id;
-        return doGet(url,path);
+        String path = "/jobinfo/stop?id="+id;
+        String targetUrl = url + path;
+        return doGet(targetUrl,new HashMap<>());
     }
+
+    /**
+     * 运行任务
+     * @param url
+     * @param id
+     * @return
+     * @throws HttpException
+     * @throws IOException
+     */
+    public static JSONObject runJob(String url,int id) throws HttpException, IOException {
+        String path = "/jobinfo/trigger?id="+id;
+        String targetUrl = url + path;
+        return doGet(targetUrl,new HashMap<>());
+    }
+
 
     /**
      * 登录
@@ -200,21 +215,20 @@ public class XxlJobUtil {
         return loginIdentity;
     }
 
-    public static JSONObject doGet(String url,String path, Map<String, Object> params) throws HttpException, IOException {
-        String targetUrl = url + path;
-
+    public static JSONObject doGet(String url,Map<String, Object> params) throws HttpException, IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.set("Cookie", "XXL_JOB_LOGIN_IDENTITY=" + getCookie()); // 设置Token
 
         MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();
-        Set<String> keySet = requestInfo.keySet();
+        Set<String> keySet = params.keySet();
         for(String key : keySet){
-            postParameters.add(key, requestInfo.get(key));
+            postParameters.add(key, params.get(key));
         }
         HttpEntity<MultiValueMap<String, Object>> jobEntity = new HttpEntity<>(postParameters, headers);
+
         RestTemplate restTemplate = SpringContextUtil.getBean(RestTemplate.class);
-        ResponseEntity<String> addJobResponse = restTemplate.getForEntity(url,String.class);
+        ResponseEntity<String> addJobResponse = restTemplate.exchange(url, HttpMethod.GET, jobEntity, String.class);
 
         return JSONObject.parseObject(addJobResponse.getBody());
     }

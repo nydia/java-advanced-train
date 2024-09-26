@@ -100,6 +100,18 @@ public class XxlJobController {
         }
     }
 
+    @RequestMapping(value = "/run/{jobId}",method = RequestMethod.GET)
+    public void run(@PathVariable("jobId") Integer jobId) throws IOException {
+
+        XxlJobUtil.login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
+        JSONObject response = XxlJobUtil.runJob(xxlJobAdminUrl, jobId);
+        if (response.containsKey("code") && 200 == (Integer) response.get("code")) {
+            System.out.println("任务启动成功");
+        } else {
+            System.out.println("任务启动失败");
+        }
+    }
+
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login() throws IOException {
 
