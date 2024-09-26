@@ -152,7 +152,8 @@ public class XxlJobUtil {
      * @throws IOException
      */
     public static JSONObject runJob(String url,int id) throws HttpException, IOException {
-        String path = "/jobinfo/trigger?id="+id;
+        //String path = "/jobinfo/trigger?id="+id+"&executorParam={\"eventId:\":1}";
+        String path = "/jobinfo/trigger?id="+id+"&executorParam=eventId";
         String targetUrl = url + path;
         return doGet(targetUrl,new HashMap<>());
     }
