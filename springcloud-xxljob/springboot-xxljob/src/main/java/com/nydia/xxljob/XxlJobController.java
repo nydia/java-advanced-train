@@ -93,9 +93,9 @@ public class XxlJobController {
         XxlJobUtil.login(xxlJobAdminUrl,xxlJobAdminUser,xxlJobAdminPass);
         JSONObject response = XxlJobUtil.updateJob(xxlJobAdminUrl, json);
         if (response.containsKey("code") && 200 == (Integer) response.get("code")) {
-            System.out.println("新增成功");
+            System.out.println("修改成功");
         } else {
-            System.out.println("新增失败");
+            System.out.println("修改成功");
         }
         return response;
     }
