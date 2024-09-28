@@ -87,17 +87,6 @@ public class XxlJobUtil {
         RestTemplate restTemplate = SpringContextUtil.getBean(RestTemplate.class);
         ResponseEntity<String> addJobResponse = restTemplate.postForEntity(targetUrl, jobEntity, String.class);
 
-//        // JSON格式的参数
-//        String jsonParams = requestInfo.toJSONString();
-//        // 创建请求对象
-//        cn.hutool.http.HttpRequest request = cn.hutool.http.HttpRequest.post(url);
-//        // 设置请求体为JSON格式
-//        request.body(jsonParams);
-//        // 设置内容类型为JSON
-//        request.header("Content-Type", "application/json");
-//        // 发起POST请求
-//        String result = HttpUtil.post()
-
         return JSONObject.parseObject(addJobResponse.getBody());
     }
 
@@ -212,7 +201,7 @@ public class XxlJobUtil {
                 .build();
 
         HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         }catch (Exception e){
