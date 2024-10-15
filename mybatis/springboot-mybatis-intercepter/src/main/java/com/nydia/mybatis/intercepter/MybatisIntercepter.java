@@ -3,7 +3,7 @@ package com.nydia.mybatis.intercepter;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.nydia.mybatis.entity.BaseEntity;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.jsqlparser.expression.DateValue;
+import net.sf.jsqlparser.expression.StringValue;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.ItemsListVisitor;
 import net.sf.jsqlparser.expression.operators.relational.MultiExpressionList;
@@ -25,6 +25,7 @@ import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.util.Date;
 import java.util.Properties;
+import java.util.UUID;
 
 /**
  * MyBatis拦截器四种类型和自定义拦截器的使用流程
@@ -129,15 +130,17 @@ public class MybatisIntercepter implements Interceptor {
         String newSql = "";
         try {
             Insert insert = (Insert) CCJSqlParserUtil.parse(origSql);
-            insert.getColumns().add(new Column("create_time"));
-            insert.getItemsList().accept(new ItemsListVisitor() {
+            // insert.getColumns().add(new Column("create_time"));
+            insert.getColumns().add(new Column("uuid"));
+            insert.getItemsList(ExpressionList.class).accept(new ItemsListVisitor() {
                 @Override
                 public void visit(SubSelect subSelect) {
                 }
 
                 @Override
                 public void visit(ExpressionList expressionList) {
-                    expressionList.getExpressions().add(new DateValue(new java.sql.Date(1729003061893l)));
+                    //expressionList.getExpressions().add(new DateValue(new java.sql.Date(new Date().getTime())));
+                    expressionList.getExpressions().add(new StringValue(UUID.randomUUID().toString()));
                 }
 
                 @Override
