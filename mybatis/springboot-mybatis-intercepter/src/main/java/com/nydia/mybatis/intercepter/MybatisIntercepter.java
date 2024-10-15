@@ -20,7 +20,6 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -87,10 +86,8 @@ public class MybatisIntercepter implements Interceptor {
 
         //修改sql
         String newSql = sqlModify(sqlCommandType, origSql, paramter);
-        if (StringUtils.isEmpty(newSql)) {
-
-        } else {
-
+        if (newSql != null && newSql.length() > 0) {
+            metaObject.setValue("boundSql.sql", newSql);
         }
 
         return invocation.proceed();
