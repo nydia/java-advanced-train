@@ -39,3 +39,10 @@ mybatis:
     - classpath*:/mappers/*.xml
   # alias
   type-aliases-package: com.nydia.mybatis.entity
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      column-format: "'%s'"

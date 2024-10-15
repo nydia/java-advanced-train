@@ -2,20 +2,23 @@ package com.nydia.mybatis.intercepter;
 
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.nydia.mybatis.entity.BaseEntity;
-import org.apache.ibatis.cache.CacheKey;
-import org.apache.ibatis.executor.Executor;
+import lombok.extern.slf4j.Slf4j;
+import net.sf.jsqlparser.expression.DateValue;
+import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
+import net.sf.jsqlparser.expression.operators.relational.ItemsListVisitor;
+import net.sf.jsqlparser.expression.operators.relational.MultiExpressionList;
+import net.sf.jsqlparser.expression.operators.relational.NamedExpressionList;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.schema.Column;
+import net.sf.jsqlparser.statement.insert.Insert;
+import net.sf.jsqlparser.statement.select.SubSelect;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
-import org.apache.ibatis.plugin.Interceptor;
-import org.apache.ibatis.plugin.Intercepts;
-import org.apache.ibatis.plugin.Invocation;
-import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
-import org.apache.ibatis.session.ResultHandler;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ReflectionUtils;
 
@@ -44,30 +47,32 @@ import java.util.Properties;
  * 3. 实现 `plugin` 方法
  * 4. 配置拦截器：<plugins> 标签内添加一个 <plugin> 标签，并指定自定义拦截器类的完整路径，也可以使用@component或@Configuration注解注入到IOC容器中
  */
-@Configuration
 @Intercepts({
         @Signature(
                 type = StatementHandler.class,
                 method = "prepare",
-                args = {Connection.class, Integer.class}),
-        @Signature(
-                type = StatementHandler.class,
-                method = "getBoundSql",
-                args = {}),
-        @Signature(
-                type = Executor.class,
-                method = "update",
-                args = {MappedStatement.class, Object.class}
-        ),
-        @Signature(
-                type = Executor.class,
-                method = "query",
-                args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-        @Signature(
-                type = Executor.class,
-                method = "query",
-                args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}
-        )})
+                args = {Connection.class, Integer.class})
+//        @Signature(
+//                type = StatementHandler.class,
+//                method = "getBoundSql",
+//                args = {}),
+//        @Signature(
+//                type = Executor.class,
+//                method = "update",
+//                args = {MappedStatement.class, Object.class}
+//        ),
+//        @Signature(
+//                type = Executor.class,
+//                method = "query",
+//                args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+//        @Signature(
+//                type = Executor.class,
+//                method = "query",
+//                args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}
+//        )
+})
+@Slf4j
+@Configuration
 public class MybatisIntercepter implements Interceptor {
 
     @Override
@@ -86,14 +91,14 @@ public class MybatisIntercepter implements Interceptor {
         return invocation.proceed();
     }
 
-    private void sqlModify(SqlCommandType sqlCommandType,String origSql, Object paramter){
-        switch (sqlCommandType){
+    private void sqlModify(SqlCommandType sqlCommandType, String origSql, Object paramter) {
+        switch (sqlCommandType) {
             case SELECT -> {
             }
             case UPDATE -> {
             }
             case INSERT -> {
-                sqlModifyInsert(paramter);
+                sqlModifyInsert(paramter, origSql);
             }
             case DELETE -> {
             }
@@ -104,24 +109,54 @@ public class MybatisIntercepter implements Interceptor {
         }
     }
 
-    private void sqlModifyInsert(Object paramter){
-        if(paramter instanceof BaseEntity baseEntity){
+    private void sqlModifyInsert(Object paramter, String origSql) {
+        if (paramter instanceof BaseEntity baseEntity) {
             //参数处理
         } else {
             return;
         }
         Field field = ReflectionUtils.findField(BaseEntity.class, "createTime");
         ReflectionUtils.setField(field, baseEntity, new Date());
+
+        sqlModifyInsert(origSql);
+    }
+
+    private void sqlModifyInsert(String origSql) {
+        try {
+            Insert insert = (Insert) CCJSqlParserUtil.parse(origSql);
+            insert.getColumns().add(new Column("create_time"));
+            insert.getItemsList().accept(new ItemsListVisitor() {
+                @Override
+                public void visit(SubSelect subSelect) {
+                }
+
+                @Override
+                public void visit(ExpressionList expressionList) {
+                    expressionList.getExpressions().add(new DateValue(new java.sql.Date(1729003061893l)));
+                }
+
+                @Override
+                public void visit(NamedExpressionList namedExpressionList) {
+
+                }
+
+                @Override
+                public void visit(MultiExpressionList multiExpressionList) {
+                }
+            });
+        } catch (Exception e) {
+            log.error("解析插入sql错误");
+        }
     }
 
     @Override
     public Object plugin(Object target) {
-        return Interceptor.super.plugin(target);
+        return Plugin.wrap(target, this);
     }
 
     @Override
     public void setProperties(Properties properties) {
-        Interceptor.super.setProperties(properties);
+
     }
 
 

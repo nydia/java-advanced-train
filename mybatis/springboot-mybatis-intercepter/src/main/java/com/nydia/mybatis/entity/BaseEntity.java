@@ -1,5 +1,7 @@
 package com.nydia.mybatis.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.util.Date;
 
 /**
@@ -9,7 +11,9 @@ import java.util.Date;
  */
 public class BaseEntity {
 
+    @TableField(value = "id")
     protected Integer id;
+    @TableField(value = "create_time")
     protected Date createTime;
 
 }
