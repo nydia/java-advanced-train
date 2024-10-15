@@ -1,6 +1,8 @@
 package com.nydia.mybatis.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.util.Date;
 
@@ -11,9 +13,10 @@ import java.util.Date;
  */
 public class BaseEntity {
 
-    @TableField(value = "id")
-    protected Integer id;
+    @TableId(type = IdType.AUTO)     //声明主键自增长
+    public Integer id;
+
     @TableField(value = "create_time")
-    protected Date createTime;
+    public Date createTime;
 
 }

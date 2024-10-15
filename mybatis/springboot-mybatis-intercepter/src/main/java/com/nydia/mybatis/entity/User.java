@@ -17,10 +17,10 @@ public class User extends BaseEntity implements Serializable {
     private final static long serialVersionUID = 1L;
 
     @TableField(value = "username")
-    private String username;
+    public String username;
 
     @TableField(value = "password")
-    private String password;
+    public String password;
 
 
 }

@@ -19,8 +19,8 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -72,7 +72,7 @@ import java.util.Properties;
 //        )
 })
 @Slf4j
-@Configuration
+//@Configuration
 public class MybatisIntercepter implements Interceptor {
 
     @Override
@@ -86,19 +86,24 @@ public class MybatisIntercepter implements Interceptor {
         Object paramter = boundSql.getParameterObject();
 
         //修改sql
-        sqlModify(sqlCommandType, origSql, paramter);
+        String newSql = sqlModify(sqlCommandType, origSql, paramter);
+        if (StringUtils.isEmpty(newSql)) {
+
+        } else {
+
+        }
 
         return invocation.proceed();
     }
 
-    private void sqlModify(SqlCommandType sqlCommandType, String origSql, Object paramter) {
+    private String sqlModify(SqlCommandType sqlCommandType, String origSql, Object paramter) {
         switch (sqlCommandType) {
             case SELECT -> {
             }
             case UPDATE -> {
             }
             case INSERT -> {
-                sqlModifyInsert(paramter, origSql);
+                return sqlModifyInsert(paramter, origSql);
             }
             case DELETE -> {
             }
@@ -107,21 +112,24 @@ public class MybatisIntercepter implements Interceptor {
             case UNKNOWN -> {
             }
         }
+        return "";
     }
 
-    private void sqlModifyInsert(Object paramter, String origSql) {
+    private String sqlModifyInsert(Object paramter, String origSql) {
+        String newSql = "";
         if (paramter instanceof BaseEntity baseEntity) {
             //参数处理
         } else {
-            return;
+            return newSql;
         }
         Field field = ReflectionUtils.findField(BaseEntity.class, "createTime");
         ReflectionUtils.setField(field, baseEntity, new Date());
 
-        sqlModifyInsert(origSql);
+        return sqlModifyInsert(origSql);
     }
 
-    private void sqlModifyInsert(String origSql) {
+    private String sqlModifyInsert(String origSql) {
+        String newSql = "";
         try {
             Insert insert = (Insert) CCJSqlParserUtil.parse(origSql);
             insert.getColumns().add(new Column("create_time"));
@@ -144,9 +152,11 @@ public class MybatisIntercepter implements Interceptor {
                 public void visit(MultiExpressionList multiExpressionList) {
                 }
             });
+            newSql = insert.toString();
         } catch (Exception e) {
             log.error("解析插入sql错误");
         }
+        return newSql;
     }
 
     @Override
