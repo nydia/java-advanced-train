@@ -1,1 +1,13 @@
-spring.application.name=springboot-canal-rabbitmq
+spring:
+  application:
+    name: springboot-canal-rabbitmq
+  rabbitmq:
+    host: 192.168.99.100
+    port: 5672
+    username: admin
+    password: admin
+
+canal:
+  queue: mysql-canal-rabbitmq-queue
+  exchange: mysql-canal-rabbitmq
+  routing-key: mysql-canal-rabbitmq-key
