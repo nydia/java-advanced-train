@@ -1,6 +1,7 @@
 package com.nydia.mybatis.intercepter;
 
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
+import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import com.nydia.mybatis.entity.BaseEntity;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.expression.StringValue;
@@ -16,7 +17,9 @@ import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
-import org.apache.ibatis.plugin.*;
+import org.apache.ibatis.plugin.Intercepts;
+import org.apache.ibatis.plugin.Invocation;
+import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.util.ReflectionUtils;
@@ -28,6 +31,26 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
 
+/**
+ * MyBatis拦截器四种类型和自定义拦截器的使用流程
+ * 一、MyBatis拦截器四种类型的详细解释：
+ * 1. ParameterHandler 参数拦截器
+ * 2. ResultSetHandler 结果集拦截器
+ * 3. StatementHandler 语句拦截器
+ * 4. Executor执行拦截器
+ * 二、MyBatis拦截器的使用场景
+ * 1. 日志记录
+ * 2. 性能监控
+ * 3. 缓存
+ * 4. 权限控制
+ * 5. 动态修改SQL
+ * 6. 结果集处理
+ * 三、自定义 MyBatis 拦截器操作流程：
+ * 1. 创建自定义拦截器类
+ * 2. 实现 `intercept` 方法
+ * 3. 实现 `plugin` 方法
+ * 4. 配置拦截器：<plugins> 标签内添加一个 <plugin> 标签，并指定自定义拦截器类的完整路径，也可以使用@component或@Configuration注解注入到IOC容器中
+ */
 @Intercepts({
         @Signature(
                 type = StatementHandler.class,
@@ -39,9 +62,9 @@ import java.util.UUID;
                 args = {Statement.class})
 })
 @Slf4j
-public class MybatisIntercepter2 implements Interceptor {
+//@Configuration
+public class MybatisPlusIntercepter implements InnerInterceptor {
 
-    @Override
     public Object intercept(Invocation invocation) throws Throwable {
         StatementHandler statementHandler = PluginUtils.realTarget(invocation.getTarget());
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
@@ -126,10 +149,6 @@ public class MybatisIntercepter2 implements Interceptor {
         return newSql;
     }
 
-    @Override
-    public Object plugin(Object target) {
-        return Plugin.wrap(target, this);
-    }
 
     @Override
     public void setProperties(Properties properties) {
