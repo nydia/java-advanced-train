@@ -22,17 +22,16 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
 
 @Intercepts({
-        @Signature(
-                type = StatementHandler.class,
-                method = "prepare",
-                args = {Connection.class, Integer.class}),
+//        @Signature(
+//                type = StatementHandler.class,
+//                method = "prepare",
+//                args = {Connection.class, Integer.class}),
         @Signature(
                 type = StatementHandler.class,
                 method = "update",
@@ -43,6 +42,14 @@ public class MybatisIntercepter2 implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
+
+        System.out.println(1);
+
+        boolean result = true;
+        if (result) {
+            return invocation.proceed();
+        }
+
         StatementHandler statementHandler = PluginUtils.realTarget(invocation.getTarget());
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");

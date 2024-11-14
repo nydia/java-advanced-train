@@ -65,7 +65,8 @@ import java.util.UUID;
 //@Configuration
 public class MybatisPlusIntercepter implements InnerInterceptor {
 
-    public Object intercept(Invocation invocation) throws Throwable {
+
+    public Object intercept1(Invocation invocation) throws Throwable {
         StatementHandler statementHandler = PluginUtils.realTarget(invocation.getTarget());
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");

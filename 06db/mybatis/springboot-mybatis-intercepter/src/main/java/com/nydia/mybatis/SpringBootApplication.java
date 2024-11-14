@@ -1,7 +1,6 @@
 package com.nydia.mybatis;
 
-import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.nydia.mybatis.intercepter.MybatisPlusIntercepter;
+import com.nydia.mybatis.intercepter.MybatisIntercepter2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
 
@@ -17,16 +16,16 @@ public class SpringBootApplication {
 //		return new MybatisIntercepter();
 //	}
 
-//    @Bean
-//    public MybatisIntercepter2 mybatisIntercepter() {
-//        return new MybatisIntercepter2();
-//    }
-
     @Bean
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        interceptor.addInnerInterceptor(new MybatisPlusIntercepter());
-        return interceptor;
+    public MybatisIntercepter2 mybatisIntercepter() {
+        return new MybatisIntercepter2();
     }
+
+//    @Bean
+//    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+//        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+//        interceptor.addInnerInterceptor(new MybatisPlusIntercepter());
+//        return interceptor;
+//    }
 
 }
