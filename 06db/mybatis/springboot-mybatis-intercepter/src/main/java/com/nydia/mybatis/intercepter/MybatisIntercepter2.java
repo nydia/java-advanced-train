@@ -1,80 +1,51 @@
 package com.nydia.mybatis.intercepter;
 
-import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
+import cn.hutool.core.util.ReflectUtil;
 import com.nydia.mybatis.entity.BaseEntity;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.jsqlparser.expression.StringValue;
-import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
-import net.sf.jsqlparser.expression.operators.relational.ItemsListVisitor;
-import net.sf.jsqlparser.expression.operators.relational.MultiExpressionList;
-import net.sf.jsqlparser.expression.operators.relational.NamedExpressionList;
-import net.sf.jsqlparser.parser.CCJSqlParserUtil;
-import net.sf.jsqlparser.schema.Column;
-import net.sf.jsqlparser.statement.insert.Insert;
-import net.sf.jsqlparser.statement.select.SubSelect;
-import org.apache.ibatis.executor.statement.StatementHandler;
+import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
-import org.apache.ibatis.reflection.MetaObject;
-import org.apache.ibatis.reflection.SystemMetaObject;
-import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
-import java.sql.Statement;
 import java.util.Date;
 import java.util.Properties;
-import java.util.UUID;
 
 @Intercepts({
-//        @Signature(
-//                type = StatementHandler.class,
-//                method = "prepare",
-//                args = {Connection.class, Integer.class}),
-        @Signature(
-                type = StatementHandler.class,
-                method = "update",
-                args = {Statement.class})
-})
+        @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})})
 @Slf4j
 public class MybatisIntercepter2 implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
 
-        System.out.println(1);
-
-        boolean result = true;
-        if (result) {
+        Object[] args = invocation.getArgs();
+        if (args == null || args.length < 2) {
             return invocation.proceed();
         }
 
-        StatementHandler statementHandler = PluginUtils.realTarget(invocation.getTarget());
-        MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
-        MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
-        BoundSql boundSql = (BoundSql) metaObject.getValue("delegate.boundSql");
+        MappedStatement mappedStatement = (MappedStatement) args[0];
         SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
+        Object paramter = args[1];
+        BoundSql boundSql = mappedStatement.getBoundSql(paramter);
         String origSql = boundSql.getSql();
-        Object paramter = boundSql.getParameterObject();
 
-        //修改sql
-        String newSql = sqlModify(sqlCommandType, origSql, paramter);
-        if (newSql != null && newSql.length() > 0) {
-            metaObject.setValue("boundSql.sql", newSql);
-        }
+        //修改参数
+        paramModify(sqlCommandType, origSql, paramter);
 
         return invocation.proceed();
     }
 
-    private String sqlModify(SqlCommandType sqlCommandType, String origSql, Object paramter) {
+    private void paramModify(SqlCommandType sqlCommandType, String origSql, Object paramter) {
         switch (sqlCommandType) {
             case SELECT -> {
             }
             case UPDATE -> {
             }
             case INSERT -> {
-                return sqlModifyInsert(paramter, origSql);
+                paramModifyInsert(paramter, origSql);
             }
             case DELETE -> {
             }
@@ -83,55 +54,22 @@ public class MybatisIntercepter2 implements Interceptor {
             case UNKNOWN -> {
             }
         }
-        return "";
     }
 
-    private String sqlModifyInsert(Object paramter, String origSql) {
-        String newSql = "";
-        if (paramter instanceof BaseEntity baseEntity) {
+    private void paramModifyInsert(Object paramter, String origSql) {
+        if (paramter instanceof BaseEntity paramObj) {
             //参数处理
         } else {
-            return newSql;
+            return;
         }
-        Field field = ReflectionUtils.findField(BaseEntity.class, "createTime");
-        ReflectionUtils.setField(field, baseEntity, new Date());
+        Class<? extends BaseEntity> entityClass = paramObj.getClass();
+        Field field = ReflectUtil.getField(entityClass, "createBy");
+        ReflectUtil.setFieldValue(paramObj, field, "200");
 
-        return sqlModifyInsert(origSql);
+        Field field2 = ReflectUtil.getField(entityClass, "createTime");
+        ReflectUtil.setFieldValue(paramObj, field2, new Date());
     }
 
-    private String sqlModifyInsert(String origSql) {
-        String newSql = "";
-        try {
-            Insert insert = (Insert) CCJSqlParserUtil.parse(origSql);
-            // insert.getColumns().add(new Column("create_time"));
-            insert.getColumns().add(new Column("uuid"));
-            insert.getItemsList(ExpressionList.class).accept(new ItemsListVisitor() {
-                @Override
-                public void visit(SubSelect subSelect) {
-                }
-
-                @Override
-                public void visit(ExpressionList expressionList) {
-                    //expressionList.getExpressions().add(new DateValue(new java.sql.Date(new Date().getTime())));
-                    //expressionList.getExpressions().add(new StringValue(UUID.randomUUID().toString()));
-                    expressionList.getExpressions().add(new StringValue(UUID.randomUUID().toString()));
-                }
-
-                @Override
-                public void visit(NamedExpressionList namedExpressionList) {
-
-                }
-
-                @Override
-                public void visit(MultiExpressionList multiExpressionList) {
-                }
-            });
-            newSql = insert.toString();
-        } catch (Exception e) {
-            log.error("解析插入sql错误");
-        }
-        return newSql;
-    }
 
     @Override
     public Object plugin(Object target) {

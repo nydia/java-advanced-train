@@ -13,10 +13,13 @@ import java.util.Date;
  */
 public class BaseEntity {
 
-    @TableId(type = IdType.AUTO)     //声明主键自增长
-    public Integer id;
+    @TableId(value = "id", type = IdType.ASSIGN_ID)    //主键
+    public String id;
 
     @TableField(value = "create_time")
     public Date createTime;
+
+    @TableField(value = "create_by")
+    public String createBy;
 
 }

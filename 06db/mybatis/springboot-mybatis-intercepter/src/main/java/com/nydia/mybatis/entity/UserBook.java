@@ -1,19 +1,21 @@
 package com.nydia.mybatis.entity;
 
-import lombok.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@TableName("tbl_user_book")
 public class UserBook extends BaseEntity {
 
-    private User user;
-    private String bookName;
+    @TableField("user_id")
+    private String userId;
 
-    public UserBook(Integer id) {
-        this.id = id;
-    }
+    @TableField("book_name")
+    private String bookName;
 
 }

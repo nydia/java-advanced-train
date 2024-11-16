@@ -27,7 +27,7 @@ public class UserController {
     @RequestMapping(value = "/insert")
     public String insert() {
         List<User> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             User user = new User();
             user.setUsername("username" + i);
             user.setPassword("password" + i);

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import com.nydia.mybatis.entity.BaseEntity;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.jsqlparser.expression.StringValue;
+import net.sf.jsqlparser.expression.DateValue;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.ItemsListVisitor;
 import net.sf.jsqlparser.expression.operators.relational.MultiExpressionList;
@@ -22,14 +22,13 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.util.Date;
 import java.util.Properties;
-import java.util.UUID;
 
 /**
  * MyBatis拦截器四种类型和自定义拦截器的使用流程
@@ -55,14 +54,10 @@ import java.util.UUID;
         @Signature(
                 type = StatementHandler.class,
                 method = "prepare",
-                args = {Connection.class, Integer.class}),
-        @Signature(
-                type = StatementHandler.class,
-                method = "update",
-                args = {Statement.class})
+                args = {Connection.class, Integer.class})
 })
 @Slf4j
-//@Configuration
+@Configuration
 public class MybatisPlusIntercepter implements InnerInterceptor {
 
 
@@ -120,8 +115,7 @@ public class MybatisPlusIntercepter implements InnerInterceptor {
         String newSql = "";
         try {
             Insert insert = (Insert) CCJSqlParserUtil.parse(origSql);
-            // insert.getColumns().add(new Column("create_time"));
-            insert.getColumns().add(new Column("uuid"));
+            insert.getColumns().add(new Column("create_time"));
             insert.getItemsList(ExpressionList.class).accept(new ItemsListVisitor() {
                 @Override
                 public void visit(SubSelect subSelect) {
@@ -129,9 +123,8 @@ public class MybatisPlusIntercepter implements InnerInterceptor {
 
                 @Override
                 public void visit(ExpressionList expressionList) {
-                    //expressionList.getExpressions().add(new DateValue(new java.sql.Date(new Date().getTime())));
+                    expressionList.getExpressions().add(new DateValue());
                     //expressionList.getExpressions().add(new StringValue(UUID.randomUUID().toString()));
-                    expressionList.getExpressions().add(new StringValue(UUID.randomUUID().toString()));
                 }
 
                 @Override

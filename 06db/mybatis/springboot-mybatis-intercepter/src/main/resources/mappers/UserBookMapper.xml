@@ -3,12 +3,11 @@
 <mapper namespace="com.nydia.mybatis.mapper.UserBookMapper">
 
   <resultMap id="resultMap" type="com.nydia.mybatis.entity.UserBook">
-    <result property="id" column="id"/>
     <result property="bookName" column="book_name"/>
     <association property="user" javaType="com.nydia.mybatis.entity.User" select="com.nydia.mybatis.mapper.UserMapper.selectById" column="id" fetchType="lazy"/>
   </resultMap>
 
-  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="resultMap">
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="resultMap">
     select id,user_id,book_name
     from tbl_user_book
     where user_id = #{userId}

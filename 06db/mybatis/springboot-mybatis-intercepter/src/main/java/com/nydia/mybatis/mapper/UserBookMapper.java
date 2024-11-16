@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface UserBookMapper {
 
-    UserBook selectByUserId(Integer userId);
+    UserBook selectByUserId(String userId);
 
     List<UserBook> selectByNameForMap(String bookName);
 

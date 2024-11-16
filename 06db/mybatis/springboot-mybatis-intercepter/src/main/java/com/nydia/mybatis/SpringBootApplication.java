@@ -1,5 +1,6 @@
 package com.nydia.mybatis;
 
+import com.nydia.mybatis.intercepter.MybatisIntercepter;
 import com.nydia.mybatis.intercepter.MybatisIntercepter2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
