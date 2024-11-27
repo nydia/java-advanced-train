@@ -1,5 +1,6 @@
-package com.nydia.rabbitmq;
+package com.nydia.rabbitmq.config;
 
+import com.nydia.rabbitmq.Constant;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.CustomExchange;
@@ -16,7 +17,7 @@ import java.util.Map;
  * @Description: 延迟队列配置
  */
 @Configuration
-public class RabbitConfigAutoCrreateTest {
+public class RabbitMQConfigDelay {
 
     @Bean
     public Queue delayQueue() {
@@ -38,7 +39,7 @@ public class RabbitConfigAutoCrreateTest {
     }
 
     @Bean
-    public Binding binding() {
+    public Binding delayRouteBinding() {
         return BindingBuilder.bind(delayQueue())
                 .to(delayExchange()).with(Constant.routing_key_delay).noargs();
     }
