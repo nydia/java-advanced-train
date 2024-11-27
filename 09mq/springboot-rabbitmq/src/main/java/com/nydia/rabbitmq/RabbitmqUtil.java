@@ -1,5 +1,6 @@
 package com.nydia.rabbitmq;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ public class RabbitmqUtil {
     @Autowired
     private RabbitAdmin rabbitAdmin;
 
-    public void createExchange(){
+    public void createExchange() {
         boolean durable = true;
-        boolean autoDelete = true;
+        boolean autoDelete = true;//服务关闭就自动删除了
 
         TopicExchange exchange1 = new TopicExchange(Constant.exchange_1, durable, autoDelete);
         rabbitAdmin.declareExchange(exchange1);
@@ -32,11 +33,29 @@ public class RabbitmqUtil {
 
     }
 
-    public void createQueue(){
+    public void createQueue() {
+        //queueName 队列名称
+        //durable 是否持久化
+        //exclusive 是否排他
+        //autoDelete 是否自动删除
+        boolean durable = true;
+        boolean exclusive = true;
+        boolean autoDelete = true;
+
+        Queue queue1 = new Queue(Constant.queue_1, durable, exclusive, autoDelete);
+        rabbitAdmin.declareQueue(queue1);
+
+
+        Queue queue2 = new Queue(Constant.queue_delay, durable, exclusive, autoDelete);
+        rabbitAdmin.declareQueue(queue2);
+
+
+        Queue queue3 = new Queue(Constant.queue_transaction, durable, exclusive, autoDelete);
+        rabbitAdmin.declareQueue(queue3);
 
     }
 
-    public void createRouteKey(){
+    public void createRouteKey() {
 
     }
 
