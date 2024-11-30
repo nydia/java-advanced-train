@@ -1,7 +1,6 @@
 package com.nydia.rabbitmq;
 
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,17 +17,17 @@ public class RabbitmqUtil {
     private RabbitAdmin rabbitAdmin;
 
     public void createExchange() {
-        boolean durable = true;
-        boolean autoDelete = true;//服务关闭就自动删除了
-
-        TopicExchange exchange1 = new TopicExchange(Constant.exchange_1, durable, autoDelete);
-        rabbitAdmin.declareExchange(exchange1);
-
-        TopicExchange exchange2 = new TopicExchange(Constant.exchange_delay, durable, autoDelete);
-        rabbitAdmin.declareExchange(exchange2);
-
-        TopicExchange exchange3 = new TopicExchange(Constant.exchange_transaction, durable, autoDelete);
-        rabbitAdmin.declareExchange(exchange3);
+//        boolean durable = true;
+//        boolean autoDelete = true;//服务关闭就自动删除了
+//
+//        DirectExchange exchange1 = new DirectExchange(Constant.exchange_common, durable, autoDelete);
+//        rabbitAdmin.declareExchange(exchange1);
+//
+//        CustomExchange exchange2 = new CustomExchange(Constant.exchange_delay, Constant.exchange_type_delay, durable, autoDelete);
+//        rabbitAdmin.declareExchange(exchange2);
+//
+//        DirectExchange exchange3 = new DirectExchange(Constant.exchange_transaction, durable, autoDelete);
+//        rabbitAdmin.declareExchange(exchange3);
 
 
     }
@@ -42,7 +41,7 @@ public class RabbitmqUtil {
         boolean exclusive = true;
         boolean autoDelete = true;
 
-        Queue queue1 = new Queue(Constant.queue_1, durable, exclusive, autoDelete);
+        Queue queue1 = new Queue(Constant.queue_standalone, durable, exclusive, autoDelete);
         rabbitAdmin.declareQueue(queue1);
 
 

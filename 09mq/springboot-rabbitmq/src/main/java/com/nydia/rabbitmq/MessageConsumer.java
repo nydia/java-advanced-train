@@ -8,12 +8,12 @@ import java.util.Date;
 @Component
 public class MessageConsumer {
 
-    @RabbitListener(queues = Constant.queue_1)
+    @RabbitListener(queues = Constant.queue_transaction)
     public void receiveMessage1(String message) {
         System.out.println("Received message: " + message);
     }
 
-    @RabbitListener(queues = Constant.queue_2)
+    @RabbitListener(queues = Constant.queue_common)
     public void receiveMessage2(String message) {
         System.out.println("Received message: " + message);
     }

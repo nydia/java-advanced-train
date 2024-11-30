@@ -2,6 +2,8 @@ package com.nydia.rabbitmq.config;
 
 import com.nydia.rabbitmq.Constant;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +17,17 @@ import java.util.Map;
  */
 @Configuration
 public class RabbitMQConfigTransaction {
+
+    @Autowired
+    private RabbitAdmin rabbitAdmin;
+
+    //通过rabbitAdmin自动创建queue
+    @Bean("addQueueTransaction")
+    public Queue addQueueTransaction() {
+        Queue queue = QueueBuilder.durable(Constant.queue_transaction).build();
+        rabbitAdmin.declareQueue(queue);
+        return queue;
+    }
 
     @Bean
     public Queue transactionQueue() {

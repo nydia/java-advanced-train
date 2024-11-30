@@ -6,12 +6,12 @@ package com.nydia.rabbitmq;
  * @Description: Constant
  */
 public class Constant {
-    public static final String queue_1 = "queue-common";
+    public static final String queue_standalone = "queue-standalone";
 
 
-    public static final String exchange_1 = "exchange-A";
-    public static final String queue_2 = "queue-A";
-    public static final String routing_key_1 = "routingKey-A";
+    public static final String exchange_common = "exchange-A";
+    public static final String queue_common = "queue-A";
+    public static final String routing_key_common = "routingKey-A";
 
 
     public static final String queue_delay = "queue-delay";
@@ -21,9 +21,9 @@ public class Constant {
 
 
 
+    public static final String queue_transaction = "queue-transaction";
     public static final String exchange_transaction = "exchange-transaction";
     public static final String routing_key_transaction = "routingKey-transaction";
-    public static final String queue_transaction = "queue-transaction";
 
 
 }

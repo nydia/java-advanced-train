@@ -22,12 +22,12 @@ public class MessageProducer {
 
     // queue
     public void sendMessage1(String message) {
-        amqpTemplate.convertAndSend(Constant.queue_1, message);
+        amqpTemplate.convertAndSend(Constant.queue_standalone, message);
     }
 
     // exchange + routingKey -> queue
     public void sendMessage2(String message) {
-        amqpTemplate.convertAndSend(Constant.exchange_1, Constant.routing_key_1, message);
+        amqpTemplate.convertAndSend(Constant.exchange_common, Constant.routing_key_common, message);
     }
 
     // 延迟插件 -> 延迟队列

@@ -1,10 +1,9 @@
 package com.nydia.rabbitmq.config;
 
 import com.nydia.rabbitmq.Constant;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.CustomExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +17,17 @@ import java.util.Map;
  */
 @Configuration
 public class RabbitMQConfigDelay {
+
+    @Autowired
+    private RabbitAdmin rabbitAdmin;
+
+    //通过rabbitAdmin自动创建queue
+    @Bean("addQueueDelay")
+    public Queue addQueueDelay() {
+        Queue queue = QueueBuilder.durable(Constant.queue_delay).build();
+        rabbitAdmin.declareQueue(queue);
+        return queue;
+    }
 
     @Bean
     public Queue delayQueue() {

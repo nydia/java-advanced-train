@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @Description: RabbitmqConfig
  */
 @Configuration
-public class RabbitmqConfig {
+public class RabbitmqAdminConfig {
 
     @Autowired
     private ConnectionFactory connectionFactory;
