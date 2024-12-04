@@ -17,8 +17,8 @@ public class RabbitmqCommandLine implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        rabbitmqUtil.createExchange();
-        rabbitmqUtil.createQueue();
-        rabbitmqUtil.createRouteKey();
+//        rabbitmqUtil.createExchange();
+//        rabbitmqUtil.createQueue();
+//        rabbitmqUtil.createRouteKey();
     }
 }

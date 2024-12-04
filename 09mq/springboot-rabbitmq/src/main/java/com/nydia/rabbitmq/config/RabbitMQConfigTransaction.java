@@ -18,16 +18,16 @@ import java.util.Map;
 @Configuration
 public class RabbitMQConfigTransaction {
 
-    @Autowired
-    private RabbitAdmin rabbitAdmin;
-
-    //通过rabbitAdmin自动创建queue
-    @Bean("addQueueTransaction")
-    public Queue addQueueTransaction() {
-        Queue queue = QueueBuilder.durable(Constant.queue_transaction).build();
-        rabbitAdmin.declareQueue(queue);
-        return queue;
-    }
+//    @Autowired
+//    private RabbitAdmin rabbitAdmin;
+//
+//    //通过rabbitAdmin自动创建queue
+//    @Bean("addQueueTransaction")
+//    public Queue addQueueTransaction() {
+//        Queue queue = QueueBuilder.durable(Constant.queue_transaction).build();
+//        rabbitAdmin.declareQueue(queue);
+//        return queue;
+//    }
 
     @Bean
     public Queue transactionQueue() {

@@ -18,34 +18,43 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfigCustom {
 
-    @Autowired
-    private RabbitAdmin rabbitAdmin;
-
-    //通过rabbitAdmin自动创建exchange
-    @Bean("addCommonExchange")
-    public DirectExchange addCommonExchange() {
-        return ExchangeBuilder
-                .directExchange(Constant.exchange_common)
-                .durable(true)
-                .build();
-    }
-
-    //通过rabbitAdmin自动创建queue
-    @Bean("addCommonQueue")
-    public Queue addQueueDelay() {
-        Queue queue = QueueBuilder.durable(Constant.queue_common).build();
-        rabbitAdmin.declareQueue(queue);
-        return queue;
-    }
+//    @Autowired
+//    private RabbitAdmin rabbitAdmin;
+//
+//    //通过rabbitAdmin自动创建exchange
+//    @Bean("addCommonExchange")
+//    public DirectExchange addCommonExchange() {
+//        return ExchangeBuilder
+//                .directExchange(Constant.exchange_common)
+//                .durable(true)
+//                .build();
+//    }
+//
+//    //通过rabbitAdmin自动创建queue
+//    @Bean("addCommonQueue")
+//    public Queue addCommonQueue() {
+//        Queue queue = QueueBuilder.durable(Constant.queue_common).build();
+//        rabbitAdmin.declareQueue(queue);
+//        return queue;
+//    }
+//
+//    //通过rabbitAdmin自动创建queue
+//    @Bean("addStandaloneQueue")
+//    public Queue addStandaloneQueue() {
+//        Queue queue = QueueBuilder.durable(Constant.queue_standalone).build();
+//        rabbitAdmin.declareQueue(queue);
+//        return queue;
+//    }
 
     @Bean
     public Queue commonQueue() {
-        return new Queue(Constant.queue_common, true);
+        return new Queue(Constant.queue_common , true, false, false);
     }
 
     @Bean
     public Queue standaloneQueue() {
-        return new Queue(Constant.queue_standalone, true);
+        return new Queue(Constant.queue_standalone
+                , true, false, false);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.nydia.rabbitmq;
 
+import org.springframework.amqp.core.CustomExchange;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +19,17 @@ public class RabbitmqUtil {
     private RabbitAdmin rabbitAdmin;
 
     public void createExchange() {
-//        boolean durable = true;
-//        boolean autoDelete = true;//服务关闭就自动删除了
-//
-//        DirectExchange exchange1 = new DirectExchange(Constant.exchange_common, durable, autoDelete);
-//        rabbitAdmin.declareExchange(exchange1);
-//
-//        CustomExchange exchange2 = new CustomExchange(Constant.exchange_delay, Constant.exchange_type_delay, durable, autoDelete);
-//        rabbitAdmin.declareExchange(exchange2);
-//
-//        DirectExchange exchange3 = new DirectExchange(Constant.exchange_transaction, durable, autoDelete);
-//        rabbitAdmin.declareExchange(exchange3);
+        boolean durable = true;
+        boolean autoDelete = true;//服务关闭就自动删除了
+
+        DirectExchange exchange1 = new DirectExchange(Constant.exchange_common, durable, autoDelete);
+        rabbitAdmin.declareExchange(exchange1);
+
+        CustomExchange exchange2 = new CustomExchange(Constant.exchange_delay, Constant.exchange_type_delay, durable, autoDelete);
+        rabbitAdmin.declareExchange(exchange2);
+
+        DirectExchange exchange3 = new DirectExchange(Constant.exchange_transaction, durable, autoDelete);
+        rabbitAdmin.declareExchange(exchange3);
 
 
     }

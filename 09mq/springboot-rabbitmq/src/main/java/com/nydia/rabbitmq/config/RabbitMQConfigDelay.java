@@ -18,16 +18,16 @@ import java.util.Map;
 @Configuration
 public class RabbitMQConfigDelay {
 
-    @Autowired
-    private RabbitAdmin rabbitAdmin;
+//    @Autowired
+//    private RabbitAdmin rabbitAdmin;
 
-    //通过rabbitAdmin自动创建queue
-    @Bean("addQueueDelay")
-    public Queue addQueueDelay() {
-        Queue queue = QueueBuilder.durable(Constant.queue_delay).build();
-        rabbitAdmin.declareQueue(queue);
-        return queue;
-    }
+//    //通过rabbitAdmin自动创建queue
+//    @Bean("addQueueDelay")
+//    public Queue addQueueDelay() {
+//        Queue queue = QueueBuilder.durable(Constant.queue_delay).build();
+//        rabbitAdmin.declareQueue(queue);
+//        return queue;
+//    }
 
     @Bean
     public Queue delayQueue() {
