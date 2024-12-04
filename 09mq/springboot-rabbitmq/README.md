@@ -1,5 +1,8 @@
 # RabbitMQ启动
 
+# exchange、queue、routingKey
+项目启动的时候会自动创建 exchange,queue,routingKey
+
 # 测试消息发送
 curl http://localhost:8080/send1
 
