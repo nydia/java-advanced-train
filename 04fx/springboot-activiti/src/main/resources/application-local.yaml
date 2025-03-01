@@ -1,0 +1,18 @@
+server:
+  port: 18080
+
+
+spring:
+  application:
+    name: springboot-activiti
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3307/activiti7??useUnicode=true&useSSL=false&serverTimezone=UTC&characterEncoding=UTF8&nullCatalogMeansCurrent=true
+  activiti:
+    db-history-used: true
+    history-level: full
+    database-schema-update: true
+    check-process-definitions: false
+
