@@ -26,3 +26,16 @@ spring:
     url: jdbc:h2:mem:testdb
     username: sa
     password:
+  kafka:
+    bootstrap-servers: localhost:19092
+
+debezium:
+  mysql:
+    hostname: localhost
+    port: 3306
+    user: root
+    password:
+    server-name: vhr-server
+    database-name: test
+    table-include-list: test.t_test,test.t_test
+  topic-prefix: test

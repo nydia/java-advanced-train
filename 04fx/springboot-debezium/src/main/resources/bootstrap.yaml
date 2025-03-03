@@ -1,6 +1,6 @@
 spring:
   application:
-    name: springcloud-skywalking-agent
+    name: springboot-debezium
   profiles:
     active: dev
 

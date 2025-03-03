@@ -1,4 +1,4 @@
-package com.example.springbootdemo;
+package com.nydia.bedezium;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
