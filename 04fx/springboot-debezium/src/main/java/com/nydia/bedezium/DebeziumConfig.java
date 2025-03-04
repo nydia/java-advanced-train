@@ -1,6 +1,7 @@
 package com.nydia.bedezium;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -46,6 +47,14 @@ public class DebeziumConfig {
                 .with("schema.history.internal.kafka.topic", "debezium.database.history")
                 .with("schema.history.internal.kafka.bootstrap.servers", kafkaHost)
                 .build();
+    }
+
+    @Bean
+    public CommandLineRunner run(DebeziumEventListener listener) {
+        return args -> {
+            // Keep the application running
+            Thread.currentThread().join();
+        };
     }
 
 }

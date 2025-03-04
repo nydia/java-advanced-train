@@ -14,12 +14,4 @@ public class BootApplication {
         SpringApplication.run(BootApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner run(DebeziumEventListener listener) {
-        return args -> {
-            // Keep the application running
-            Thread.currentThread().join();
-        };
-    }
-
 }

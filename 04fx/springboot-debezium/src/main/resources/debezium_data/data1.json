@@ -1,0 +1,370 @@
+{
+  "payload": {
+    "after": {
+      "account": "admin",
+      "belong_page": " ",
+      "client": "CHROME13",
+      "create_by": "1",
+      "create_time": 1740492828699,
+      "id": "1894269547824119810",
+      "login_ip": "172.24.11.21",
+      "modify_by": "1",
+      "modify_time": 1740492828699,
+      "operate_time": 1740492828000,
+      "operator_type": "登录",
+      "os": "WINDOWS_10",
+      "success_flag": true,
+      "url": "/auth/login",
+      "user_name": "超级管理员"
+    },
+    "op": "c",
+    "source": {
+      "connector": "mysql",
+      "db": "test",
+      "file": "binlog.000004",
+      "name": "test",
+      "pos": 5903,
+      "row": 0,
+      "server_id": 1,
+      "snapshot": "false",
+      "table": "log_access",
+      "thread": 993,
+      "ts_ms": 1741077920000,
+      "ts_ns": 1741077920000000000,
+      "ts_us": 1741077920000000,
+      "version": "3.0.7.Final"
+    },
+    "ts_ms": 1741077920731,
+    "ts_ns": 1741077920731354300,
+    "ts_us": 1741077920731354
+  },
+  "schema": {
+    "fields": [
+      {
+        "field": "before",
+        "fields": [
+          {
+            "field": "id",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "create_time",
+            "name": "io.debezium.time.Timestamp",
+            "optional": false,
+            "type": "int64",
+            "version": 1
+          },
+          {
+            "field": "modify_time",
+            "name": "io.debezium.time.Timestamp",
+            "optional": false,
+            "type": "int64",
+            "version": 1
+          },
+          {
+            "field": "create_by",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "modify_by",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "account",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "user_name",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "operator_type",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "success_flag",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "field": "url",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "operate_time",
+            "name": "io.debezium.time.Timestamp",
+            "optional": false,
+            "type": "int64",
+            "version": 1
+          },
+          {
+            "field": "login_ip",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "os",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "client",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "belong_page",
+            "optional": false,
+            "type": "string"
+          }
+        ],
+        "name": "test.test.log_access.Value",
+        "optional": true,
+        "type": "struct"
+      },
+      {
+        "field": "after",
+        "fields": [
+          {
+            "field": "id",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "create_time",
+            "name": "io.debezium.time.Timestamp",
+            "optional": false,
+            "type": "int64",
+            "version": 1
+          },
+          {
+            "field": "modify_time",
+            "name": "io.debezium.time.Timestamp",
+            "optional": false,
+            "type": "int64",
+            "version": 1
+          },
+          {
+            "field": "create_by",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "modify_by",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "account",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "user_name",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "operator_type",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "success_flag",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "field": "url",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "operate_time",
+            "name": "io.debezium.time.Timestamp",
+            "optional": false,
+            "type": "int64",
+            "version": 1
+          },
+          {
+            "field": "login_ip",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "os",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "client",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "belong_page",
+            "optional": false,
+            "type": "string"
+          }
+        ],
+        "name": "test.test.log_access.Value",
+        "optional": true,
+        "type": "struct"
+      },
+      {
+        "field": "source",
+        "fields": [
+          {
+            "field": "version",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "connector",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "name",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "ts_ms",
+            "optional": false,
+            "type": "int64"
+          },
+          {
+            "default": "false",
+            "field": "snapshot",
+            "name": "io.debezium.data.Enum",
+            "optional": true,
+            "parameters": {
+              "allowed": "true,first,first_in_data_collection,last_in_data_collection,last,false,incremental"
+            },
+            "type": "string",
+            "version": 1
+          },
+          {
+            "field": "db",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "sequence",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "ts_us",
+            "optional": true,
+            "type": "int64"
+          },
+          {
+            "field": "ts_ns",
+            "optional": true,
+            "type": "int64"
+          },
+          {
+            "field": "table",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "server_id",
+            "optional": false,
+            "type": "int64"
+          },
+          {
+            "field": "gtid",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "file",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "pos",
+            "optional": false,
+            "type": "int64"
+          },
+          {
+            "field": "row",
+            "optional": false,
+            "type": "int32"
+          },
+          {
+            "field": "thread",
+            "optional": true,
+            "type": "int64"
+          },
+          {
+            "field": "query",
+            "optional": true,
+            "type": "string"
+          }
+        ],
+        "name": "io.debezium.connector.mysql.Source",
+        "optional": false,
+        "type": "struct"
+      },
+      {
+        "field": "transaction",
+        "fields": [
+          {
+            "field": "id",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "total_order",
+            "optional": false,
+            "type": "int64"
+          },
+          {
+            "field": "data_collection_order",
+            "optional": false,
+            "type": "int64"
+          }
+        ],
+        "name": "event.block",
+        "optional": true,
+        "type": "struct",
+        "version": 1
+      },
+      {
+        "field": "op",
+        "optional": false,
+        "type": "string"
+      },
+      {
+        "field": "ts_ms",
+        "optional": true,
+        "type": "int64"
+      },
+      {
+        "field": "ts_us",
+        "optional": true,
+        "type": "int64"
+      },
+      {
+        "field": "ts_ns",
+        "optional": true,
+        "type": "int64"
+      }
+    ],
+    "name": "test.test.log_access.Envelope",
+    "optional": false,
+    "type": "struct",
+    "version": 2
+  }
+}

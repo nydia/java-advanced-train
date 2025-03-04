@@ -37,5 +37,5 @@ debezium:
     password:
     server-name: vhr-server
     database-name: test
-    table-include-list: test.t_test,test.t_test
+    table-include-list: test.t_test,test.log_access
   topic-prefix: test
