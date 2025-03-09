@@ -1,6 +1,4 @@
-package com.nydia.memorydb;
-
-import org.springframework.boot.test.context.SpringBootTest;
+package com.nydia.memorydb.h2;
 
 /**
  * @Auther: nydia_lhq@hotmail.com
