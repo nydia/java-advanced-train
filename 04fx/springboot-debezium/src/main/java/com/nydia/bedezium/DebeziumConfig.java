@@ -41,10 +41,12 @@ public class DebeziumConfig {
                 .with("database.include.list", dbName)
                 .with("table.include.list", tableIncludeList)
                 .with("offset.storage", "org.apache.kafka.connect.storage.FileOffsetBackingStore")
-                .with("offset.storage.file.filename", "offset.dat")
+                //如果出错：io.debezium.DebeziumException: The db history topic is missing. You may attempt to recover it by reconfiguring the connector to recovery.
+                //修改下面的文件名称
+                .with("offset.storage.file.filename", "kafka.offset.dat")
                 .with("offset.flush.interval.ms", "60000")
                 .with("topic.prefix", topicPrefix)
-                .with("schema.history.internal.kafka.topic", "debezium.database.history")
+                .with("schema.history.internal.kafka.topic", "debezium.database.history.2")
                 .with("schema.history.internal.kafka.bootstrap.servers", kafkaHost)
                 .build();
     }

@@ -7,12 +7,14 @@ import io.debezium.engine.DebeziumEngine;
 import io.debezium.engine.format.Json;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+@Slf4j
 @Service
 public class DebeziumEventListener {
 
@@ -44,10 +46,10 @@ public class DebeziumEventListener {
 
         String key = event.key();
         String value = event.value();
-        System.out.println("Key: " + key);
-        System.out.println("Value: " + value);
-        // Add your business logic here (e.g., publish to Kafka, update cache)
+        log.info("Key: " + key);
+        log.info("Value: " + value);
 
+        // Add your business logic here (e.g., publish to Kafka, update cache)
         ParseValue.processRecord(value);
     }
 }
