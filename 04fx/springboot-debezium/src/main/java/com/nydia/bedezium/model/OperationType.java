@@ -1,4 +1,6 @@
-package com.nydia.bedezium.parse;
+package com.nydia.bedezium.model;
+
+import java.util.Arrays;
 
 // 操作类型枚举
 public enum OperationType {
@@ -15,11 +17,9 @@ public enum OperationType {
     }
 
     public static OperationType fromOpCode(String opCode) {
-        for (OperationType type : values()) {
-            if (type.opCode.equals(opCode)) {
-                return type;
-            }
-        }
-        return UNKNOWN;
+        return Arrays.stream(values())
+                .filter(op -> op.opCode.equals(opCode))
+                .findFirst()
+                .orElse(UNKNOWN);
     }
 }

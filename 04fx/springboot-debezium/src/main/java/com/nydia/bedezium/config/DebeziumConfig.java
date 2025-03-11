@@ -1,5 +1,6 @@
-package com.nydia.bedezium;
+package com.nydia.bedezium.config;
 
+import com.nydia.bedezium.listener.DebeziumEventListener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

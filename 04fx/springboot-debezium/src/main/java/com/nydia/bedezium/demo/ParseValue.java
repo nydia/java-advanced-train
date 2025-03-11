@@ -1,7 +1,8 @@
-package com.nydia.bedezium.parse;
+package com.nydia.bedezium.demo;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nydia.bedezium.model.OperationType;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;

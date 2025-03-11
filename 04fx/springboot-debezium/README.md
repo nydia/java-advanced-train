@@ -31,3 +31,19 @@ port=19092
 5、consumer.properties                               bootstrap.servers=localhost:19092
 ```
 
+# 解析方式
+采用领域对象的设计方式
+src/
+├── main/
+│   ├── java/
+│   │   ├── model/
+│   │   │   ├── DebeziumEvent.java
+│   │   │   ├── SourceInfo.java
+│   │   │   └── OperationType.java
+│   │   └── service/
+│   │       └── DebeziumParser.java
+│   └── resources/
+└── test/
+└── java/
+└── service/
+└── DebeziumParserTest.java

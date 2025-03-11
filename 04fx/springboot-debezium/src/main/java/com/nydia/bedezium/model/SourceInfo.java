@@ -1,5 +1,10 @@
-package com.nydia.bedezium.parse;
+package com.nydia.bedezium.model;
 
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 public class SourceInfo {
     private String connector;
     private String database;
