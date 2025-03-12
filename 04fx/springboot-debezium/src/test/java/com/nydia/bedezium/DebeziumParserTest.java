@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.nydia.bedezium.model.TransactionInfo;
-import com.nydia.bedezium.service.DebeziumParser;
+import com.nydia.bedezium.service.DebeziumEventParser;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertFalse;
 public class DebeziumParserTest {
 
     ObjectMapper objectMapper = new ObjectMapper();
-    DebeziumParser parser = new DebeziumParser();
+    DebeziumEventParser parser = new DebeziumEventParser();
 
     @Test
     public void testParseTimestamp_Nanoseconds() {

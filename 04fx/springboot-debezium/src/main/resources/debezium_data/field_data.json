@@ -1,0 +1,16 @@
+{
+  "field": "address",
+  "type": "struct",
+  "fields": [
+    {
+      "field": "city",
+      "type": "string",
+      "optional": true
+    },
+    {
+      "field": "zipcode",
+      "type": "int32",
+      "optional": false
+    }
+  ]
+}

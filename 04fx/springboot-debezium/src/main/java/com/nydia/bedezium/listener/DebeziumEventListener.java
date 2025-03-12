@@ -1,7 +1,8 @@
 package com.nydia.bedezium.listener;
 
 import com.nydia.bedezium.demo.ParseValue;
-import com.nydia.bedezium.service.DebeziumParser;
+import com.nydia.bedezium.model.DebeziumEvent;
+import com.nydia.bedezium.service.DebeziumEventParser;
 import io.debezium.config.Configuration;
 import io.debezium.engine.ChangeEvent;
 import io.debezium.engine.DebeziumEngine;
@@ -53,8 +54,8 @@ public class DebeziumEventListener {
         // Add your business logic here (e.g., publish to Kafka, update cache)
         ParseValue.processRecord(value);
 
-        DebeziumParser parser = new DebeziumParser();
-        parser.parseDebeziumEvent(value);
-        System.out.println(parser);
+        DebeziumEventParser parser = new DebeziumEventParser();
+        DebeziumEvent<Object> result = parser.parseDebeziumEvent(value);
+        System.out.println(result);
     }
 }

@@ -4,26 +4,36 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nydia.bedezium.exception.DebeziumParseException;
-import com.nydia.bedezium.model.DebeziumEvent;
-import com.nydia.bedezium.model.OperationType;
-import com.nydia.bedezium.model.SourceInfo;
-import com.nydia.bedezium.model.TransactionInfo;
+import com.nydia.bedezium.model.*;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
  * @author lvhq
  * @date 2025.03.11
  */
-public class DebeziumParser {
+public class DebeziumEventParser {
     public DebeziumEvent<Object> parseDebeziumEvent(String jsonRecord) {
         try {
-            // 解析逻辑
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(jsonRecord);
+
+            // 解析 Schema
+            JsonNode schemaNode = rootNode.get("schema");
+            DebeziumSchemaParser schemaParser  = new DebeziumSchemaParser();
+            SchemaMetadata schema = schemaParser.parseSchema(schemaNode);
+
+            // 获取字段结构映射
+            Map<String, SchemaMetadata.FieldMetadata> fieldMetadataMap =
+                    schemaParser.buildFieldMetadataMap(schema.getNestedFields());
+
+            //解析 字段值
             JsonNode payload = rootNode.path("payload");
 
             // 解析基础字段
@@ -38,6 +48,10 @@ public class DebeziumParser {
             Optional<JsonNode> before = parseOptionalData(payload.path("before"));
             Optional<JsonNode> after = parseOptionalData(payload.path("after"));
 
+            // 解析字段元数据
+            List<FieldMetadata> beforeFieldMetadata = parseFieldMetadata(payload.path("before"));
+            List<FieldMetadata> afterFieldMetadata = parseFieldMetadata(payload.path("after"));
+
             // 构建领域对象
             return DebeziumEvent.builder()
                     .operation(operation)
@@ -46,6 +60,8 @@ public class DebeziumParser {
                     .transaction(transaction)
                     .before(before)
                     .after(after)
+                    .beforeFieldMetadata(beforeFieldMetadata)
+                    .afterFieldMetadata(afterFieldMetadata)
                     .build();
         } catch (JsonProcessingException e) {
             throw new DebeziumParseException("Failed to parse Debezium event", e);
@@ -133,5 +149,36 @@ public class DebeziumParser {
         return (transaction.getId() != null || transaction.getTotalOrder() > 0) ?
                 Optional.of(transaction) : Optional.empty();
     }
+    /**
+     * 解析字段元数据（支持嵌套结构）
+     */
+    private List<FieldMetadata> parseFieldMetadata(JsonNode dataNode) {
+        List<FieldMetadata> metadataList = new ArrayList<>();
+        if (dataNode.isObject()) {
+            // 解析当前层字段
+            JsonNode fieldsNode = dataNode.path("fields");
+            if (fieldsNode.isArray()) {
+                for (JsonNode fieldNode : fieldsNode) {
+                    FieldMetadata metadata = parseSingleField(fieldNode);
+                    metadataList.add(metadata);
+
+                    // 递归处理嵌套结构
+                    if (fieldNode.has("fields")) {
+                        metadata.setNestedFields(parseFieldMetadata(fieldNode));
+                    }
+                }
+            }
+        }
+        return metadataList;
+    }
+
+    private FieldMetadata parseSingleField(JsonNode fieldNode) {
+        return FieldMetadata.builder()
+                .fieldName(fieldNode.path("field").asText())
+                .fieldType(fieldNode.path("type").asText("unknown"))
+                .optional(fieldNode.path("optional").asBoolean(true))
+                .build();
+    }
+
 
 }
