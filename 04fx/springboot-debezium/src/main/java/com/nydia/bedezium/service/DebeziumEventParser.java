@@ -24,7 +24,7 @@ public class DebeziumEventParser {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(jsonRecord);
 
-            // 解析 Schema
+            // 1. 解析 Schema
             JsonNode schemaNode = rootNode.get("schema");
             DebeziumSchemaParser schemaParser  = new DebeziumSchemaParser();
             SchemaMetadata schema = schemaParser.parseSchema(schemaNode);
@@ -33,7 +33,7 @@ public class DebeziumEventParser {
             Map<String, SchemaMetadata.FieldMetadata> fieldMetadataMap =
                     schemaParser.buildFieldMetadataMap(schema.getNestedFields());
 
-            //解析 字段值
+            //2. 解析 字段值
             JsonNode payload = rootNode.path("payload");
 
             // 解析基础字段
@@ -49,8 +49,8 @@ public class DebeziumEventParser {
             Optional<JsonNode> after = parseOptionalData(payload.path("after"));
 
             // 解析字段元数据
-            List<FieldMetadata> beforeFieldMetadata = parseFieldMetadata(payload.path("before"));
-            List<FieldMetadata> afterFieldMetadata = parseFieldMetadata(payload.path("after"));
+            List<FieldMetadata> beforeFieldMetadata = parseFieldMetadata(payload.path("before"), fieldMetadataMap);
+            List<FieldMetadata> afterFieldMetadata = parseFieldMetadata(payload.path("after"), fieldMetadataMap);
 
             // 构建领域对象
             return DebeziumEvent.builder()
@@ -152,7 +152,7 @@ public class DebeziumEventParser {
     /**
      * 解析字段元数据（支持嵌套结构）
      */
-    private List<FieldMetadata> parseFieldMetadata(JsonNode dataNode) {
+    private List<FieldMetadata> parseFieldMetadata(JsonNode dataNode,Map<String, SchemaMetadata.FieldMetadata> fieldMetadataMap) {
         List<FieldMetadata> metadataList = new ArrayList<>();
         if (dataNode.isObject()) {
             // 解析当前层字段
@@ -164,7 +164,7 @@ public class DebeziumEventParser {
 
                     // 递归处理嵌套结构
                     if (fieldNode.has("fields")) {
-                        metadata.setNestedFields(parseFieldMetadata(fieldNode));
+                        metadata.setNestedFields(parseFieldMetadata(fieldNode, fieldMetadataMap));
                     }
                 }
             }
