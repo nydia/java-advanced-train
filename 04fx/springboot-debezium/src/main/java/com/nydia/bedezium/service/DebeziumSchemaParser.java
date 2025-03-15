@@ -2,6 +2,7 @@ package com.nydia.bedezium.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nydia.bedezium.model.FieldMetadata;
 import com.nydia.bedezium.model.SchemaMetadata;
 
 import java.util.ArrayList;
@@ -17,19 +18,19 @@ public class DebeziumSchemaParser {
             .name(schemaNode.path("name").asText())
             .type(schemaNode.path("type").asText())
             .optional(schemaNode.path("optional").asBoolean(false))
-            .nestedFields(parseFields(schemaNode.path("fields")))
+            .fields(parseFields(schemaNode.path("fields")))
             .build();
     }
 
-    private List<SchemaMetadata.FieldMetadata> parseFields(JsonNode fieldsNode) {
-        List<SchemaMetadata.FieldMetadata> fields = new ArrayList<>();
+    private List<FieldMetadata> parseFields(JsonNode fieldsNode) {
+        List<FieldMetadata> fields = new ArrayList<>();
         for (JsonNode fieldNode : fieldsNode) {
-            fields.add(SchemaMetadata.FieldMetadata.builder()
+            fields.add(FieldMetadata.builder()
                 .field(fieldNode.path("field").asText())
                 .type(fieldNode.path("type").asText("unknown"))
                 .logicalType(fieldNode.path("name").asText(null))
                 .optional(fieldNode.path("optional").asBoolean(false))
-                .nestedFields(fieldNode.has("fields") ? parseFields(fieldNode.path("fields")) : List.of())
+                .fields(fieldNode.has("fields") ? parseFields(fieldNode.path("fields")) : List.of())
                 .build());
         }
         return fields;
@@ -40,10 +41,10 @@ public class DebeziumSchemaParser {
      * @param fields Schema 的顶级字段列表
      * @return Map<字段路径, 元数据> (例如 "after.create_time" -> FieldMetadata)
      */
-    public Map<String, SchemaMetadata.FieldMetadata> buildFieldMetadataMap(
-            List<SchemaMetadata.FieldMetadata> fields
+    public Map<String, FieldMetadata> buildFieldMetadataMap(
+            List<FieldMetadata> fields
     ) {
-        Map<String, SchemaMetadata.FieldMetadata> metadataMap = new LinkedHashMap<>();
+        Map<String, FieldMetadata> metadataMap = new LinkedHashMap<>();
         traverseFields(fields, "", metadataMap);
         return metadataMap;
     }
@@ -55,11 +56,11 @@ public class DebeziumSchemaParser {
      * @param metadataMap 待填充的映射表
      */
     private void traverseFields(
-            List<SchemaMetadata.FieldMetadata> fields,
+            List<FieldMetadata> fields,
             String parentPath,
-            Map<String, SchemaMetadata.FieldMetadata> metadataMap
+            Map<String, FieldMetadata> metadataMap
     ) {
-        for (SchemaMetadata.FieldMetadata field : fields) {
+        for (FieldMetadata field : fields) {
             // 构建当前字段的完整路径
             String currentPath = parentPath.isEmpty() ?
                     field.getField() :
@@ -69,8 +70,8 @@ public class DebeziumSchemaParser {
             metadataMap.put(currentPath, field);
 
             // 递归处理嵌套字段
-            if (!field.getNestedFields().isEmpty()) {
-                traverseFields(field.getNestedFields(), currentPath, metadataMap);
+            if (!field.getFields().isEmpty()) {
+                traverseFields(field.getFields(), currentPath, metadataMap);
             }
         }
     }

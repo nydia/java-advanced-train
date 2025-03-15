@@ -9,10 +9,7 @@ import com.nydia.bedezium.model.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author lvhq
@@ -26,12 +23,11 @@ public class DebeziumEventParser {
 
             // 1. 解析 Schema
             JsonNode schemaNode = rootNode.get("schema");
-            DebeziumSchemaParser schemaParser  = new DebeziumSchemaParser();
+            DebeziumSchemaParser schemaParser = new DebeziumSchemaParser();
             SchemaMetadata schema = schemaParser.parseSchema(schemaNode);
 
             // 获取字段结构映射
-            Map<String, SchemaMetadata.FieldMetadata> fieldMetadataMap =
-                    schemaParser.buildFieldMetadataMap(schema.getNestedFields());
+            Map<String, FieldMetadata> schemaFieldMetadataMap = schemaParser.buildFieldMetadataMap(schema.getFields());
 
             //2. 解析 字段值
             JsonNode payload = rootNode.path("payload");
@@ -49,8 +45,10 @@ public class DebeziumEventParser {
             Optional<JsonNode> after = parseOptionalData(payload.path("after"));
 
             // 解析字段元数据
-            List<FieldMetadata> beforeFieldMetadata = parseFieldMetadata(payload.path("before"), fieldMetadataMap);
-            List<FieldMetadata> afterFieldMetadata = parseFieldMetadata(payload.path("after"), fieldMetadataMap);
+            //List<FieldMetadata> beforeFieldMetadata = parsePayload(payload,"before", schemaFieldMetadataMap);
+            //List<FieldMetadata> afterFieldMetadata = parsePayload(payload,"after", schemaFieldMetadataMap);
+            List<FieldMetadata> beforeFieldMetadata = parsePayloadBefore(payload.path("before"), "before", schemaFieldMetadataMap);
+            List<FieldMetadata> afterFieldMetadata = parsePayloadAfter(payload.path("after"), "after", schemaFieldMetadataMap);
 
             // 构建领域对象
             return DebeziumEvent.builder()
@@ -149,36 +147,105 @@ public class DebeziumEventParser {
         return (transaction.getId() != null || transaction.getTotalOrder() > 0) ?
                 Optional.of(transaction) : Optional.empty();
     }
-    /**
-     * 解析字段元数据（支持嵌套结构）
-     */
-    private List<FieldMetadata> parseFieldMetadata(JsonNode dataNode,Map<String, SchemaMetadata.FieldMetadata> fieldMetadataMap) {
-        List<FieldMetadata> metadataList = new ArrayList<>();
-        if (dataNode.isObject()) {
-            // 解析当前层字段
-            JsonNode fieldsNode = dataNode.path("fields");
-            if (fieldsNode.isArray()) {
-                for (JsonNode fieldNode : fieldsNode) {
-                    FieldMetadata metadata = parseSingleField(fieldNode);
-                    metadataList.add(metadata);
 
-                    // 递归处理嵌套结构
-                    if (fieldNode.has("fields")) {
-                        metadata.setNestedFields(parseFieldMetadata(fieldNode, fieldMetadataMap));
-                    }
+    /**
+     * 解析 payload before 节点为结构化 Map
+     */
+    public List<FieldMetadata> parsePayloadBefore(JsonNode payloadNode, String parentPath, Map<String, FieldMetadata> schemaFieldMetadataMap) {
+        List<FieldMetadata> result = new ArrayList<>();
+        parseNestedFields(payloadNode, parentPath, result, schemaFieldMetadataMap);
+        return result;
+    }
+
+    /**
+     * 解析 payload after 节点为结构化 Map
+     */
+    public List<FieldMetadata> parsePayloadAfter(JsonNode payloadNode, String parentPath, Map<String, FieldMetadata> schemaFieldMetadataMap) {
+        List<FieldMetadata> result = new ArrayList<>();
+        parseNestedFields(payloadNode, parentPath, result, schemaFieldMetadataMap);
+        return result;
+    }
+
+    /**
+     * 解析 payload 节点为结构化 Map (通用)
+     */
+    public List<FieldMetadata> parsePayload(JsonNode payloadNode, Map<String, FieldMetadata> schemaFieldMetadataMap) {
+        List<FieldMetadata> result = new ArrayList<>();
+        parseNestedFields(payloadNode, "", result, schemaFieldMetadataMap);
+        return result;
+    }
+
+    /**
+     * 递归解析嵌套字段
+     */
+    private void parseNestedFields(JsonNode node, String parentPath, List<FieldMetadata> result, Map<String, FieldMetadata> schemaFieldMetadataMap) {
+        Iterator<Map.Entry<String, JsonNode>> fields = node.fields();
+        while (fields.hasNext()) {
+            Map.Entry<String, JsonNode> entry = fields.next();
+            String currentPath = parentPath.isEmpty() ? entry.getKey() : parentPath + "." + entry.getKey();
+
+            // 获取字段元数据（类型、逻辑类型等）
+            FieldMetadata metadata = schemaFieldMetadataMap.get(currentPath);
+            Object value;
+
+            if (metadata != null) {
+                // 处理值转换
+                value = convertValue(entry.getValue(), metadata, schemaFieldMetadataMap);
+                metadata.setValue(value);
+
+                // 递归处理嵌套结构（如 source、transaction）
+                if (metadata.getType().equals("struct") && entry.getValue().isObject()) {
+                    parseNestedFields(entry.getValue(), currentPath, result, schemaFieldMetadataMap);
                 }
+                result.add(metadata);
+            } else {
+                // 未定义元数据的字段，按原始 JSON 处理
+                //metadata.setValue(entry.getValue());
             }
         }
-        return metadataList;
     }
 
-    private FieldMetadata parseSingleField(JsonNode fieldNode) {
-        return FieldMetadata.builder()
-                .fieldName(fieldNode.path("field").asText())
-                .fieldType(fieldNode.path("type").asText("unknown"))
-                .optional(fieldNode.path("optional").asBoolean(true))
-                .build();
+    /**
+     * 根据元数据类型转换值
+     */
+    private Object convertValue(JsonNode valueNode, FieldMetadata metadata, Map<String, FieldMetadata> schemaFieldMetadataMap) {
+        if (valueNode.isNull()) return null;
+
+        String logicalType = metadata.getLogicalType();
+        String type = metadata.getType();
+
+        return switch (logicalType != null ? logicalType : type) {
+            // 时间戳处理
+            case "io.debezium.time.Timestamp" -> Instant.ofEpochMilli(valueNode.asLong());
+            case "io.debezium.time.MicroTimestamp" ->
+                    Instant.ofEpochSecond(valueNode.asLong() / 1_000_000, (valueNode.asLong() % 1_000_000) * 1_000);
+            case "io.debezium.time.NanoTimestamp" ->
+                    Instant.ofEpochSecond(valueNode.asLong() / 1_000_000_000, valueNode.asLong() % 1_000_000_000);
+
+            // 基本类型
+            case "int32" -> valueNode.asInt();
+            case "int64" -> valueNode.asLong();
+            case "boolean" -> valueNode.asBoolean();
+            case "string" -> valueNode.asText();
+            case "struct" -> parseNestedStruct(valueNode, metadata, schemaFieldMetadataMap); // 处理嵌套结构
+            default -> valueNode.asText(); // 未知类型按文本处理
+        };
     }
 
+    /**
+     * 解析嵌套结构（如 before、after、source）
+     */
+    private Map<String, Object> parseNestedStruct(JsonNode structNode, FieldMetadata metadata, Map<String, FieldMetadata> schemaFieldMetadataMap) {
+        Map<String, Object> nestedMap = new HashMap<>();
+        for (FieldMetadata childField : metadata.getFields()) {
+            String childPath = metadata.getField() + "." + childField.getField();
+            FieldMetadata childMetadata = schemaFieldMetadataMap.get(childPath);
+            if (childMetadata != null) {
+                JsonNode childValueNode = structNode.path(childField.getField());
+                nestedMap.put(childField.getField(), convertValue(childValueNode, childMetadata, schemaFieldMetadataMap));
+            }
+        }
+        return nestedMap;
+    }
 
 }

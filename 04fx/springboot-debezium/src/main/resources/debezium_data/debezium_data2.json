@@ -1,0 +1,229 @@
+{
+  "payload": {
+    "after": {
+      "id": 21,
+      "name1": "fafd",
+      "name2": "12e"
+    },
+    "before": {
+      "id": 21
+    },
+    "op": "u",
+    "source": {
+      "connector": "mysql",
+      "db": "test",
+      "file": "binlog.000004",
+      "name": "test",
+      "pos": 18255,
+      "row": 0,
+      "server_id": 1,
+      "snapshot": "false",
+      "table": "t_test",
+      "thread": 1702,
+      "ts_ms": 1741864767000,
+      "ts_ns": 1741864767000000000,
+      "ts_us": 1741864767000000,
+      "version": "3.0.7.Final"
+    },
+    "ts_ms": 1741915645144,
+    "ts_ns": 1741915645144435700,
+    "ts_us": 1741915645144435
+  },
+  "schema": {
+    "fields": [
+      {
+        "field": "before",
+        "fields": [
+          {
+            "field": "name2",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "name1",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "id",
+            "optional": false,
+            "type": "int32"
+          }
+        ],
+        "name": "test.test.t_test.Value",
+        "optional": true,
+        "type": "struct"
+      },
+      {
+        "field": "after",
+        "fields": [
+          {
+            "field": "name2",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "name1",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "id",
+            "optional": false,
+            "type": "int32"
+          }
+        ],
+        "name": "test.test.t_test.Value",
+        "optional": true,
+        "type": "struct"
+      },
+      {
+        "field": "source",
+        "fields": [
+          {
+            "field": "version",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "connector",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "name",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "ts_ms",
+            "optional": false,
+            "type": "int64"
+          },
+          {
+            "default": "false",
+            "field": "snapshot",
+            "name": "io.debezium.data.Enum",
+            "optional": true,
+            "parameters": {
+              "allowed": "true,first,first_in_data_collection,last_in_data_collection,last,false,incremental"
+            },
+            "type": "string",
+            "version": 1
+          },
+          {
+            "field": "db",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "sequence",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "ts_us",
+            "optional": true,
+            "type": "int64"
+          },
+          {
+            "field": "ts_ns",
+            "optional": true,
+            "type": "int64"
+          },
+          {
+            "field": "table",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "server_id",
+            "optional": false,
+            "type": "int64"
+          },
+          {
+            "field": "gtid",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "file",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "pos",
+            "optional": false,
+            "type": "int64"
+          },
+          {
+            "field": "row",
+            "optional": false,
+            "type": "int32"
+          },
+          {
+            "field": "thread",
+            "optional": true,
+            "type": "int64"
+          },
+          {
+            "field": "query",
+            "optional": true,
+            "type": "string"
+          }
+        ],
+        "name": "io.debezium.connector.mysql.Source",
+        "optional": false,
+        "type": "struct"
+      },
+      {
+        "field": "transaction",
+        "fields": [
+          {
+            "field": "id",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "total_order",
+            "optional": false,
+            "type": "int64"
+          },
+          {
+            "field": "data_collection_order",
+            "optional": false,
+            "type": "int64"
+          }
+        ],
+        "name": "event.block",
+        "optional": true,
+        "type": "struct",
+        "version": 1
+      },
+      {
+        "field": "op",
+        "optional": false,
+        "type": "string"
+      },
+      {
+        "field": "ts_ms",
+        "optional": true,
+        "type": "int64"
+      },
+      {
+        "field": "ts_us",
+        "optional": true,
+        "type": "int64"
+      },
+      {
+        "field": "ts_ns",
+        "optional": true,
+        "type": "int64"
+      }
+    ],
+    "name": "test.test.t_test.Envelope",
+    "optional": false,
+    "type": "struct",
+    "version": 2
+  }
+}

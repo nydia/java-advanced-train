@@ -8,11 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nydia.bedezium.model.DebeziumEvent;
 import com.nydia.bedezium.model.FieldMetadata;
 import com.nydia.bedezium.model.SourceInfo;
-import com.nydia.bedezium.model.TransactionInfo;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -132,7 +128,7 @@ public class DebeziumShow {
 
                     // 递归处理嵌套结构
                     if (fieldNode.has("fields")) {
-                        metadata.setNestedFields(parseFieldMetadata(fieldNode));
+                        metadata.setFields(parseFieldMetadata(fieldNode));
                     }
                 }
             }
@@ -142,8 +138,8 @@ public class DebeziumShow {
 
     private FieldMetadata parseSingleField(JsonNode fieldNode) {
         return FieldMetadata.builder()
-                .fieldName(fieldNode.path("field").asText())
-                .fieldType(fieldNode.path("type").asText("unknown"))
+                .field(fieldNode.path("field").asText())
+                .type(fieldNode.path("type").asText("unknown"))
                 .optional(fieldNode.path("optional").asBoolean(true))
                 .build();
     }
@@ -170,8 +166,8 @@ public class DebeziumShow {
         table.add("|--------|------|----------|");
         metadataList.forEach(metadata ->
                 table.add(String.format("| %s | %s | %s |",
-                        metadata.getFieldName(),
-                        metadata.getFieldType(),
+                        metadata.getField(),
+                        metadata.getType(),
                         metadata.isOptional() ? "是" : "否"))
         );
         return table.toString();
