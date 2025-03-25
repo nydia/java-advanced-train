@@ -43,3 +43,6 @@ activemq-data/
 .eclipse
 
 sample/
+
+# mac
+.DS_Store
