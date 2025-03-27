@@ -1,0 +1,120 @@
+{
+  "payload": {
+    "after": {
+      "id": 21,
+      "name1": "fdasfda",
+      "name2": "fdadfd"
+    },
+    "before": {
+      "id": 21
+    },
+    "op": "u",
+    "source": {
+      "connector": "mysql",
+      "db": "test",
+      "table": "t_test",
+      "ts_ms": 1741864767000
+    }
+  },
+  "schema": {
+    "fields": [
+      {
+        "field": "before",
+        "fields": [
+          {
+            "field": "name2",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "name1",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "id",
+            "optional": false,
+            "type": "int32"
+          }
+        ]
+      },
+      {
+        "field": "after",
+        "fields": [
+          {
+            "field": "name2",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "name1",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "id",
+            "optional": false,
+            "type": "int32"
+          }
+        ]
+      },
+      {
+        "field": "source",
+        "fields": [
+          {
+            "field": "connector",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "ts_ms",
+            "optional": false,
+            "type": "int64"
+          },
+          {
+            "field": "db",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "ts_us",
+            "optional": true,
+            "type": "int64"
+          },
+          {
+            "field": "ts_ns",
+            "optional": true,
+            "type": "int64"
+          },
+          {
+            "field": "table",
+            "optional": true,
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "field": "op",
+        "optional": false,
+        "type": "string"
+      },
+      {
+        "field": "ts_ms",
+        "optional": true,
+        "type": "int64"
+      },
+      {
+        "field": "ts_us",
+        "optional": true,
+        "type": "int64"
+      },
+      {
+        "field": "ts_ns",
+        "optional": true,
+        "type": "int64"
+      }
+    ],
+    "name": "字段结构",
+    "optional": false
+  }
+}

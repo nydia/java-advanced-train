@@ -1,0 +1,101 @@
+{
+  "payload": {
+    "after": {
+      "id": 21,
+      "name1": "ssss",
+      "name2": "dddd"
+    },
+    "before": {
+      "id": 21
+    },
+    "op": "u",
+    "source": {
+      "connector": "mysql",
+      "db": "test",
+      "table": "t_test",
+      "tsMs": 1741864767000
+    },
+    "tsMs": 1741077920731
+  },
+  "schema": {
+    "fields": [
+      {
+        "field": "before",
+        "fields": [
+          {
+            "field": "name2",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "name1",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "id",
+            "optional": false,
+            "type": "int32"
+          }
+        ]
+      },
+      {
+        "field": "after",
+        "fields": [
+          {
+            "field": "name2",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "name1",
+            "optional": true,
+            "type": "string"
+          },
+          {
+            "field": "id",
+            "optional": false,
+            "type": "int32"
+          }
+        ]
+      },
+      {
+        "field": "source",
+        "fields": [
+          {
+            "field": "connector",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "timestampMs",
+            "optional": false,
+            "type": "int64"
+          },
+          {
+            "field": "db",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "field": "table",
+            "optional": true,
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "field": "op",
+        "optional": false,
+        "type": "string"
+      },
+      {
+        "field": "tsMs",
+        "optional": true,
+        "type": "int64"
+      }
+    ],
+    "name": "字段结构",
+    "optional": false
+  }
+}
