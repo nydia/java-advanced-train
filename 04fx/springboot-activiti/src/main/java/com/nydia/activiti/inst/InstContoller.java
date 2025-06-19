@@ -1,12 +1,15 @@
 package com.nydia.activiti.inst;
 
 import com.nydia.activiti.constants.CommonConstant;
+import com.nydia.activiti.model.ModelController;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,14 +21,14 @@ import java.util.Map;
  * @author lvhq
  * @date 2025.01.14
  */
-@Slf4j
 @RestController
 @RequestMapping(value = "inst")
 public class InstContoller {
 
+    Logger log = LoggerFactory.getLogger(ModelController.class);
+
     @Resource
     private RuntimeService runtimeService;
-
 
     @RequestMapping(value = "create")
     public String create() {
