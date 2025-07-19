@@ -1,0 +1,16 @@
+server:
+  servlet:
+    session:
+      # 配置会话超时
+      timeout: 240s
+
+spring:
+  application:
+    name: springboot-ai
+  milvus:
+    host: ${milvus_host:127.0.0.1}
+    port: 19530
+    collection-name: rag
+  ai:
+    dashscope:
+      api-key: ${ali_bailian_key:}

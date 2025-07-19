@@ -1,0 +1,14 @@
+问题点：
+为什么阿里的百炼需要科学上网才能访问
+http://aith.top:9091/webui/
+
+
+现象：
+2025-06-18T23:51:17.731+08:00  WARN 1225 --- [springboot-ai] [nio-8080-exec-9] o.s.a.a.r.SpringAiRetryAutoConfiguration : Retry error. Retry count:1
+
+org.springframework.web.client.ResourceAccessException: I/O error on POST request for "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation": timeout
+	at org.springframework.web.client.DefaultRestClient$DefaultRequestBodyUriSpec.createResourceAccessException(DefaultRestClient.java:578) ~[spring-web-6.1.8.jar:6.1.8]
+	at org.springframework.web.client.DefaultRestClient$DefaultRequestBodyUriSpec.exchangeInternal(DefaultRestClient.java:501) ~[spring-web-6.1.8.jar:6.1.8]
+	at org.springframework.web.client.DefaultRestClient$DefaultRequestBodyUriSpec.retrieve(DefaultRestClient.java:463) ~[spring-web-6.1.8.jar:6.1.8]
+	at com.alibaba.cloud.ai.dashscope.api.DashScopeApi.chatCompletionEntity(DashScopeApi.java:1307) ~[spring-ai-alibaba-core-1.0.0-M5.1.jar:1.0.0-M5.1]
+	at com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel.lambda$call$1(DashScopeChatModel.java:173) ~[spring-ai-alibaba-core-1.0.0-M5.1.jar:1.0.0-M5.1]
